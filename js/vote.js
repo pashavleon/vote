@@ -49,8 +49,8 @@
     return Number(n).toLocaleString('en-US');
   }
 
-  function msg(key) {
-    return window.I18n ? window.I18n.t(key) : key;
+  function msg(key, params) {
+    return window.I18n ? window.I18n.t(key, params) : key;
   }
 
   function createClient(cfg) {
