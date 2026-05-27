@@ -118,10 +118,16 @@
 
   ClVoteWidget.prototype.bind = function () {
     var self = this;
-    this.buttons.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var choice = btn.getAttribute('data-vote-choice');
+    this.buttons.forEach(function (el) {
+      el.addEventListener('click', function () {
+        if (el.disabled || el.getAttribute('aria-disabled') === 'true') return;
+        var choice = el.getAttribute('data-vote-choice');
         if (choice) self.castVote(choice);
+      });
+      el.addEventListener('keydown', function (e) {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        e.preventDefault();
+        el.click();
       });
     });
   };
@@ -134,13 +140,16 @@
   };
 
   ClVoteWidget.prototype.highlightChoice = function (choice) {
-    var self = this;
     this.root.classList.add('has-voted');
     this.root.setAttribute('data-user-choice', choice);
-    this.buttons.forEach(function (btn) {
-      var c = btn.getAttribute('data-vote-choice');
-      btn.classList.toggle('is-selected', c === choice);
-      btn.classList.toggle('is-dimmed', c !== choice);
+    this.buttons.forEach(function (el) {
+      var c = el.getAttribute('data-vote-choice');
+      var isPick = c === choice;
+      el.classList.toggle('is-selected', isPick);
+      el.classList.toggle('is-dimmed', !isPick);
+      el.classList.remove('is-animating-vote');
+      if (isPick) el.setAttribute('aria-pressed', 'true');
+      else el.setAttribute('aria-pressed', 'false');
     });
     this.root.querySelectorAll('[data-vote-row]').forEach(function (row) {
       row.classList.remove('selected-arsenal', 'selected-psg');
@@ -157,9 +166,17 @@
   };
 
   ClVoteWidget.prototype.setButtonsDisabled = function (disabled) {
-    this.buttons.forEach(function (btn) {
-      btn.disabled = disabled;
+    this.buttons.forEach(function (el) {
+      el.disabled = disabled;
+      if (disabled) el.setAttribute('aria-disabled', 'true');
+      else el.removeAttribute('aria-disabled');
     });
+  };
+
+  ClVoteWidget.prototype.playVoteAnimation = function (choice) {
+    var el = this.root.querySelector('[data-vote-choice="' + choice + '"]');
+    if (!el) return;
+    el.classList.add('is-animating-vote');
   };
 
   ClVoteWidget.prototype.showMessage = function (text, type) {
@@ -220,6 +237,7 @@
 
     var self = this;
     this.setButtonsDisabled(true);
+    this.playVoteAnimation(choice);
     this.showMessage('Отправляем голос…', 'info');
 
     if (this.demo) {
