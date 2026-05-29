@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://pashavleon.github.io/vote/sitemap.xml
+Sitemap: https://pashavleon.github.io/vote/sitemap.txt

@@ -1,19 +1,40 @@
-# Индексация в Google (обязательный шаг)
+# Индексация в Google
 
-Технические файлы (`robots.txt`, `sitemap.xml`, JSON-LD) уже на сайте. Без Search Console Google может не найти страницу неделями.
+## Search Console — как добавить sitemap
 
-## Google Search Console
+**Важно:** property должен быть именно:
 
-1. Откройте https://search.google.com/search-console  
-2. **Добавить ресурс** → префикс URL: `https://pashavleon.github.io/vote/`  
-3. Подтвердите владение (HTML-файл в корне репо или meta-тег в `index.html`).  
-4. **Файлы Sitemap** → добавьте: `https://pashavleon.github.io/vote/sitemap.xml`  
-5. **Проверка URL** → вставьте `https://pashavleon.github.io/vote/` → **Запросить индексирование**
+`https://pashavleon.github.io/vote/`
 
-## Проверка
+(с `https://` и с `/` в конце — как в GSC при создании)
 
-Через 3–7 дней в Google: `site:pashavleon.github.io/vote`
+### Вариант A (рекомендуется)
 
-## Bing (опционально)
+1. GSC → **Indexing → Sitemaps**
+2. В поле «Add a new sitemap» введите только: **`sitemap.xml`**
+3. Submit
 
-https://www.bing.com/webmasters — тот же URL и sitemap.
+Не вставляйте полный URL, если property уже `.../vote/`.
+
+### Вариант B — text sitemap
+
+Если XML всё ещё пишет «Could not be read», добавьте: **`sitemap.txt`**
+
+### Если ошибка «Sitemap could not be read»
+
+1. Откройте в браузере — должно открыться XML, не HTML:
+   - https://pashavleon.github.io/vote/sitemap.xml
+   - https://pashavleon.github.io/vote/sitemap.txt
+2. GSC → **URL Inspection** → вставьте URL sitemap → **Test live URL**
+   - Если Live test = OK, а Sitemaps = error → подождите 24–48 ч (часто кэш GSC после старого 500)
+3. Удалите старую запись sitemap в GSC и добавьте заново
+4. **Request indexing** для главной: `https://pashavleon.github.io/vote/`
+
+## Файлы на сайте
+
+| URL | Назначение |
+|-----|------------|
+| `/vote/robots.txt` | разрешает обход + ссылки на sitemap |
+| `/vote/sitemap.xml` | XML sitemap |
+| `/vote/sitemap.txt` | text sitemap (запасной) |
+| `/vote/.nojekyll` | отключает Jekyll (иначе XML давал 500) |
