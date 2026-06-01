@@ -605,12 +605,13 @@
         chips += this.matchChipHtml(poll.id, 'draw', 'Draw', draw.pct, !votingOpen, userChoice);
       }
       if (away) {
-        var span = draw ? ' style="grid-column:span 2"' : '';
-        chips += this.matchChipHtml(poll.id, 'away', away.label, away.pct, !votingOpen, userChoice, span);
+        chips += this.matchChipHtml(poll.id, 'away', away.label, away.pct, !votingOpen, userChoice);
       }
     }
 
-    var voteCls = 'match-card__vote' + (canVote ? '' : ' match-card__vote--readonly');
+    var voteCls = 'match-card__vote';
+    if (canVote && !draw) voteCls += ' match-card__vote--two';
+    if (!canVote) voteCls += ' match-card__vote--readonly';
 
     return (
       '<article class="' + cardCls + '" data-match-poll-id="' + escapeHtml(poll.id) + '">' +
