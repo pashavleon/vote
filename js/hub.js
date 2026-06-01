@@ -18,6 +18,9 @@
 
   var GROUPS = 'ABCDEFGHIJKL'.split('');
 
+  /** Visible winner grid height before "expand all". */
+  var WINNER_GRID_ROWS = 5;
+
   function $(sel, root) {
     return (root || document).querySelector(sel);
   }
@@ -159,6 +162,16 @@
           self.loadWinner(true);
           self.refreshVisibleMatchDetails();
         }, self.cfg.refreshIntervalMs || 15000);
+
+        var resizeTimer;
+        window.addEventListener('resize', function () {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(function () {
+            if (self.winnerDetail && !self.winnerExpanded) {
+              self.renderWinnerGrid();
+            }
+          }, 150);
+        });
       });
   };
 
@@ -325,6 +338,11 @@
       });
   };
 
+  FanHub.prototype.winnerGridPageSize = function () {
+    var cols = window.matchMedia('(min-width: 900px)').matches ? 5 : 2;
+    return WINNER_GRID_ROWS * cols;
+  };
+
   FanHub.prototype.renderWinnerGrid = function () {
     var grid = $('#hub-winner-grid');
     if (!grid || !this.winnerDetail) return;
@@ -336,7 +354,8 @@
       return (b.pct || 0) - (a.pct || 0) || (a.sort_order || 0) - (b.sort_order || 0);
     });
     var userChoice = api.getStoredChoice(this.winnerPollId);
-    var topN = this.winnerExpanded ? choices.length : Math.min(7, choices.length);
+    var pageSize = this.winnerGridPageSize();
+    var topN = this.winnerExpanded ? choices.length : Math.min(pageSize, choices.length);
     var visible = choices.slice(0, topN);
     var leaderId = visible.length ? visible[0].id : null;
 
@@ -357,7 +376,7 @@
       );
     }).join('');
 
-    if (!this.winnerExpanded && choices.length > 7) {
+    if (!this.winnerExpanded && choices.length > pageSize) {
       html += (
         '<button type="button" class="team-card team-card--expand" id="winner-expand">' +
           '<span class="team-card__flag">➕</span>' +
@@ -365,7 +384,7 @@
           '<span class="team-card__pct" style="color:var(--muted);font-size:0.72rem">expand</span>' +
         '</button>'
       );
-    } else if (this.winnerExpanded && choices.length > 7) {
+    } else if (this.winnerExpanded && choices.length > pageSize) {
       html += (
         '<button type="button" class="team-card team-card--expand" id="winner-expand">' +
           '<span class="team-card__flag">➖</span>' +
