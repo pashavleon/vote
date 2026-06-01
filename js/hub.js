@@ -81,10 +81,20 @@
   }
 
   function renderTeamFlag(teamId, size) {
+    if (size === 'sm' && window.FlagVisual && window.FlagVisual.chipThumb) {
+      return window.FlagVisual.chipThumb(teamId);
+    }
     if (window.FlagVisual && window.FlagVisual.render) {
       return window.FlagVisual.render(teamId, size || 'hero');
     }
     return '<span class="flag-fallback">🏳</span>';
+  }
+
+  function renderPickFlag(teamId) {
+    if (window.FlagVisual && window.FlagVisual.chipFlagImg) {
+      return window.FlagVisual.chipFlagImg(teamId);
+    }
+    return '';
   }
 
   function stageIndex(key) {
@@ -366,11 +376,13 @@
       if (c.id === userChoice) cls += ' is-selected';
       if (closed || userChoice) cls += ' is-disabled';
       return (
-        '<button type="button" class="' + cls + '" data-winner-choice="' + escapeHtml(c.id) + '"' +
+        '<button type="button" class="' + cls + ' team-card--pick" data-winner-choice="' + escapeHtml(c.id) + '"' +
         (closed || userChoice ? ' disabled' : '') + '>' +
-          renderTeamFlag(c.id, 'hero') +
-          '<span class="team-card__name">' + escapeHtml(c.label) + '</span>' +
-          '<span class="team-card__pct">' + pct + '%</span>' +
+          renderPickFlag(c.id) +
+          '<span class="vote-chip__meta">' +
+            '<span class="team-card__name">' + escapeHtml(c.label) + '</span>' +
+            '<span class="team-card__pct">' + pct + '%</span>' +
+          '</span>' +
           '<span class="team-card__bar"><span style="width:' + pct + '%"></span></span>' +
         '</button>'
       );
@@ -601,7 +613,6 @@
     var canVote = this.canVoteOnMatch(detail);
     var votingOpen = canVote && !closed;
     var userChoice = api.getStoredChoice(poll.id);
-    var activeLabel = stageLabel(this.activeVotingStage);
     var cardCls = 'match-card';
     if (poll.status === 'open' && canVote) cardCls += ' is-live';
     if (closed || !canVote) cardCls += ' is-closed';
@@ -613,19 +624,24 @@
     var awayTeamId = match.away_team_id || '';
 
     var chips = '';
+    var chipsDisabled = !votingOpen || Boolean(userChoice);
     if (!canVote) {
-      chips = '<p class="hub-notice" style="margin:0;grid-column:1/-1">View only — voting open for ' +
-        escapeHtml(activeLabel) + '.</p>';
-    } else {
-      if (home) {
-        chips += this.matchChipHtml(poll.id, 'home', home.label, home.pct, !votingOpen, userChoice);
-      }
-      if (draw) {
-        chips += this.matchChipHtml(poll.id, 'draw', 'Draw', draw.pct, !votingOpen, userChoice);
-      }
-      if (away) {
-        chips += this.matchChipHtml(poll.id, 'away', away.label, away.pct, !votingOpen, userChoice);
-      }
+      chipsDisabled = true;
+    }
+    if (home) {
+      chips += this.matchChipHtml(
+        poll.id, 'home', home.label, home.pct, chipsDisabled, userChoice, homeTeamId
+      );
+    }
+    if (draw) {
+      chips += this.matchChipHtml(
+        poll.id, 'draw', 'Draw', draw.pct, chipsDisabled, userChoice, null
+      );
+    }
+    if (away) {
+      chips += this.matchChipHtml(
+        poll.id, 'away', away.label, away.pct, chipsDisabled, userChoice, awayTeamId
+      );
     }
 
     var voteCls = 'match-card__vote';
@@ -652,18 +668,36 @@
     );
   };
 
-  FanHub.prototype.matchChipHtml = function (pollId, choiceId, label, pct, disabled, userChoice, extraAttr) {
-    var cls = 'vote-chip';
+  FanHub.prototype.matchChipHtml = function (pollId, choiceId, label, pct, disabled, userChoice, teamId) {
+    var isDraw = choiceId === 'draw';
+    var cls = 'vote-chip' + (isDraw ? ' vote-chip--draw' : ' vote-chip--pick');
     if (userChoice === choiceId) cls += ' is-selected';
     if (disabled || userChoice) disabled = true;
     var pctStr = pct != null && pct > 0 ? pct + '%' : '';
+
+    if (isDraw) {
+      return (
+        '<button type="button" class="' + cls + '" data-match-vote="' + escapeHtml(choiceId) + '"' +
+        ' data-poll-id="' + escapeHtml(pollId) + '"' +
+        (disabled ? ' disabled' : '') + '>' +
+          '<span class="vote-chip__icon" aria-hidden="true">⚖</span>' +
+          '<span class="vote-chip__meta">' +
+            '<span class="vote-chip__name">' + escapeHtml(label) + '</span>' +
+            (pctStr ? '<span class="vote-chip__pct">' + pctStr + '</span>' : '') +
+          '</span>' +
+        '</button>'
+      );
+    }
+
     return (
       '<button type="button" class="' + cls + '" data-match-vote="' + escapeHtml(choiceId) + '"' +
       ' data-poll-id="' + escapeHtml(pollId) + '"' +
-      (disabled ? ' disabled' : '') +
-      (extraAttr || '') + '>' +
-        escapeHtml(label) +
-        (pctStr ? '<small>' + pctStr + '</small>' : '') +
+      (disabled ? ' disabled' : '') + '>' +
+        renderPickFlag(teamId) +
+        '<span class="vote-chip__meta">' +
+          '<span class="vote-chip__name">' + escapeHtml(label) + '</span>' +
+          (pctStr ? '<span class="vote-chip__pct">' + pctStr + '</span>' : '') +
+        '</span>' +
       '</button>'
     );
   };

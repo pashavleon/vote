@@ -262,6 +262,20 @@
 
     .team-card__name { font-size: 0.72rem; font-weight: 700; margin: 0.35rem 0 0.25rem; display: block; }
     .team-card__pct { font-size: 0.85rem; font-weight: 800; color: var(--wc-gold); display: block; }
+    .team-card--pick .team-card__name {
+      font-size: 0.6rem;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .team-card--pick .team-card__pct {
+      font-size: 0.58rem;
+      font-weight: 600;
+      margin-top: 0.1rem;
+    }
     .team-card__bar {
       height: 4px;
       background: var(--border);
@@ -274,6 +288,25 @@
       height: 100%;
       background: var(--wc-green);
       border-radius: 2px;
+    }
+    .team-card.team-card--pick {
+      position: relative;
+      min-height: 4.75rem;
+      padding: 0;
+      text-align: left;
+      overflow: hidden;
+    }
+    .team-card--pick .team-card__bar {
+      position: absolute;
+      left: 0.35rem;
+      right: 0.35rem;
+      bottom: 0.28rem;
+      margin-top: 0;
+      height: 3px;
+    }
+    .team-card--pick .vote-chip__meta {
+      bottom: 1.05rem;
+      max-width: 54%;
     }
 
     .hub-message, .winner-total {
@@ -292,10 +325,6 @@
       padding: 0.55rem 0.65rem;
       margin-bottom: 0.65rem;
       line-height: 1.4;
-    }
-    .match-card__vote--readonly .vote-chip {
-      cursor: default;
-      opacity: 0.55;
     }
     .hub-empty, .hub-loading { font-size: 0.78rem; color: var(--muted); padding: 0.75rem 0; text-align: center; }
 
@@ -494,7 +523,12 @@
       padding: 0.75rem 0.65rem;
     }
     .match-team { text-align: center; font-size: 0.72rem; font-weight: 700; }
-    .match-team__flag { font-size: 1.5rem; display: block; margin-bottom: 0.2rem; }
+    .match-team__flag-img {
+      display: block;
+      width: 2.35rem;
+      height: auto;
+      margin: 0 auto 0.2rem;
+    }
     .match-vs { font-size: 0.65rem; font-weight: 800; color: var(--muted); }
     .match-card__vote {
       display: grid;
@@ -508,21 +542,82 @@
     .vote-chip {
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 0.4rem 0.3rem;
-      background: #0a0e14;
       font: inherit;
-      font-size: 0.62rem;
-      font-weight: 600;
       color: var(--text);
       cursor: pointer;
-      text-align: center;
       min-width: 0;
-      line-height: 1.25;
+    }
+    .vote-chip--pick,
+    .team-card.team-card--pick {
+      position: relative;
+      min-height: 4.1rem;
+      padding: 0;
+      background: var(--card);
+      overflow: hidden;
+      text-align: left;
+    }
+    .vote-chip--pick .vote-chip__flag,
+    .team-card--pick .vote-chip__flag {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: left center;
+      border-radius: 7px;
+      pointer-events: none;
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cfilter id='b' x='-25%25' y='-25%25' width='150%25' height='150%25'%3E%3CfeGaussianBlur stdDeviation='3.5'/%3E%3C/filter%3E%3Cpolygon points='0,0 85,0 50,100 0,100' fill='white' filter='url(%23b)'/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cfilter id='b' x='-25%25' y='-25%25' width='150%25' height='150%25'%3E%3CfeGaussianBlur stdDeviation='3.5'/%3E%3C/filter%3E%3Cpolygon points='0,0 85,0 50,100 0,100' fill='white' filter='url(%23b)'/%3E%3C/svg%3E");
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+    }
+    .vote-chip__meta {
+      position: absolute;
+      right: 0.36rem;
+      bottom: 0.32rem;
+      text-align: right;
+      max-width: 50%;
+      z-index: 1;
+    }
+    .vote-chip__name {
+      display: block;
+      font-size: 0.6rem;
+      font-weight: 700;
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .vote-chip__pct {
+      display: block;
+      font-size: 0.58rem;
+      font-weight: 600;
+      color: var(--wc-gold);
+      margin-top: 0.1rem;
+    }
+    .vote-chip--draw {
+      position: relative;
+      min-height: 4.1rem;
+      padding: 0;
+      background: rgba(255, 255, 255, 0.02);
+      border-style: dashed;
+    }
+    .vote-chip--draw .vote-chip__icon {
+      position: absolute;
+      top: 0.38rem;
+      left: 0.38rem;
+      font-size: 1rem;
+      opacity: 0.45;
+      line-height: 1;
     }
     .vote-chip:hover:not(:disabled) { border-color: var(--wc-green); }
-    .vote-chip.is-selected { border-color: var(--wc-green); background: rgba(0,166,81,0.1); }
+    .vote-chip.is-selected { border-color: var(--wc-green); box-shadow: 0 0 0 1px rgba(0, 166, 81, 0.35); }
     .vote-chip:disabled { opacity: 0.7; cursor: default; }
-    .vote-chip small { display: block; font-size: 0.62rem; color: var(--wc-gold); margin-top: 0.15rem; }
+    .match-card__vote--readonly .vote-chip { cursor: default; }
 
     .group-block {
       border: 1px solid var(--border);

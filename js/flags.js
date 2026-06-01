@@ -33,6 +33,40 @@
     return 'https://flagcdn.com/w' + width + '/' + iso + '.png';
   }
 
+  var ASSETS_BASE = 'assets/flags/';
+
+  function chipFlagSrc(teamId) {
+    var id = String(teamId || '').toLowerCase();
+    if (!id) return '';
+    return ASSETS_BASE + id + '.png';
+  }
+
+  function chipFlagFallbackSrc(teamId) {
+    var iso = teamIso(teamId);
+    if (!iso) return '';
+    return 'https://flagcdn.com/256x192/' + iso + '.png';
+  }
+
+  function chipFlagImgHtml(teamId, className) {
+    var src = chipFlagSrc(teamId);
+    var fb = chipFlagFallbackSrc(teamId);
+    if (!src && !fb) {
+      return '<span class="flag-fallback" aria-hidden="true">🏳</span>';
+    }
+    className = className || 'vote-chip__flag';
+    var onerr = fb
+      ? ' onerror="this.onerror=null;this.src=\'' + fb + '\'"'
+      : '';
+    return (
+      '<img class="' + className + '" src="' + src + '" alt="" loading="lazy" decoding="async"' +
+      onerr + ' />'
+    );
+  }
+
+  function chipThumbHtml(teamId) {
+    return chipFlagImgHtml(teamId, 'match-team__flag-img');
+  }
+
   /**
    * @param {string} teamId — choice id e.g. "bra"
    * @param {"hero"|"sm"} size
@@ -61,6 +95,10 @@
   global.FlagVisual = {
     teamIso: teamIso,
     flagUrl: flagUrl,
+    chipFlagSrc: chipFlagSrc,
+    chipFlagFallbackSrc: chipFlagFallbackSrc,
+    chipFlagImg: chipFlagImgHtml,
+    chipThumb: chipThumbHtml,
     render: renderFlag,
   };
 })(window);
