@@ -380,10 +380,9 @@
         (closed || userChoice ? ' disabled' : '') + '>' +
           renderPickFlag(c.id) +
           '<span class="vote-chip__meta">' +
-            '<span class="team-card__name">' + escapeHtml(c.label) + '</span>' +
-            '<span class="team-card__pct">' + pct + '%</span>' +
+            '<span class="vote-chip__name">' + escapeHtml(c.label) + '</span>' +
+            '<span class="vote-chip__pct">' + pct + '%</span>' +
           '</span>' +
-          '<span class="team-card__bar"><span style="width:' + pct + '%"></span></span>' +
         '</button>'
       );
     }).join('');
@@ -656,13 +655,6 @@
             escapeHtml(canVote ? statusLabel(poll.status) : 'View only') +
           '</span>' +
         '</div>' +
-        '<div class="match-card__body">' +
-          '<div class="match-team">' + renderTeamFlag(homeTeamId, 'sm') +
-            escapeHtml(home ? home.label : '') + '</div>' +
-          '<div class="match-vs">vs</div>' +
-          '<div class="match-team">' + renderTeamFlag(awayTeamId, 'sm') +
-            escapeHtml(away ? away.label : '') + '</div>' +
-        '</div>' +
         '<div class="' + voteCls + '">' + chips + '</div>' +
       '</article>'
     );
@@ -673,7 +665,7 @@
     var cls = 'vote-chip' + (isDraw ? ' vote-chip--draw' : ' vote-chip--pick');
     if (userChoice === choiceId) cls += ' is-selected';
     if (disabled || userChoice) disabled = true;
-    var pctStr = pct != null && pct > 0 ? pct + '%' : '';
+    var pctStr = pct != null ? pct + '%' : '';
 
     if (isDraw) {
       return (

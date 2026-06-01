@@ -262,51 +262,12 @@
 
     .team-card__name { font-size: 0.72rem; font-weight: 700; margin: 0.35rem 0 0.25rem; display: block; }
     .team-card__pct { font-size: 0.85rem; font-weight: 800; color: var(--wc-gold); display: block; }
-    .team-card--pick .team-card__name {
-      font-size: 0.6rem;
-      font-weight: 700;
-      margin: 0;
-      line-height: 1.2;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .team-card--pick .team-card__pct {
-      font-size: 0.58rem;
-      font-weight: 600;
-      margin-top: 0.1rem;
-    }
-    .team-card__bar {
-      height: 4px;
-      background: var(--border);
-      border-radius: 2px;
-      margin-top: 0.35rem;
-      overflow: hidden;
-    }
-    .team-card__bar span {
-      display: block;
-      height: 100%;
-      background: var(--wc-green);
-      border-radius: 2px;
-    }
     .team-card.team-card--pick {
       position: relative;
-      min-height: 4.75rem;
+      min-height: 4.1rem;
       padding: 0;
       text-align: left;
       overflow: hidden;
-    }
-    .team-card--pick .team-card__bar {
-      position: absolute;
-      left: 0.35rem;
-      right: 0.35rem;
-      bottom: 0.28rem;
-      margin-top: 0;
-      height: 3px;
-    }
-    .team-card--pick .vote-chip__meta {
-      bottom: 1.05rem;
-      max-width: 54%;
     }
 
     .hub-message, .winner-total {
@@ -534,7 +495,7 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 0.35rem;
-      padding: 0 0.65rem 0.65rem;
+      padding: 0.65rem;
     }
     .match-card__vote--two {
       grid-template-columns: repeat(2, minmax(0, 1fr));
