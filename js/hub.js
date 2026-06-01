@@ -77,6 +77,17 @@
     return null;
   }
 
+  function renderTeamFlag(teamId, size) {
+    if (window.FlagVisual && window.FlagVisual.render) {
+      return window.FlagVisual.render(teamId, size || 'hero');
+    }
+    return '<span class="flag-fallback">🏳</span>';
+  }
+
+  function isGroupMatchDetail(detail) {
+    return detail && detail.match && detail.match.stage === 'group';
+  }
+
   function FanHub() {
     this.cfg = api.getConfig();
     this.event = null;
@@ -203,7 +214,6 @@
     var leaderId = visible.length ? visible[0].id : null;
 
     var html = visible.map(function (c) {
-      var flag = c.meta && c.meta.flag ? c.meta.flag : '';
       var pct = c.pct != null ? c.pct : 0;
       var cls = 'team-card';
       if (c.id === leaderId && detail.total_votes > 0) cls += ' is-leading';
@@ -212,7 +222,7 @@
       return (
         '<button type="button" class="' + cls + '" data-winner-choice="' + escapeHtml(c.id) + '"' +
         (closed || userChoice ? ' disabled' : '') + '>' +
-          '<span class="team-card__flag">' + flag + '</span>' +
+          renderTeamFlag(c.id, 'hero') +
           '<span class="team-card__name">' + escapeHtml(c.label) + '</span>' +
           '<span class="team-card__pct">' + pct + '%</span>' +
           '<span class="team-card__bar"><span style="width:' + pct + '%"></span></span>' +
@@ -323,15 +333,22 @@
     if (!container) return;
 
     var polls = this.pollsForStage();
+    var notice = '';
+    if (this.stage !== 'group') {
+      notice = '<p class="hub-notice">Knockout matches are view-only. Voting is open for <strong>group stage</strong> matches.</p>';
+    }
+
     if (!polls.length) {
-      container.innerHTML = '<p class="hub-empty">No matches in this stage yet.</p>';
+      container.innerHTML = notice + '<p class="hub-empty">No matches in this stage yet.</p>';
       return;
     }
 
     if (this.stage === 'group') {
+      container.innerHTML = notice;
       this.renderGroupMatches(container, polls);
     } else {
-      this.renderFlatMatches(container, polls);
+      container.innerHTML = notice + '<div id="knockout-match-list"><p class="hub-loading">Loading…</p></div>';
+      this.loadAndRenderPollCards(polls, $('#knockout-match-list'));
     }
   };
 
@@ -344,7 +361,7 @@
       byGroup[g].push(p);
     });
 
-    var html = GROUPS.filter(function (g) { return byGroup[g]; }).map(function (g, idx) {
+    var groupsHtml = GROUPS.filter(function (g) { return byGroup[g]; }).map(function (g, idx) {
       var list = byGroup[g];
       return (
         '<details class="group-block"' + (idx === 0 ? ' open' : '') + ' data-group="' + g + '">' +
@@ -358,7 +375,7 @@
       );
     }).join('');
 
-    container.innerHTML = html;
+    container.insertAdjacentHTML('beforeend', groupsHtml);
 
     $all('.group-block', container).forEach(function (block) {
       var g = block.getAttribute('data-group');
@@ -370,9 +387,7 @@
   };
 
   FanHub.prototype.renderFlatMatches = function (container, polls) {
-    var self = this;
-    container.innerHTML = '<div class="match-list hub-loading-wrap" id="flat-match-list"><p class="hub-loading">Loading…</p></div>';
-    this.loadAndRenderPollCards(polls, $('#flat-match-list'));
+    this.loadAndRenderPollCards(polls, container);
   };
 
   FanHub.prototype.loadGroupDetails = function (groupCode, polls) {
@@ -431,53 +446,61 @@
     var draw = choiceById(choices, 'draw');
     var away = choiceById(choices, 'away');
     var closed = api.isPollClosed(poll);
+    var groupVoting = isGroupMatchDetail(detail);
+    var votingOpen = groupVoting && !closed;
     var userChoice = api.getStoredChoice(poll.id);
     var cardCls = 'match-card';
-    if (poll.status === 'open') cardCls += ' is-live';
-    if (closed) cardCls += ' is-closed';
+    if (poll.status === 'open' && groupVoting) cardCls += ' is-live';
+    if (closed || !groupVoting) cardCls += ' is-closed';
 
     var headMeta = formatKickoff(match.kickoff_at || poll.closes_at);
     if (match.venue) headMeta += ' · ' + venueShort(match.venue);
 
-    var homeFlag = home && home.meta && home.meta.flag ? home.meta.flag : '';
-    var awayFlag = away && away.meta && away.meta.flag ? away.meta.flag : '';
+    var homeTeamId = match.home_team_id || '';
+    var awayTeamId = match.away_team_id || '';
 
     var chips = '';
-    if (home) {
-      chips += this.matchChipHtml(poll.id, 'home', home.label, home.pct, closed, userChoice);
+    if (!groupVoting) {
+      chips = '<p class="hub-notice" style="margin:0;grid-column:1/-1">Stats only — group stage voting only.</p>';
+    } else {
+      if (home) {
+        chips += this.matchChipHtml(poll.id, 'home', home.label, home.pct, !votingOpen, userChoice);
+      }
+      if (draw) {
+        chips += this.matchChipHtml(poll.id, 'draw', 'Draw', draw.pct, !votingOpen, userChoice);
+      }
+      if (away) {
+        var span = draw ? ' style="grid-column:span 2"' : '';
+        chips += this.matchChipHtml(poll.id, 'away', away.label, away.pct, !votingOpen, userChoice, span);
+      }
     }
-    if (draw) {
-      chips += this.matchChipHtml(poll.id, 'draw', 'Draw', draw.pct, closed, userChoice);
-    }
-    if (away) {
-      var span = draw ? ' style="grid-column:span 2"' : '';
-      chips += this.matchChipHtml(poll.id, 'away', away.label, away.pct, closed, userChoice, span);
-    }
+
+    var voteCls = 'match-card__vote' + (groupVoting ? '' : ' match-card__vote--readonly');
 
     return (
       '<article class="' + cardCls + '" data-match-poll-id="' + escapeHtml(poll.id) + '">' +
         '<div class="match-card__head">' +
           '<span>' + escapeHtml(headMeta) + '</span>' +
-          '<span class="match-card__badge ' + statusBadgeClass(poll.status) + '">' +
-            escapeHtml(statusLabel(poll.status)) +
+          '<span class="match-card__badge ' + statusBadgeClass(groupVoting ? poll.status : 'closed') + '">' +
+            escapeHtml(groupVoting ? statusLabel(poll.status) : 'View only') +
           '</span>' +
         '</div>' +
         '<div class="match-card__body">' +
-          '<div class="match-team"><span class="match-team__flag">' + homeFlag + '</span>' +
+          '<div class="match-team">' + renderTeamFlag(homeTeamId, 'sm') +
             escapeHtml(home ? home.label : '') + '</div>' +
           '<div class="match-vs">vs</div>' +
-          '<div class="match-team"><span class="match-team__flag">' + awayFlag + '</span>' +
+          '<div class="match-team">' + renderTeamFlag(awayTeamId, 'sm') +
             escapeHtml(away ? away.label : '') + '</div>' +
         '</div>' +
-        '<div class="match-card__vote">' + chips + '</div>' +
+        '<div class="' + voteCls + '">' + chips + '</div>' +
       '</article>'
     );
   };
 
-  FanHub.prototype.matchChipHtml = function (pollId, choiceId, label, pct, closed, userChoice, extraAttr) {
-    var disabled = closed || Boolean(userChoice);
+  FanHub.prototype.matchChipHtml = function (pollId, choiceId, label, pct, disabled, userChoice, extraAttr) {
     var cls = 'vote-chip';
     if (userChoice === choiceId) cls += ' is-selected';
+    if (disabled || userChoice) disabled = true;
     var pctStr = pct != null && pct > 0 ? pct + '%' : '';
     return (
       '<button type="button" class="' + cls + '" data-match-vote="' + escapeHtml(choiceId) + '"' +
@@ -504,6 +527,8 @@
 
   FanHub.prototype.castMatchChoice = function (pollId, choiceId) {
     var self = this;
+    var detail = this.matchDetails[pollId];
+    if (!isGroupMatchDetail(detail)) return;
     if (api.getStoredChoice(pollId)) return;
 
     api.castVote(pollId, choiceId)
