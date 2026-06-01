@@ -6,6 +6,9 @@ window.VOTE_CONFIG = {
   supabaseUrl: 'https://YOUR_PROJECT_REF.supabase.co',
   supabaseAnonKey: 'YOUR_ANON_KEY',
   pollId: 'ucl-final-2026',
-  /** How often to refresh stats (ms) */
   refreshIntervalMs: 15000,
+  /** Set true after the final — disables voting */
+  pollClosed: true,
+  /** 'psg' | 'arsenal' — highlights the winner */
+  winner: 'psg',
 };
