@@ -17,6 +17,8 @@
       pollId: c.pollId || 'ucl-final-2026',
       eventId: c.eventId || null,
       winnerPollId: c.winnerPollId || 'wc-2026-winner',
+      /** Only this match stage accepts votes; advance manually when the tournament moves on. */
+      activeMatchStage: c.activeMatchStage || 'group',
       refreshIntervalMs: c.refreshIntervalMs || 15000,
       pollClosed: Boolean(c.pollClosed),
       winner: c.winner || null,

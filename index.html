@@ -294,30 +294,155 @@
     }
     .hub-empty, .hub-loading { font-size: 0.78rem; color: var(--muted); padding: 0.75rem 0; text-align: center; }
 
-    .stage-filter {
+    .stage-dropdown {
+      position: relative;
+      width: 100%;
+      margin-bottom: 0.75rem;
+    }
+    .stage-dropdown__trigger {
       display: flex;
-      gap: 0.35rem;
-      overflow-x: auto;
-      padding-bottom: 0.35rem;
-      scrollbar-width: none;
-    }
-    .stage-filter::-webkit-scrollbar { display: none; }
-    .stage-filter button {
-      flex-shrink: 0;
+      align-items: center;
+      gap: 0.65rem;
+      width: 100%;
       border: 1px solid var(--border);
+      border-radius: var(--radius);
       background: var(--card);
-      color: var(--muted);
-      font: inherit;
-      font-size: 0.7rem;
-      font-weight: 600;
-      padding: 0.35rem 0.65rem;
-      border-radius: 999px;
-      cursor: pointer;
-    }
-    .stage-filter button.is-active {
-      border-color: var(--wc-green);
       color: var(--text);
+      font: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.75rem 0.85rem;
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .stage-dropdown__trigger:hover,
+    .stage-dropdown.is-open .stage-dropdown__trigger {
+      border-color: var(--wc-green);
+      background: rgba(0, 166, 81, 0.08);
+    }
+    .stage-dropdown__icon {
+      flex-shrink: 0;
+      color: var(--wc-gold);
+    }
+    .stage-dropdown__text {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+    .stage-dropdown__stage {
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .stage-dropdown__hint {
+      font-size: 0.65rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+    .stage-dropdown__chevron {
+      flex-shrink: 0;
+      color: var(--muted);
+      transition: transform 0.2s;
+    }
+    .stage-dropdown.is-open .stage-dropdown__chevron {
+      transform: rotate(180deg);
+    }
+    .stage-dropdown__menu {
+      position: absolute;
+      z-index: 20;
+      top: calc(100% + 0.35rem);
+      left: 0;
+      right: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+      max-height: min(18rem, 60vh);
+      overflow-y: auto;
+    }
+    .stage-dropdown__menu[hidden] { display: none; }
+    .stage-dropdown__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      background: transparent;
+      color: var(--text);
+      font: inherit;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.7rem 0.85rem;
+      cursor: pointer;
+      text-align: left;
+    }
+    .stage-dropdown__item:last-child { border-bottom: none; }
+    .stage-dropdown__item:hover:not(:disabled) {
+      background: rgba(0, 166, 81, 0.1);
+    }
+    .stage-dropdown__item.is-selected {
       background: rgba(0, 166, 81, 0.15);
+      color: var(--text);
+    }
+    .stage-dropdown__item.is-past { opacity: 0.85; }
+    .stage-dropdown__item.is-future,
+    .stage-dropdown__item:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .stage-dropdown__badge {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .stage-dropdown__badge--live { color: var(--wc-gold); }
+    .stage-dropdown__badge--soon { color: var(--muted); }
+    .stage-filter__live,
+    .stage-filter__soon {
+      display: inline-block;
+      margin-left: 0.25rem;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      vertical-align: middle;
+    }
+    .voting-phase {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.45rem;
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-bottom: 0.65rem;
+      line-height: 1.35;
+    }
+    .voting-phase__indicator {
+      flex-shrink: 0;
+      width: 0.5rem;
+      height: 0.5rem;
+      margin-top: 0.2rem;
+      border-radius: 50%;
+      background: var(--wc-green);
+      box-shadow: 0 0 0 3px rgba(0, 166, 81, 0.25);
+    }
+    .voting-phase__text strong { color: var(--text); }
+    .hub-notice--live {
+      border-color: rgba(0, 166, 81, 0.35);
+      background: rgba(0, 166, 81, 0.08);
+    }
+    .hub-notice--past {
+      border-color: rgba(245, 197, 24, 0.25);
+      background: rgba(245, 197, 24, 0.06);
+    }
+    .matches-toolbar {
+      margin-bottom: 0.5rem;
     }
 
     .match-list { display: flex; flex-direction: column; gap: 0.55rem; }
@@ -443,15 +568,6 @@
       text-decoration: none;
     }
 
-    @media (min-width: 900px) {
-      .matches-layout {
-        display: grid;
-        grid-template-columns: 220px 1fr;
-        gap: 1rem;
-        padding: 0 1rem;
-      }
-      .stage-filter--side { flex-direction: column; overflow: visible; }
-    }
   </style>
 </head>
 <body>
@@ -486,19 +602,37 @@
       </div>
 
       <div class="tab-panel" id="panel-matches">
-        <p class="section-label">Pick the winner of each match</p>
-        <div class="matches-layout">
-          <div class="stage-filter stage-filter--side" id="stage-filter">
-            <button type="button" class="is-active" data-stage="group">Groups</button>
-            <button type="button" data-stage="r32">Round of 32</button>
-            <button type="button" data-stage="r16">Round of 16</button>
-            <button type="button" data-stage="qf">Quarter-finals</button>
-            <button type="button" data-stage="sf">Semi-finals</button>
-            <button type="button" data-stage="final">Final</button>
+        <p class="section-label">Match polls by stage</p>
+        <div class="matches-toolbar">
+          <div class="voting-phase" id="voting-phase-label" aria-live="polite">
+            <span class="voting-phase__indicator" aria-hidden="true"></span>
+            <span class="voting-phase__text">Active voting: <strong>Groups</strong></span>
           </div>
-          <div id="matches-container">
-            <p class="hub-loading">Loading matches…</p>
+          <div class="stage-dropdown" id="stage-dropdown">
+            <button
+              type="button"
+              class="stage-dropdown__trigger"
+              id="stage-dropdown-trigger"
+              aria-expanded="false"
+              aria-haspopup="listbox"
+              aria-controls="stage-filter"
+            >
+              <svg class="stage-dropdown__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M4 7h16M4 12h16M4 17h16"/>
+              </svg>
+              <span class="stage-dropdown__text">
+                <span class="stage-dropdown__stage" id="stage-dropdown-label">Groups</span>
+                <span class="stage-dropdown__hint">Switch tournament stage</span>
+              </span>
+              <svg class="stage-dropdown__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            <div class="stage-dropdown__menu" id="stage-filter" role="listbox" hidden aria-label="Tournament stage"></div>
           </div>
+        </div>
+        <div id="matches-container">
+          <p class="hub-loading">Loading matches…</p>
         </div>
       </div>
     </section>

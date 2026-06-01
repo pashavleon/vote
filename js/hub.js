@@ -84,8 +84,18 @@
     return '<span class="flag-fallback">🏳</span>';
   }
 
-  function isGroupMatchDetail(detail) {
-    return detail && detail.match && detail.match.stage === 'group';
+  function stageIndex(key) {
+    for (var i = 0; i < STAGES.length; i++) {
+      if (STAGES[i].key === key) return i;
+    }
+    return -1;
+  }
+
+  function stageLabel(key) {
+    for (var i = 0; i < STAGES.length; i++) {
+      if (STAGES[i].key === key) return STAGES[i].label;
+    }
+    return key || '';
   }
 
   function FanHub() {
@@ -93,17 +103,36 @@
     this.event = null;
     this.eventId = this.cfg.eventId;
     this.winnerPollId = this.cfg.winnerPollId || 'wc-2026-winner';
+    this.activeVotingStage = this.cfg.activeMatchStage || 'group';
     this.winnerDetail = null;
     this.winnerExpanded = false;
     this.matchPolls = [];
     this.matchDetails = Object.create(null);
-    this.stage = 'group';
+    this.stage = this.activeVotingStage;
     this.refreshTimer = null;
   }
+
+  FanHub.prototype.getStagePhase = function (stageKey) {
+    var activeIdx = stageIndex(this.activeVotingStage);
+    var idx = stageIndex(stageKey);
+    if (idx < 0 || activeIdx < 0) return 'future';
+    if (idx < activeIdx) return 'past';
+    if (idx === activeIdx) return 'active';
+    return 'future';
+  };
+
+  FanHub.prototype.canVoteOnMatch = function (detail) {
+    return Boolean(
+      detail && detail.match && detail.match.stage === this.activeVotingStage
+    );
+  };
 
   FanHub.prototype.init = function () {
     var self = this;
     this.bindChrome();
+    if (api.isConfigured()) {
+      this.renderStageMenu();
+    }
 
     if (!api.isConfigured()) {
       this.showError('#hub-winner-grid', 'Configure js/config.js with Supabase keys.');
@@ -145,6 +174,8 @@
         if (panel) panel.classList.add('is-active');
         if (btn.getAttribute('data-tab') === 'matches') {
           self.renderMatches();
+        } else {
+          self.closeStageDropdown();
         }
       });
     });
@@ -161,14 +192,110 @@
       });
     });
 
-    $all('#stage-filter [data-stage]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        $all('#stage-filter [data-stage]').forEach(function (b) { b.classList.remove('is-active'); });
-        btn.classList.add('is-active');
-        self.stage = btn.getAttribute('data-stage');
-        self.renderMatches();
+    this.bindStageDropdown();
+  };
+
+  FanHub.prototype.bindStageDropdown = function () {
+    var self = this;
+    var trigger = $('#stage-dropdown-trigger');
+    var root = $('#stage-dropdown');
+
+    if (trigger && !trigger._stageDropdownBound) {
+      trigger._stageDropdownBound = true;
+      trigger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        self.toggleStageDropdown();
       });
-    });
+    }
+
+    if (root && !root._stageMenuBound) {
+      root._stageMenuBound = true;
+      var menu = $('#stage-filter');
+      if (menu) {
+        menu.addEventListener('click', function (e) {
+          var btn = e.target.closest('[data-stage]');
+          if (!btn || btn.disabled) return;
+          self.stage = btn.getAttribute('data-stage');
+          self.closeStageDropdown();
+          self.renderStageMenu();
+          self.renderMatches();
+        });
+      }
+    }
+
+    if (!document._fanHubStageOutsideClose) {
+      document._fanHubStageOutsideClose = true;
+      document.addEventListener('click', function () {
+        self.closeStageDropdown();
+      });
+    }
+  };
+
+  FanHub.prototype.toggleStageDropdown = function () {
+    var root = $('#stage-dropdown');
+    var trigger = $('#stage-dropdown-trigger');
+    var menu = $('#stage-filter');
+    if (!root || !trigger || !menu) return;
+
+    var open = root.classList.toggle('is-open');
+    menu.hidden = !open;
+    trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  };
+
+  FanHub.prototype.closeStageDropdown = function () {
+    var root = $('#stage-dropdown');
+    var trigger = $('#stage-dropdown-trigger');
+    var menu = $('#stage-filter');
+    if (!root || !trigger || !menu) return;
+
+    root.classList.remove('is-open');
+    menu.hidden = true;
+    trigger.setAttribute('aria-expanded', 'false');
+  };
+
+  FanHub.prototype.renderStageMenu = function () {
+    var self = this;
+    var menu = $('#stage-filter');
+    if (!menu) return;
+
+    var activeLabel = stageLabel(this.activeVotingStage);
+    var currentLabel = stageLabel(this.stage);
+    var phaseEl = $('#voting-phase-label');
+    if (phaseEl) {
+      phaseEl.innerHTML =
+        '<span class="voting-phase__indicator" aria-hidden="true"></span>' +
+        '<span class="voting-phase__text">Active voting: <strong>' +
+        escapeHtml(activeLabel) + '</strong></span>';
+    }
+
+    var labelEl = $('#stage-dropdown-label');
+    if (labelEl) labelEl.textContent = currentLabel;
+
+    menu.innerHTML = STAGES.map(function (s) {
+      var phase = self.getStagePhase(s.key);
+      var isSelected = self.stage === s.key;
+      var cls = ['stage-dropdown__item'];
+      if (isSelected) cls.push('is-selected');
+      if (phase === 'active') cls.push('is-voting-phase');
+      if (phase === 'past') cls.push('is-past');
+      if (phase === 'future') cls.push('is-future');
+
+      var disabled = phase === 'future' ? ' disabled aria-disabled="true"' : '';
+      var badge = '';
+      if (phase === 'active') {
+        badge = '<span class="stage-dropdown__badge stage-dropdown__badge--live">Vote</span>';
+      } else if (phase === 'future') {
+        badge = '<span class="stage-dropdown__badge stage-dropdown__badge--soon">Soon</span>';
+      }
+
+      return (
+        '<button type="button" role="option" class="' + cls.join(' ') + '" data-stage="' + s.key + '"' +
+        (isSelected ? ' aria-selected="true"' : ' aria-selected="false"') +
+        disabled + '>' +
+          '<span>' + escapeHtml(s.label) + '</span>' + badge +
+        '</button>'
+      );
+    }).join('');
   };
 
   FanHub.prototype.renderHero = function (event) {
@@ -313,6 +440,7 @@
     return api.fetchActivePolls(this.eventId, 'match_winner', 200, 0)
       .then(function (rows) {
         self.matchPolls = rows || [];
+        self.renderStageMenu();
         var panel = $('#panel-matches');
         if (panel && panel.classList.contains('is-active')) {
           self.renderMatches();
@@ -333,9 +461,15 @@
     if (!container) return;
 
     var polls = this.pollsForStage();
+    var viewPhase = this.getStagePhase(this.stage);
+    var activeLabel = stageLabel(this.activeVotingStage);
     var notice = '';
-    if (this.stage !== 'group') {
-      notice = '<p class="hub-notice">Knockout matches are view-only. Voting is open for <strong>group stage</strong> matches.</p>';
+    if (viewPhase === 'active') {
+      notice = '<p class="hub-notice hub-notice--live">Pick a winner for each match in <strong>' +
+        escapeHtml(activeLabel) + '</strong>.</p>';
+    } else if (viewPhase === 'past') {
+      notice = '<p class="hub-notice hub-notice--past">Past stage — results only. Voting is open for <strong>' +
+        escapeHtml(activeLabel) + '</strong>.</p>';
     }
 
     if (!polls.length) {
@@ -361,10 +495,10 @@
       byGroup[g].push(p);
     });
 
-    var groupsHtml = GROUPS.filter(function (g) { return byGroup[g]; }).map(function (g, idx) {
+    var groupsHtml = GROUPS.filter(function (g) { return byGroup[g]; }).map(function (g) {
       var list = byGroup[g];
       return (
-        '<details class="group-block"' + (idx === 0 ? ' open' : '') + ' data-group="' + g + '">' +
+        '<details class="group-block" data-group="' + g + '">' +
           '<summary>Group ' + g +
             ' <span style="color:var(--muted);font-weight:400">' + list.length + ' matches</span>' +
           '</summary>' +
@@ -382,7 +516,6 @@
       block.addEventListener('toggle', function () {
         if (block.open) self.loadGroupDetails(g, byGroup[g]);
       });
-      if (block.open) self.loadGroupDetails(g, byGroup[g]);
     });
   };
 
@@ -446,12 +579,13 @@
     var draw = choiceById(choices, 'draw');
     var away = choiceById(choices, 'away');
     var closed = api.isPollClosed(poll);
-    var groupVoting = isGroupMatchDetail(detail);
-    var votingOpen = groupVoting && !closed;
+    var canVote = this.canVoteOnMatch(detail);
+    var votingOpen = canVote && !closed;
     var userChoice = api.getStoredChoice(poll.id);
+    var activeLabel = stageLabel(this.activeVotingStage);
     var cardCls = 'match-card';
-    if (poll.status === 'open' && groupVoting) cardCls += ' is-live';
-    if (closed || !groupVoting) cardCls += ' is-closed';
+    if (poll.status === 'open' && canVote) cardCls += ' is-live';
+    if (closed || !canVote) cardCls += ' is-closed';
 
     var headMeta = formatKickoff(match.kickoff_at || poll.closes_at);
     if (match.venue) headMeta += ' · ' + venueShort(match.venue);
@@ -460,8 +594,9 @@
     var awayTeamId = match.away_team_id || '';
 
     var chips = '';
-    if (!groupVoting) {
-      chips = '<p class="hub-notice" style="margin:0;grid-column:1/-1">Stats only — group stage voting only.</p>';
+    if (!canVote) {
+      chips = '<p class="hub-notice" style="margin:0;grid-column:1/-1">View only — voting open for ' +
+        escapeHtml(activeLabel) + '.</p>';
     } else {
       if (home) {
         chips += this.matchChipHtml(poll.id, 'home', home.label, home.pct, !votingOpen, userChoice);
@@ -475,14 +610,14 @@
       }
     }
 
-    var voteCls = 'match-card__vote' + (groupVoting ? '' : ' match-card__vote--readonly');
+    var voteCls = 'match-card__vote' + (canVote ? '' : ' match-card__vote--readonly');
 
     return (
       '<article class="' + cardCls + '" data-match-poll-id="' + escapeHtml(poll.id) + '">' +
         '<div class="match-card__head">' +
           '<span>' + escapeHtml(headMeta) + '</span>' +
-          '<span class="match-card__badge ' + statusBadgeClass(groupVoting ? poll.status : 'closed') + '">' +
-            escapeHtml(groupVoting ? statusLabel(poll.status) : 'View only') +
+          '<span class="match-card__badge ' + statusBadgeClass(canVote ? poll.status : 'closed') + '">' +
+            escapeHtml(canVote ? statusLabel(poll.status) : 'View only') +
           '</span>' +
         '</div>' +
         '<div class="match-card__body">' +
@@ -528,7 +663,7 @@
   FanHub.prototype.castMatchChoice = function (pollId, choiceId) {
     var self = this;
     var detail = this.matchDetails[pollId];
-    if (!isGroupMatchDetail(detail)) return;
+    if (!this.canVoteOnMatch(detail)) return;
     if (api.getStoredChoice(pollId)) return;
 
     api.castVote(pollId, choiceId)

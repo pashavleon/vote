@@ -18,6 +18,10 @@ window.VOTE_CONFIG = {
 
   eventId: 'wc-2026',
   winnerPollId: 'wc-2026-winner',
+
+  /** Match stage open for voting: group | r32 | r16 | qf | sf | final */
+  activeMatchStage: 'group',
+
   refreshIntervalMs: 15000,
 
   /** Optional offline fallbacks only — live status comes from get_poll_detail */
