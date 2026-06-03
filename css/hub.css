@@ -826,6 +826,96 @@
       grid-row: 2;
     }
 
+    /* Tournament winner — large image chip (UCL-style), text below */
+    .portal-chip {
+      position: relative;
+      z-index: 12;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+      max-width: 100%;
+      min-height: 0;
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      background: transparent;
+      backdrop-filter: none;
+      text-decoration: none;
+      color: inherit;
+      gap: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .portal-chip:focus { outline: none; }
+    .portal-chip:focus-visible .portal-chip__frame {
+      outline: 2px solid var(--wc-gold);
+      outline-offset: 3px;
+    }
+    .portal-chip__frame {
+      display: block;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #05080c;
+      border: 2px solid var(--border);
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+    }
+    .portal-chip__img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: min(44vh, 22rem);
+      object-fit: contain;
+      object-position: center;
+      background: #05080c;
+      transition: transform 0.4s ease, filter 0.35s ease;
+    }
+    .portal-chip__caption {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.2rem;
+      padding: 0.65rem 0.35rem 0;
+    }
+    .portal-chip__title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+    .portal-chip__desc {
+      font-size: 0.72rem;
+      color: var(--muted);
+      line-height: 1.3;
+    }
+    .portal-chip__cta {
+      margin-top: 0.25rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--wc-green);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .portal-chip:hover .portal-chip__frame {
+        border-color: var(--wc-gold);
+        box-shadow:
+          0 0 0 1px rgba(245, 197, 24, 0.25),
+          0 12px 36px rgba(0, 0, 0, 0.45),
+          0 0 40px rgba(245, 197, 24, 0.2);
+        transform: translateY(-3px);
+      }
+      .portal-chip:hover .portal-chip__img {
+        transform: scale(1.02);
+        filter: brightness(1.06) saturate(1.08);
+      }
+    }
+    @media (hover: none) {
+      .portal-chip:active .portal-chip__frame {
+        transform: scale(0.99);
+        border-color: var(--wc-gold);
+      }
+    }
+
     @media (max-width: 767px) {
       .home-stage {
         grid-template-rows: 1fr auto auto auto;
@@ -838,6 +928,9 @@
       }
       .portal-btn--left { grid-row: 2; max-width: 100%; }
       .portal-btn--right { grid-row: 3; max-width: 100%; }
+      .portal-chip__img {
+        max-height: min(40vh, 20rem);
+      }
       .home-stage__trophy {
         height: calc(100vh - 15px);
         max-width: min(58vw, 11rem);
@@ -845,7 +938,7 @@
     }
     @media (min-width: 768px) {
       .home-stage {
-        grid-template-columns: minmax(10.5rem, 14rem) 1fr minmax(10.5rem, 14rem);
+        grid-template-columns: minmax(12rem, 22rem) 1fr minmax(10.5rem, 14rem);
         grid-template-rows: 1fr;
         align-items: center;
         padding: 0 1.5rem 1.25rem;
@@ -863,6 +956,14 @@
         align-self: center;
         max-width: 14rem;
         min-height: 12rem;
+      }
+      .portal-chip.portal-btn--left {
+        max-width: min(100%, 22rem);
+        min-height: 0;
+        align-self: center;
+      }
+      .portal-chip__img {
+        max-height: min(56vh, 26rem);
       }
       .portal-btn--right {
         grid-column: 3;
