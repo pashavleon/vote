@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en" id="doc-root">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Arsenal vs PSG — UCL Final 2026 Fan Poll | Live</title>
+  <meta name="description" content="Who wins in Budapest? Live fan poll: defending champions PSG vs unbeaten Arsenal in the Champions League final. Vote now — instant results." />
+  <meta name="keywords" content="Arsenal vs PSG, PSG vs Arsenal, Champions League final 2026, UCL final, Budapest, Puskás Aréna, fan poll, prediction, semi-final rematch" />
+  <link rel="canonical" href="https://pashavleon.github.io/vote/" />
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="https://pashavleon.github.io/vote/sitemap.xml" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="UCL Fan Poll" />
+  <meta property="og:title" content="Arsenal vs PSG — UCL Final 2026 Fan Poll | Live" />
+  <meta property="og:description" content="Who wins in Budapest? Live fan poll: defending champions PSG vs unbeaten Arsenal. Vote now — instant results." />
+  <meta property="og:url" content="https://pashavleon.github.io/vote/" />
+  <meta property="og:image" content="https://pashavleon.github.io/vote/assets/arsenal-1280.jpg" />
+  <meta property="og:image:width" content="1280" />
+  <meta property="og:image:height" content="853" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Arsenal vs PSG — UCL Final 2026 Fan Poll | Live" />
+  <meta name="twitter:description" content="Who wins in Budapest? Live fan poll: PSG vs unbeaten Arsenal. Vote now." />
+  <meta name="twitter:image" content="https://pashavleon.github.io/vote/assets/arsenal-1280.jpg" />
+  <script type="application/ld+json" id="json-ld">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "name": "Arsenal vs PSG — UCL Final 2026 Fan Poll | Live",
+      "description": "Who wins in Budapest? Live fan poll: defending champions PSG vs unbeaten Arsenal in the Champions League final. Vote now — instant results.",
+      "url": "https://pashavleon.github.io/vote/",
+      "inLanguage": "en",
+      "about": {
+        "@type": "SportsEvent",
+        "name": "UEFA Champions League Final 2026",
+        "startDate": "2026-05-30T18:00:00+02:00",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "location": {
+          "@type": "Place",
+          "name": "Puskás Aréna",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Budapest",
+            "addressCountry": "HU"
+          }
+        },
+        "competitor": [
+          { "@type": "SportsTeam", "name": "Arsenal FC" },
+          { "@type": "SportsTeam", "name": "Paris Saint-Germain" }
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "When is the UCL final 2026 Arsenal vs PSG?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Saturday, 30 May 2026. Kick-off is at 18:00 CET (19:00 Moscow / Minsk time) at the Puskás Aréna in Budapest."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where is the Champions League final 2026?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "At the Puskás Aréna in Budapest, Hungary — the venue of the 2025/26 UEFA Champions League final."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who is playing in the UCL final 2026?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Arsenal FC and Paris Saint-Germain. PSG are defending champions; Arsenal are chasing their first European Cup."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does this fan poll work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tap the Arsenal or PSG artwork on this page. Your vote is counted instantly and live percentages update for all visitors."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I vote more than once?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. One vote per browser is stored locally and verified on the server to keep the fan poll fair."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this an official UEFA poll?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. This is an unofficial fan poll for entertainment and is not affiliated with UEFA or either club."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <link rel="preload" as="image" href="assets/psg-800.jpg" media="(max-width: 839px)" />
+  <link rel="preload" as="image" href="assets/psg-1280.jpg" media="(min-width: 840px)" />
+  <style>
+    :root {
+      --arsenal: #EF0107;
+      --psg: #004170;
+      --gold: #d4a853;
+      --bg: #0a0e14;
+      --card: #141b26;
+      --text: #e8edf4;
+      --muted: #8b9bb4;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      position: relative;
+    }
+    .fireworks-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    .page {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      background: #05080c;
+      min-height: 100vh;
+      box-shadow: 0 0 80px rgba(0,0,0,0.5);
+    }
+    .hero-stack {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-areas: "arsenal" "vs" "psg";
+      padding: 0 0.5rem;
+    }
+    .hero-art--arsenal { grid-area: arsenal; --team: var(--arsenal); --team-glow: rgba(239, 1, 7, 0.55); }
+    .hero-art--psg { grid-area: psg; --team: var(--psg); --team-glow: rgba(0, 65, 112, 0.65); }
+    .vs-row { grid-area: vs; }
+
+    /* Кликабельная карточка-арт */
+    .hero-art {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .hero-art:focus { outline: none; }
+    .hero-art:focus-visible .hero-art__frame {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+    .hero-art__frame {
+      position: relative;
+      display: block;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #05080c;
+      border: 2px solid transparent;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .hero-art__frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 100%, var(--team-glow), transparent 70%);
+      transition: opacity 0.35s ease;
+    }
+    .hero-art__shine {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      opacity: 0;
+      background: linear-gradient(
+        105deg,
+        transparent 35%,
+        rgba(255, 255, 255, 0.12) 45%,
+        rgba(255, 255, 255, 0.28) 50%,
+        rgba(255, 255, 255, 0.12) 55%,
+        transparent 65%
+      );
+      transform: translateX(-120%);
+    }
+    .hero-art__ring {
+      position: absolute;
+      inset: 50%;
+      width: 20px;
+      height: 20px;
+      margin: -10px 0 0 -10px;
+      z-index: 4;
+      pointer-events: none;
+      border-radius: 50%;
+      border: 3px solid var(--gold);
+      opacity: 0;
+      transform: scale(0.3);
+    }
+    .hero-art__check {
+      position: absolute;
+      top: 0.65rem;
+      right: 0.65rem;
+      z-index: 5;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: #111;
+      font-size: 1.1rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: scale(0) rotate(-45deg);
+      box-shadow: 0 0 24px rgba(212, 168, 83, 0.7);
+    }
+    .img-full {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      background: #05080c;
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease;
+    }
+    .side-label {
+      position: absolute;
+      top: 0.5rem;
+      left: 0.5rem;
+      z-index: 6;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.65);
+    }
+    .side-label.arsenal { color: #ff8a8a; }
+    .side-label.psg { color: #8ec5ff; }
+
+    /* —— Hover (только устройства с мышью) —— */
+    @media (hover: hover) and (pointer: fine) {
+      .page:not(.has-voted) .hero-art:not(:disabled):hover .hero-art__frame {
+        border-color: color-mix(in srgb, var(--team) 70%, var(--gold));
+        box-shadow:
+          0 0 0 1px color-mix(in srgb, var(--team) 40%, transparent),
+          0 12px 40px var(--team-glow),
+          0 0 60px color-mix(in srgb, var(--gold) 25%, transparent);
+        animation: hero-hover-float 1.4s ease-in-out infinite alternate;
+      }
+      .page:not(.has-voted) .hero-art:not(:disabled):hover .hero-art__frame::before {
+        opacity: 1;
+      }
+      .page:not(.has-voted) .hero-art:not(:disabled):hover .hero-art__shine {
+        opacity: 1;
+        animation: hero-shine-sweep 0.85s ease forwards;
+      }
+      .page:not(.has-voted) .hero-art:not(:disabled):hover .img-full {
+        transform: scale(1.03);
+        filter: brightness(1.08) saturate(1.12);
+      }
+    }
+
+    /* Тап на тач-экране */
+    @media (hover: none) {
+      .page:not(.has-voted) .hero-art:not(:disabled):active .hero-art__frame {
+        transform: scale(0.98);
+        border-color: var(--team);
+      }
+    }
+
+    /* —— Выбор / после голоса —— */
+    .hero-art.is-animating-vote .hero-art__frame {
+      animation: hero-vote-impact 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+    }
+    .hero-art.is-animating-vote .hero-art__ring {
+      animation: hero-ring-burst 0.75s ease-out forwards;
+    }
+    .hero-art.is-selected .hero-art__frame {
+      border-color: var(--gold);
+      box-shadow:
+        0 0 0 2px var(--gold),
+        0 0 48px var(--team-glow),
+        0 16px 48px rgba(0, 0, 0, 0.5);
+      animation: hero-selected-glow 2s ease-in-out infinite alternate;
+    }
+    .hero-art.is-selected .img-full {
+      filter: brightness(1.1) saturate(1.15);
+    }
+    .hero-art.is-selected .hero-art__check {
+      animation: hero-check-pop 0.5s cubic-bezier(0.34, 1.5, 0.64, 1) 0.15s forwards;
+    }
+    .hero-art.is-dimmed {
+      cursor: default;
+      pointer-events: none;
+    }
+    .hero-art.is-dimmed .hero-art__frame {
+      border-color: transparent;
+      box-shadow: none;
+      animation: none;
+    }
+    .hero-art.is-dimmed .img-full {
+      filter: grayscale(0.65) brightness(0.45);
+      transform: scale(0.97);
+    }
+    .hero-art:disabled {
+      cursor: default;
+    }
+
+    /* —— Poll closed · PSG win —— */
+    .poll-closed .vote-hint { display: none; }
+    .poll-closed .hero-art {
+      cursor: default;
+      pointer-events: none;
+    }
+    .result-banner {
+      display: none;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--gold);
+      padding: 0 1rem 0.65rem;
+      letter-spacing: 0.02em;
+      animation: result-banner-glow 2.5s ease-in-out infinite alternate;
+    }
+    .poll-closed .result-banner { display: block; }
+    @keyframes result-banner-glow {
+      from { text-shadow: 0 0 8px rgba(212, 168, 83, 0.3); }
+      to { text-shadow: 0 0 20px rgba(212, 168, 83, 0.65); }
+    }
+    .winner-badge {
+      display: none;
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      z-index: 7;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.55rem;
+      border-radius: 4px;
+      background: linear-gradient(135deg, var(--gold), #e8c878);
+      color: #111;
+      box-shadow: 0 0 24px rgba(212, 168, 83, 0.55);
+    }
+    .poll-closed.poll-winner--psg .hero-art--psg .winner-badge { display: block; }
+    .poll-closed.poll-winner--psg .hero-stack {
+      grid-template-areas: "psg" "vs" "arsenal";
+    }
+    .poll-closed.poll-winner--psg .hero-art--psg .hero-art__frame {
+      border-color: var(--gold);
+      box-shadow:
+        0 0 0 2px var(--gold),
+        0 0 56px rgba(0, 65, 112, 0.75),
+        0 0 80px rgba(212, 168, 83, 0.25);
+      animation: winner-frame-glow 2.2s ease-in-out infinite alternate;
+    }
+    .poll-closed.poll-winner--psg .hero-art--psg .img-full {
+      filter: brightness(1.12) saturate(1.18);
+      transform: scale(1.02);
+    }
+    .poll-closed.poll-winner--psg .hero-art--arsenal .hero-art__frame {
+      border-color: transparent;
+      opacity: 0.72;
+    }
+    .poll-closed.poll-winner--psg .hero-art--arsenal .img-full {
+      filter: grayscale(0.45) brightness(0.5);
+      transform: scale(0.92);
+    }
+    .poll-closed.poll-winner--psg .hero-art--psg .img-full {
+      max-height: min(62vh, 620px);
+    }
+    .poll-closed.poll-winner--psg .hero-art--arsenal .img-full {
+      max-height: min(22vh, 200px);
+    }
+    @keyframes winner-frame-glow {
+      from { box-shadow: 0 0 0 2px var(--gold), 0 0 40px rgba(0, 65, 112, 0.6); }
+      to { box-shadow: 0 0 0 2px var(--gold), 0 0 72px rgba(0, 65, 112, 0.85), 0 0 32px rgba(212, 168, 83, 0.35); }
+    }
+    .poll-closed .vs-badge {
+      background: linear-gradient(135deg, var(--gold), #f0d080);
+      animation: vs-pulse 1.5s ease-in-out infinite alternate;
+      font-size: 1.35rem;
+    }
+
+    @keyframes hero-hover-float {
+      from { transform: translateY(0); }
+      to { transform: translateY(-4px); }
+    }
+    @keyframes hero-shine-sweep {
+      to { transform: translateX(120%); }
+    }
+    @keyframes hero-vote-impact {
+      0% { transform: scale(1); }
+      35% { transform: scale(0.96); }
+      70% { transform: scale(1.04); }
+      100% { transform: scale(1); }
+    }
+    @keyframes hero-ring-burst {
+      0% { opacity: 0.9; transform: scale(0.3); }
+      100% { opacity: 0; transform: scale(14); }
+    }
+    @keyframes hero-check-pop {
+      to { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+    @keyframes hero-selected-glow {
+      from { box-shadow: 0 0 0 2px var(--gold), 0 0 32px var(--team-glow); }
+      to { box-shadow: 0 0 0 2px var(--gold), 0 0 56px var(--team-glow), 0 0 24px rgba(212, 168, 83, 0.35); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-art__frame,
+      .img-full,
+      .hero-art__shine,
+      .hero-art.is-selected .hero-art__frame,
+      .poll-closed.poll-winner--psg .hero-art--psg .hero-art__frame,
+      .result-banner {
+        animation: none !important;
+        transition: none;
+      }
+      .fireworks-canvas { display: none; }
+      .page:not(.has-voted) .hero-art:not(:disabled):hover .img-full {
+        transform: none;
+      }
+    }
+
+    .head {
+      text-align: center;
+      padding: 1.25rem 1rem 0.35rem;
+    }
+    .head__event {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    .head__title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-top: 0.25rem;
+      line-height: 1.25;
+    }
+    .vote-hint {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      padding: 0 1rem 0.75rem;
+    }
+    .page.has-voted .vote-hint { display: none; }
+    .seo-intro {
+      padding: 0 1rem 0.85rem;
+      max-width: 26rem;
+      margin: 0 auto;
+    }
+    .seo-intro p {
+      margin: 0;
+      font-size: 0.78rem;
+      line-height: 1.55;
+      color: var(--muted);
+      text-align: center;
+    }
+    .vs-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 0.5rem 1rem;
+      background: #0a0e14;
+    }
+    .vs-row::before, .vs-row::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .vs-badge {
+      width: 48px;
+      height: 48px;
+      background: var(--gold);
+      color: #111;
+      font-weight: 800;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.4s ease;
+    }
+    .page.has-voted .vs-badge {
+      animation: vs-pulse 1.5s ease-in-out infinite alternate;
+    }
+    @keyframes vs-pulse {
+      to { transform: scale(1.08); box-shadow: 0 0 20px rgba(212, 168, 83, 0.5); }
+    }
+    .bar-track {
+      height: 8px;
+      margin: 0.75rem 1rem 0;
+      background: var(--psg);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      width: 50%;
+      background: var(--arsenal);
+      border-radius: 4px;
+      transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .vote-total {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      padding: 0 1rem 0.75rem;
+    }
+    .vote-message {
+      margin: 0 1rem 1rem;
+      padding: 0.6rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      text-align: center;
+      background: var(--card);
+    }
+    .vote-message[hidden] { display: none; }
+    .vote-message--warn { border: 1px solid #6b5a2e; color: var(--gold); }
+    .vote-message--error { border: 1px solid #6b2e2e; color: #ff8a8a; }
+    .vote-message--success { border: 1px solid #2e6b3a; color: #8aff9a; }
+    .vote-message--info { border: 1px solid #2e4a6b; color: #8ab4ff; }
+    .share {
+      margin: 0 1rem 1rem;
+      padding: 0.9rem 0.75rem 0.85rem;
+      background: var(--card);
+      border-radius: 12px;
+      border: 1px solid #2a3548;
+    }
+    .page.has-voted .share {
+      border-color: rgba(212, 168, 83, 0.35);
+      box-shadow: 0 0 24px rgba(212, 168, 83, 0.08);
+    }
+    .share__label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      text-align: center;
+      margin-bottom: 0.65rem;
+      font-weight: 600;
+    }
+    .share__actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 0.45rem;
+    }
+    .share__btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid #2a3548;
+      background: #0a0e14;
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .share__btn svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+    .share__btn:hover,
+    .share__btn:focus-visible {
+      border-color: var(--gold);
+      transform: scale(1.06);
+      outline: none;
+    }
+    .share__btn--native {
+      width: auto;
+      min-height: 42px;
+      padding: 0 0.9rem;
+      border-radius: 21px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #111;
+      background: var(--gold);
+      border-color: var(--gold);
+      gap: 0.35rem;
+    }
+    .share__btn--native:hover,
+    .share__btn--native:focus-visible {
+      background: #e0bc6a;
+      border-color: #e0bc6a;
+      color: #111;
+    }
+    .share__btn--native svg { width: 18px; height: 18px; }
+    .share__btn--x { color: #e8edf4; }
+    .share__btn--facebook { color: #1877f2; }
+    .share__btn--whatsapp { color: #25d366; }
+    .share__btn--telegram { color: #29a8e0; }
+    .share__btn--vk { color: #4c75a3; }
+    .share__btn--reddit { color: #ff4500; }
+    .share__feedback {
+      margin-top: 0.55rem;
+      font-size: 0.75rem;
+      text-align: center;
+      color: var(--gold);
+    }
+    .share__feedback[hidden] { display: none; }
+    .faq {
+      margin: 0 1rem 1rem;
+      padding: 0.85rem 1rem;
+      background: var(--card);
+      border-radius: 12px;
+      border: 1px solid #2a3548;
+    }
+    .faq__title {
+      font-size: 0.72rem;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      text-align: center;
+      margin-bottom: 0.65rem;
+      font-weight: 600;
+    }
+    .faq__item {
+      border-top: 1px solid #2a3548;
+    }
+    .faq__item:first-of-type { border-top: none; }
+    .faq__item summary {
+      cursor: pointer;
+      list-style: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.65rem 0;
+      line-height: 1.35;
+      color: var(--text);
+    }
+    .faq__item summary::-webkit-details-marker { display: none; }
+    .faq__item summary::after {
+      content: "+";
+      float: right;
+      color: var(--gold);
+      font-weight: 700;
+    }
+    .faq__item[open] summary::after { content: "−"; }
+    .faq__item p {
+      margin: 0 0 0.75rem;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+    .footer {
+      text-align: center;
+      font-size: 0.7rem;
+      color: #4a5568;
+      padding: 0 1rem 2rem;
+    }
+    .lang-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      padding: 0.5rem 0.75rem 0;
+      max-width: 100%;
+    }
+    .lang-bar__buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.3rem;
+      max-width: 100%;
+    }
+    .lang-bar__label {
+      font-size: 0.65rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-right: 0.25rem;
+    }
+    .lang-bar button {
+      font: inherit;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid #2a3548;
+      background: var(--card);
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .lang-bar button.is-active {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(212, 168, 83, 0.12);
+    }
+    .lang-bar button:hover:not(.is-active) {
+      border-color: #4a5568;
+      color: var(--text);
+    }
+
+    @media (min-width: 840px) {
+      .page { max-width: min(1200px, 96vw); }
+      .head { padding: 1.5rem 2rem 0.5rem; }
+      .head p { font-size: 1.35rem; }
+      .hero-stack {
+        grid-template-columns: 1fr auto 1fr;
+        grid-template-areas: "arsenal vs psg";
+        align-items: stretch;
+        gap: 0.25rem;
+      }
+      .hero-art .img-full {
+        max-height: min(52vh, 520px);
+      }
+      .hero-art--arsenal .img-full { object-position: center right; }
+      .hero-art--psg .img-full { object-position: center left; }
+      .vs-row {
+        flex-direction: column;
+        padding: 1rem 0.5rem;
+        min-width: 72px;
+        background: linear-gradient(180deg, #0a0e14, #141b26 50%, #0a0e14);
+      }
+      .vs-row::before, .vs-row::after {
+        width: 1px;
+        height: auto;
+        flex: 1;
+        min-height: 24px;
+        background: linear-gradient(180deg, transparent, var(--gold), transparent);
+      }
+      .vs-badge { width: 56px; height: 56px; font-size: 1.1rem; }
+      .poll-closed.poll-winner--psg .hero-stack {
+        grid-template-columns: 0.7fr auto 1.3fr;
+        grid-template-areas: "arsenal vs psg";
+      }
+      .poll-closed.poll-winner--psg .hero-art--psg .img-full {
+        max-height: min(68vh, 680px);
+      }
+      .poll-closed.poll-winner--psg .hero-art--arsenal .img-full {
+        max-height: min(38vh, 320px);
+      }
+      .bar-track, .stats, .vote-total, .vote-message, .vote-hint, .seo-intro, .result-banner, .faq, .share, .footer {
+        max-width: 640px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .bar-track { width: calc(100% - 2rem); }
+    }
+
+    @media (max-width: 839px) and (orientation: portrait) {
+      .hero-stack {
+        grid-template-areas: "arsenal" "vs" "psg";
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page landing-a" data-vote-root data-vote-poll-id="ucl-final-2026">
+    <nav class="lang-bar" aria-label="Language">
+      <span class="lang-bar__label" data-i18n="lang.label">Language</span>
+      <div class="lang-bar__buttons" id="lang-buttons"></div>
+    </nav>
+    <header class="head">
+      <p class="head__event" data-i18n="head.event" data-i18n-result="result.event">Champions League Final 2026 · 30 May · Budapest</p>
+      <h1 class="head__title" data-i18n="head.question" data-i18n-result="result.title">Arsenal or PSG — who lifts the trophy?</h1>
+    </header>
+    <p class="result-banner" data-i18n="result.banner">Paris Saint-Germain — back-to-back European champions</p>
+    <p class="vote-hint" data-i18n="vote.hint">Tap your team's art — your vote counts instantly</p>
+    <div class="seo-intro">
+      <p data-i18n="seo.intro">Live fan poll for the UEFA Champions League final 2026 in Budapest: Arsenal vs Paris Saint-Germain at the Puskás Aréna on 30 May. Defending champions PSG face an Arsenal side unbeaten in this season's Champions League. Tap your team's artwork to vote — results update in real time.</p>
+    </div>
+
+    <div class="hero-stack">
+      <button type="button" class="hero-art hero-art--arsenal" data-vote-choice="arsenal"
+        data-i18n="vote.arsenalAria" data-i18n-attr="aria-label" aria-pressed="false">
+        <span class="hero-art__frame">
+          <span class="side-label arsenal" data-i18n="team.arsenal">Arsenal</span>
+          <img
+            class="img-full"
+            src="assets/arsenal-1280.jpg"
+            srcset="assets/arsenal-800.jpg 800w, assets/arsenal-1280.jpg 1280w"
+            sizes="(max-width: 839px) 100vw, 50vw"
+            data-i18n="img.alt.arsenal"
+            data-i18n-attr="alt"
+            alt="Arsenal — fan poll art for UCL Final 2026 vs PSG"
+            width="1280"
+            height="853"
+            decoding="async"
+            fetchpriority="high"
+          />
+          <span class="hero-art__shine" aria-hidden="true"></span>
+          <span class="hero-art__ring" aria-hidden="true"></span>
+          <span class="hero-art__check" aria-hidden="true">✓</span>
+        </span>
+      </button>
+
+      <div class="vs-row" aria-hidden="true"><span class="vs-badge">VS</span></div>
+
+      <button type="button" class="hero-art hero-art--psg" data-vote-choice="psg"
+        data-i18n="vote.psgAria" data-i18n-attr="aria-label" aria-pressed="false">
+        <span class="hero-art__frame">
+          <span class="side-label psg" data-i18n="team.psg">Paris SG</span>
+          <span class="winner-badge" data-i18n="winner.badge">Champions</span>
+          <img
+            class="img-full"
+            src="assets/psg-1280.jpg"
+            srcset="assets/psg-800.jpg 800w, assets/psg-1280.jpg 1280w"
+            sizes="(max-width: 839px) 100vw, 50vw"
+            data-i18n="img.alt.psg"
+            data-i18n-attr="alt"
+            alt="PSG — fan poll art for Champions League Final 2026 in Budapest"
+            width="1280"
+            height="853"
+            decoding="async"
+            loading="lazy"
+          />
+          <span class="hero-art__shine" aria-hidden="true"></span>
+          <span class="hero-art__ring" aria-hidden="true"></span>
+          <span class="hero-art__check" aria-hidden="true">✓</span>
+        </span>
+      </button>
+    </div>
+
+    <div class="bar-track"><div class="bar-fill" data-vote-bar-fill></div></div>
+    <div class="stats">
+      <span data-vote-stat-arsenal>Arsenal —%</span>
+      <span data-vote-stat-psg>PSG —%</span>
+    </div>
+    <p class="vote-total" data-vote-total>… голосов · обновляется live</p>
+    <p class="vote-message" data-vote-message hidden></p>
+
+    <section class="faq" aria-labelledby="faq-heading">
+      <h2 id="faq-heading" class="faq__title" data-i18n="faq.title">FAQ — UCL Final 2026</h2>
+      <details class="faq__item">
+        <summary data-i18n="faq.q1">When is the UCL final 2026 Arsenal vs PSG?</summary>
+        <p data-i18n="faq.a1">Saturday, 30 May 2026. Kick-off is at 18:00 CET (19:00 Moscow / Minsk time) at the Puskás Aréna in Budapest.</p>
+      </details>
+      <details class="faq__item">
+        <summary data-i18n="faq.q2">Where is the Champions League final 2026?</summary>
+        <p data-i18n="faq.a2">At the Puskás Aréna in Budapest, Hungary — the venue of the 2025/26 UEFA Champions League final.</p>
+      </details>
+      <details class="faq__item">
+        <summary data-i18n="faq.q3">Who is playing in the UCL final 2026?</summary>
+        <p data-i18n="faq.a3">Arsenal FC and Paris Saint-Germain. PSG are defending champions; Arsenal are chasing their first European Cup.</p>
+      </details>
+      <details class="faq__item">
+        <summary data-i18n="faq.q4">How does this fan poll work?</summary>
+        <p data-i18n="faq.a4">Tap the Arsenal or PSG artwork on this page. Your vote is counted instantly and live percentages update for all visitors.</p>
+      </details>
+      <details class="faq__item">
+        <summary data-i18n="faq.q5">Can I vote more than once?</summary>
+        <p data-i18n="faq.a5">No. One vote per browser is stored locally and verified on the server to keep the fan poll fair.</p>
+      </details>
+      <details class="faq__item">
+        <summary data-i18n="faq.q6">Is this an official UEFA poll?</summary>
+        <p data-i18n="faq.a6">No. This is an unofficial fan poll for entertainment and is not affiliated with UEFA or either club.</p>
+      </details>
+    </section>
+
+    <section class="share" data-share-root aria-labelledby="share-heading">
+      <h2 id="share-heading" class="share__label" data-i18n="share.label">Share this poll</h2>
+      <div class="share__actions">
+        <button type="button" class="share__btn share__btn--native" data-share-native hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
+          <span data-i18n="share.native">Share</span>
+        </button>
+        <a class="share__btn share__btn--x" data-share-network="x" href="#" target="_blank" rel="noopener noreferrer" data-i18n="share.x" data-i18n-attr="aria-label" aria-label="Share on X">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a class="share__btn share__btn--facebook" data-share-network="facebook" href="#" target="_blank" rel="noopener noreferrer" data-i18n="share.facebook" data-i18n-attr="aria-label" aria-label="Share on Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a class="share__btn share__btn--whatsapp" data-share-network="whatsapp" href="#" target="_blank" rel="noopener noreferrer" data-i18n="share.whatsapp" data-i18n-attr="aria-label" aria-label="Share on WhatsApp">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+        <a class="share__btn share__btn--telegram" data-share-network="telegram" href="#" target="_blank" rel="noopener noreferrer" data-i18n="share.telegram" data-i18n-attr="aria-label" aria-label="Share on Telegram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        </a>
+        <a class="share__btn share__btn--vk" data-share-network="vk" href="#" target="_blank" rel="noopener noreferrer" data-i18n="share.vk" data-i18n-attr="aria-label" aria-label="Share on VK">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.391 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.271.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z"/></svg>
+        </a>
+        <a class="share__btn share__btn--reddit" data-share-network="reddit" href="#" target="_blank" rel="noopener noreferrer" data-i18n="share.reddit" data-i18n-attr="aria-label" aria-label="Share on Reddit">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.247.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.688-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+        </a>
+        <button type="button" class="share__btn" data-share-copy data-i18n="share.copy" data-i18n-attr="aria-label" aria-label="Copy link">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+        </button>
+      </div>
+      <p class="share__feedback" data-share-feedback hidden></p>
+    </section>
+
+    <p class="footer" data-i18n="footer.disclaimer">Unofficial fan poll · not affiliated with UEFA</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/vote.js"></script>
+  <script src="js/fireworks.js"></script>
+  <script src="js/share.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tournament winner — World Cup 2026 Fan Vote</title>
+  <meta name="description" content="Who will win FIFA World Cup 2026? Pick one of 48 teams — live fan poll." />
+  <link rel="canonical" href="https://pashavleon.github.io/vote/winner.html" />
+  <link rel="stylesheet" href="css/hub.css" />
+</head>
+<body data-page="winner">
+  <div class="shell">
+    <header class="topbar">
+      <a class="logo" href="index.html">FanVote</a>
+      <nav class="topnav topnav--split" aria-label="Polls">
+        <div class="topnav-polls">
+          <a href="winner.html" class="is-active">Winner</a>
+          <a href="matches.html">Matches</a>
+        </div>
+        <a href="arch.html" class="topnav-arch">Archive</a>
+      </nav>
+    </header>
+
+    <main class="page-main">
+      <div class="page-head">
+        <h1 class="page-head__title">Tournament winner</h1>
+        <p class="page-head__sub">One pick for the whole tournament · ranked by vote share</p>
+      </div>
+
+      <div style="padding: 0 1rem">
+        <div class="team-grid" id="hub-winner-grid">
+          <p class="hub-loading">Loading teams…</p>
+        </div>
+        <p class="winner-total" id="winner-total"></p>
+        <p class="hub-message" id="winner-message" hidden></p>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/flags.js"></script>
+  <script src="js/hub.js"></script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 /**
- * FanVote hub — featured event, winner poll, match polls, archive.
- * Requires: VoteApi, optional vote.js for shared events.
+ * FanVote hub — home, winner, matches, archive pages.
+ * Set data-page on body: home | winner | matches | arch
  */
 (function () {
   'use strict';
@@ -111,7 +111,12 @@
     return key || '';
   }
 
+  function getPage() {
+    return (document.body && document.body.getAttribute('data-page')) || 'home';
+  }
+
   function FanHub() {
+    this.page = getPage();
     this.cfg = api.getConfig();
     this.event = null;
     this.eventId = this.cfg.eventId;
@@ -142,35 +147,74 @@
 
   FanHub.prototype.init = function () {
     var self = this;
-    this.bindChrome();
-    if (api.isConfigured()) {
-      this.renderStageMenu();
+
+    if (this.page === 'matches') {
+      this.bindStageDropdown();
     }
 
     if (!api.isConfigured()) {
-      this.showError('#hub-winner-grid', 'Configure js/config.js with Supabase keys.');
+      var errSel = {
+        home: null,
+        winner: '#hub-winner-grid',
+        matches: '#matches-container',
+        arch: '#archive-list',
+      }[this.page];
+      if (errSel) this.showError(errSel, 'Configure js/config.js with Supabase keys.');
       return;
     }
 
+    if (this.page === 'home') {
+      this.initHome();
+      return;
+    }
+    if (this.page === 'winner') {
+      this.initWinner();
+      return;
+    }
+    if (this.page === 'matches') {
+      this.initMatches();
+      return;
+    }
+    if (this.page === 'arch') {
+      this.initArch();
+    }
+  };
+
+  FanHub.prototype.initHome = function () {
+    var self = this;
     api.fetchFeaturedEvent()
       .then(function (event) {
         self.event = event;
-        if (event && event.id) self.eventId = event.id;
-        self.renderHero(event);
-        return Promise.all([
-          self.loadWinner(),
-          self.loadMatchPolls(),
-          self.loadArchive(),
-        ]);
+        self.renderHomeHero(event);
       })
       .catch(function (err) {
-        console.error('[hub] init failed', err);
-        self.showError('#hub-winner-grid', 'Could not load event data.');
+        console.error('[hub] home failed', err);
+      });
+  };
+
+  FanHub.prototype.renderHomeHero = function (event) {
+    if (!event) return;
+    var title = $('#home-event-title');
+    var meta = $('#home-event-meta');
+    if (title) title.textContent = event.title || 'FIFA World Cup 2026';
+    if (meta) meta.textContent = event.subtitle || 'USA · Mexico · Canada';
+    document.title = (event.title || 'FanVote') + ' — Fan Poll Hub';
+  };
+
+  FanHub.prototype.initWinner = function () {
+    var self = this;
+    api.fetchFeaturedEvent()
+      .then(function (event) {
+        if (event && event.id) self.eventId = event.id;
+        return self.loadWinner();
+      })
+      .catch(function (err) {
+        console.error('[hub] winner init failed', err);
+        self.showError('#hub-winner-grid', 'Could not load tournament poll.');
       })
       .then(function () {
         self.refreshTimer = setInterval(function () {
           self.loadWinner(true);
-          self.refreshVisibleMatchDetails();
         }, self.cfg.refreshIntervalMs || 15000);
 
         var resizeTimer;
@@ -185,37 +229,31 @@
       });
   };
 
-  FanHub.prototype.bindChrome = function () {
+  FanHub.prototype.initMatches = function () {
     var self = this;
-
-    $all('[data-tab]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        $all('[data-tab]').forEach(function (b) { b.classList.remove('is-active'); });
-        $all('.tab-panel').forEach(function (p) { p.classList.remove('is-active'); });
-        btn.classList.add('is-active');
-        var panel = document.getElementById('panel-' + btn.getAttribute('data-tab'));
-        if (panel) panel.classList.add('is-active');
-        if (btn.getAttribute('data-tab') === 'matches') {
-          self.renderMatches();
-        } else {
-          self.closeStageDropdown();
-        }
+    this.renderStageMenu();
+    api.fetchFeaturedEvent()
+      .then(function (event) {
+        if (event && event.id) self.eventId = event.id;
+        return self.loadMatchPolls();
+      })
+      .then(function () {
+        self.renderMatches();
+      })
+      .catch(function (err) {
+        console.error('[hub] matches init failed', err);
+        var c = $('#matches-container');
+        if (c) c.innerHTML = '<p class="hub-empty">Could not load matches.</p>';
+      })
+      .then(function () {
+        self.refreshTimer = setInterval(function () {
+          self.refreshVisibleMatchDetails();
+        }, self.cfg.refreshIntervalMs || 15000);
       });
-    });
+  };
 
-    $all('[data-nav]').forEach(function (el) {
-      el.addEventListener('click', function (e) {
-        if (el.tagName === 'A') e.preventDefault();
-        var target = el.getAttribute('data-nav');
-        $all('.screen').forEach(function (s) { s.classList.remove('is-visible'); });
-        $all('[data-nav]').forEach(function (n) { n.classList.remove('is-active'); });
-        var screen = document.getElementById('screen-' + target);
-        if (screen) screen.classList.add('is-visible');
-        el.classList.add('is-active');
-      });
-    });
-
-    this.bindStageDropdown();
+  FanHub.prototype.initArch = function () {
+    this.loadArchive();
   };
 
   FanHub.prototype.bindStageDropdown = function () {
@@ -321,14 +359,6 @@
     }).join('');
   };
 
-  FanHub.prototype.renderHero = function (event) {
-    if (!event) return;
-    var title = $('#event-title');
-    var meta = $('#event-meta');
-    if (title) title.textContent = event.title || 'Fan voting';
-    if (meta) meta.textContent = event.subtitle || '';
-    document.title = (event.title || 'FanVote') + ' — Fan Poll Hub';
-  };
 
   FanHub.prototype.loadWinner = function (silent) {
     var self = this;
@@ -771,7 +801,7 @@
   };
 
   FanHub.prototype.renderArchiveCard = function (row, detail) {
-    var link = row.event_slug === 'ucl-final-2026' ? 'vote.html' : '#';
+    var link = row.event_slug === 'ucl-final-2026' ? 'ucl.html' : '#';
     var result = '';
     if (detail && detail.poll && detail.poll.winner_choice_id) {
       var winner = choiceById(detail.choices || [], detail.poll.winner_choice_id);
