@@ -687,6 +687,10 @@
     .shell--home {
       max-width: 1200px;
       position: relative;
+      overflow-x: clip;
+    }
+    body[data-page="home"] {
+      overflow-x: clip;
     }
     .shell--home .topbar {
       z-index: 10;
@@ -707,35 +711,45 @@
       position: relative;
       flex: 1;
       display: grid;
-      grid-template-columns: 1fr;
-      grid-template-rows: 1fr auto;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: 1fr auto auto;
       align-items: center;
-      justify-items: center;
-      gap: 1rem;
-      padding: 0 1rem 1.25rem;
+      justify-items: stretch;
+      gap: 0.75rem;
+      padding: 0 0.75rem 1rem;
       min-height: calc(100vh - 3.25rem);
       overflow: hidden;
+      overflow-x: clip;
+      width: 100%;
+      max-width: 100%;
+    }
+    .home-stage__center {
+      grid-row: 1;
+      grid-column: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+      max-width: min(72vw, 16rem);
+      margin: -3.25rem auto 0;
+      padding-top: calc(3.25rem + 15px);
+      z-index: 11;
+      pointer-events: none;
+      min-width: 0;
     }
     .home-stage__backdrop {
-      position: fixed;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
+      position: relative;
       width: 100%;
-      max-width: 1200px;
-      height: 100vh;
-      z-index: 11;
       display: flex;
       align-items: flex-start;
       justify-content: center;
-      padding-top: 15px;
-      box-sizing: border-box;
       pointer-events: none;
     }
     .home-stage__trophy {
-      height: calc(100vh - 15px);
+      height: calc(100vh - 11rem);
       width: auto;
-      max-width: min(42vw, 13.5rem);
+      max-width: 100%;
       object-fit: contain;
       object-position: top center;
       filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.5));
@@ -743,10 +757,9 @@
     .home-stage__copy {
       position: relative;
       z-index: 12;
-      grid-row: 2;
-      align-self: end;
+      width: 100%;
       text-align: center;
-      padding: 0 1rem 0.25rem;
+      padding: 0.35rem 0 0.5rem;
       pointer-events: none;
     }
     .home-stage__tag {
@@ -863,7 +876,7 @@
       display: block;
       width: 100%;
       height: auto;
-      max-height: min(44vh, 22rem);
+      max-height: min(50vh, 26rem);
       object-fit: contain;
       object-position: center;
       background: #05080c;
@@ -902,7 +915,6 @@
           0 0 0 1px rgba(245, 197, 24, 0.25),
           0 12px 36px rgba(0, 0, 0, 0.45),
           0 0 40px rgba(245, 197, 24, 0.2);
-        transform: translateY(-3px);
       }
       .portal-chip:hover .portal-chip__img {
         transform: scale(1.02);
@@ -918,52 +930,57 @@
 
     @media (max-width: 767px) {
       .home-stage {
-        grid-template-rows: 1fr auto auto auto;
+        grid-template-rows: auto auto auto;
         min-height: calc(100vh - 3.25rem);
-        padding-bottom: 1rem;
+        padding-bottom: 0.75rem;
       }
-      .home-stage__copy {
-        grid-row: 4;
-        padding-bottom: 0.5rem;
-      }
-      .portal-btn--left { grid-row: 2; max-width: 100%; }
-      .portal-btn--right { grid-row: 3; max-width: 100%; }
-      .portal-chip__img {
-        max-height: min(40vh, 20rem);
+      .home-stage__center {
+        max-width: min(78vw, 15rem);
       }
       .home-stage__trophy {
-        height: calc(100vh - 15px);
-        max-width: min(58vw, 11rem);
+        height: min(52vh, 22rem);
+      }
+      .portal-btn--left { grid-row: 2; max-width: 100%; min-width: 0; }
+      .portal-btn--right { grid-row: 3; max-width: 100%; min-width: 0; }
+      .portal-chip__img {
+        max-height: min(46vh, 24rem);
       }
     }
     @media (min-width: 768px) {
       .home-stage {
-        grid-template-columns: minmax(12rem, 22rem) 1fr minmax(10.5rem, 14rem);
+        grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr) minmax(0, 1fr);
         grid-template-rows: 1fr;
         align-items: center;
-        padding: 0 1.5rem 1.25rem;
+        padding: 0 0.75rem 1rem;
+        gap: 0.5rem;
       }
-      .home-stage__copy {
+      .home-stage__center {
         grid-column: 2;
         grid-row: 1;
-        align-self: end;
-        padding-bottom: 1rem;
+        align-self: stretch;
+        max-width: min(36vw, 17rem);
+        margin-top: -3.25rem;
+      }
+      .home-stage__trophy {
+        height: calc(100vh - 10rem);
       }
       .portal-btn--left {
         grid-column: 1;
         grid-row: 1;
-        justify-self: center;
+        justify-self: stretch;
         align-self: center;
-        max-width: 14rem;
+        max-width: none;
         min-height: 12rem;
+        min-width: 0;
       }
       .portal-chip.portal-btn--left {
-        max-width: min(100%, 22rem);
+        max-width: 100%;
         min-height: 0;
         align-self: center;
+        width: 100%;
       }
       .portal-chip__img {
-        max-height: min(56vh, 26rem);
+        max-height: min(64vh, 34rem);
       }
       .portal-btn--right {
         grid-column: 3;
@@ -972,13 +989,16 @@
         align-self: center;
         max-width: 14rem;
         min-height: 12rem;
-      }
-      .home-stage__trophy {
-        height: calc(100vh - 15px);
-        max-width: min(28vw, 15rem);
+        min-width: 0;
       }
     }
     @media (min-width: 1000px) {
+      .home-stage__center {
+        max-width: 18rem;
+      }
+      .portal-chip__img {
+        max-height: min(68vh, 36rem);
+      }
       .portal-btn {
         max-width: 15rem;
         min-height: 13rem;
