@@ -909,12 +909,19 @@
       color: var(--wc-green);
     }
     @media (hover: hover) and (pointer: fine) {
-      .portal-chip:hover .portal-chip__frame {
+      .portal-chip--winner:hover .portal-chip__frame {
         border-color: var(--wc-gold);
         box-shadow:
           0 0 0 1px rgba(245, 197, 24, 0.25),
           0 12px 36px rgba(0, 0, 0, 0.45),
           0 0 40px rgba(245, 197, 24, 0.2);
+      }
+      .portal-chip--matches:hover .portal-chip__frame {
+        border-color: var(--wc-green);
+        box-shadow:
+          0 0 0 1px rgba(0, 166, 81, 0.25),
+          0 12px 36px rgba(0, 0, 0, 0.45),
+          0 0 40px rgba(0, 166, 81, 0.2);
       }
       .portal-chip:hover .portal-chip__img {
         transform: scale(1.02);
@@ -922,9 +929,13 @@
       }
     }
     @media (hover: none) {
-      .portal-chip:active .portal-chip__frame {
+      .portal-chip--winner:active .portal-chip__frame {
         transform: scale(0.99);
         border-color: var(--wc-gold);
+      }
+      .portal-chip--matches:active .portal-chip__frame {
+        transform: scale(0.99);
+        border-color: var(--wc-green);
       }
     }
 
@@ -948,7 +959,7 @@
     }
     @media (min-width: 768px) {
       .home-stage {
-        grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr) minmax(0, 1.65fr);
         grid-template-rows: 1fr;
         align-items: center;
         padding: 0 0.75rem 1rem;
@@ -985,11 +996,17 @@
       .portal-btn--right {
         grid-column: 3;
         grid-row: 1;
-        justify-self: center;
+        justify-self: stretch;
         align-self: center;
-        max-width: 14rem;
+        max-width: none;
         min-height: 12rem;
         min-width: 0;
+      }
+      .portal-chip.portal-btn--right {
+        max-width: 100%;
+        min-height: 0;
+        align-self: center;
+        width: 100%;
       }
     }
     @media (min-width: 1000px) {
