@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="css/hub.css" />
 </head>
 <body data-page="home">
-  <div class="shell">
+  <div class="shell shell--home">
     <header class="topbar">
       <a class="logo" href="index.html">FanVote</a>
       <nav class="topnav topnav--split" aria-label="Site">
@@ -21,19 +21,11 @@
       </nav>
     </header>
 
-    <main class="page-main">
-      <section class="home-hero">
-        <div class="home-hero__emblem" aria-hidden="true">⚽</div>
-        <p class="home-hero__tag">Unofficial fan poll</p>
-        <h1 class="home-hero__title" id="home-event-title">FIFA World Cup 2026</h1>
-        <p class="home-hero__meta" id="home-event-meta">USA · Mexico · Canada</p>
-        <p class="home-hero__disclaimer">Not affiliated with FIFA. Fan voting only.</p>
-      </section>
-
-      <div class="portal-grid">
-        <a class="portal-card" href="winner.html">
+    <main class="page-main home-main">
+      <section class="home-stage" aria-label="World Cup 2026 fan polls">
+        <a class="portal-card portal-card--side portal-card--left" href="winner.html">
           <div class="portal-card__visual portal-card__visual--winner">
-            <svg class="portal-trophy" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <svg class="portal-trophy portal-trophy--sm" viewBox="0 0 64 64" fill="none" aria-hidden="true">
               <path d="M18 8h28v10c0 10-4 16-14 18v6h8v6H24v-6h8v-6C22 34 18 28 18 18V8z" fill="currentColor" opacity="0.9"/>
               <path d="M14 8H8v8c0 6 3 10 8 10M50 8h6v8c0 6-3 10-8 10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
               <rect x="22" y="50" width="20" height="6" rx="1" fill="currentColor"/>
@@ -41,14 +33,27 @@
           </div>
           <div class="portal-card__body">
             <h2 class="portal-card__title">Tournament winner</h2>
-            <p class="portal-card__desc">One pick for the whole World Cup — 48 teams, live fan rankings.</p>
-            <span class="portal-card__cta">Vote now →</span>
+            <p class="portal-card__desc">One pick · 48 teams</p>
+            <span class="portal-card__cta">Vote →</span>
           </div>
         </a>
 
-        <a class="portal-card" href="matches.html">
+        <div class="home-center">
+          <div class="home-center__art">
+            <img class="home-center__wc" src="assets/wc.avif" alt="" decoding="async" />
+            <img class="home-center__trophy" src="assets/wc-trophy.png" alt="" decoding="async" />
+          </div>
+          <div class="home-center__copy">
+            <p class="home-center__tag">Unofficial fan poll</p>
+            <h1 class="home-center__title" id="home-event-title">FIFA World Cup 2026</h1>
+            <p class="home-center__meta" id="home-event-meta">USA · Mexico · Canada</p>
+            <p class="home-center__disclaimer">Not affiliated with FIFA</p>
+          </div>
+        </div>
+
+        <a class="portal-card portal-card--side portal-card--right" href="matches.html">
           <div class="portal-card__visual portal-card__visual--matches">
-            <div class="portal-bracket" aria-hidden="true">
+            <div class="portal-bracket portal-bracket--sm" aria-hidden="true">
               <span>A</span><span>B</span><span>C</span><span>D</span>
               <span>E</span><span>F</span><span>G</span><span>H</span>
               <span>I</span><span>J</span><span>K</span><span>L</span>
@@ -56,11 +61,11 @@
           </div>
           <div class="portal-card__body">
             <h2 class="portal-card__title">Match polls</h2>
-            <p class="portal-card__desc">Predict each match — group stage open now, knockout coming later.</p>
+            <p class="portal-card__desc">Group stage open</p>
             <span class="portal-card__cta">Pick matches →</span>
           </div>
         </a>
-      </div>
+      </section>
     </main>
   </div>
 
