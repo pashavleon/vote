@@ -1,5 +1,7 @@
 # Индексация в Google
 
+**World Cup 2026:** keyword map, titles, FAQ — [SEO-WC-2026.md](./SEO-WC-2026.md)
+
 ## Search Console — как добавить sitemap
 
 **Важно:** property должен быть именно:
@@ -28,7 +30,10 @@
 2. GSC → **URL Inspection** → вставьте URL sitemap → **Test live URL**
    - Если Live test = OK, а Sitemaps = error → подождите 24–48 ч (часто кэш GSC после старого 500)
 3. Удалите старую запись sitemap в GSC и добавьте заново
-4. **Request indexing** для главной: `https://pashavleon.github.io/vote/`
+4. **Request indexing** (после деплоя SEO):
+   - `https://pashavleon.github.io/vote/`
+   - `https://pashavleon.github.io/vote/winner.html`
+   - `https://pashavleon.github.io/vote/matches.html`
 
 ## Файлы на сайте
 
