@@ -178,3 +178,98 @@ Track impressions/clicks for:
 - `world cup 2026 match predictions`  
 
 Compare before/after 4–6 weeks post-indexing request.
+
+---
+
+## Why zero traffic (diagnosis, May 2026)
+
+| Factor | Impact |
+|--------|--------|
+| **CSR-only grids** | `winner.html` / `matches.html` showed only “Loading…” to crawlers — no team or fixture text in HTML. **Fixed:** static `page-seo` blocks + `ItemList` JSON-LD on Home and Winner; groups block on Matches. |
+| **Head-term competition** | “World Cup 2026”, “schedule”, “streaming”, “tickets” dominated by FIFA, news, travel — we cannot win those without authority. |
+| **No backlinks / brand** | New GitHub Pages subdomain, no mentions, no social proof. |
+| **Indexing lag** | GSC request + sitemap alone take 2–8 weeks; tournament spike starts ~4 weeks before kickoff. |
+| **Niche mismatch** | We rank for *fan poll / vote / predict* — volume is 10–100× lower than schedule or streaming. |
+
+**Regenerate team SEO after roster changes:**
+
+```bash
+python scripts/gen_wc_teams_seo.py
+python scripts/validate_teams_seo.py   # 48/48 on index + winner
+```
+
+---
+
+## Top search clusters (English, pre-tournament 2026)
+
+Prioritize content we can honestly satisfy. Volume tiers are relative (not exact Google numbers).
+
+### Tier A — schedule & logistics (huge volume, low fit)
+
+| Queries | Our angle |
+|---------|-----------|
+| world cup 2026 schedule / fixtures / dates | FAQ on Home only — do not build a full schedule product |
+| world cup 2026 tickets / hotels / flights | Out of scope |
+| world cup 2026 streaming / where to watch | Out of scope |
+| world cup 2026 host cities / venues | One FAQ line + group opener text on Matches SEO block |
+
+### Tier B — tournament narrative (high volume, partial fit)
+
+| Queries | Target |
+|---------|--------|
+| world cup 2026 groups / group stage / draw | matches.html + static groups SEO |
+| world cup 2026 qualified teams / 48 teams | index + winner team lists |
+| world cup 2026 format / 104 matches | Home FAQ |
+| world cup 2026 favorites / odds / predictions | winner.html |
+| who will win world cup 2026 | winner.html (primary) |
+| spain / france / england / argentina / brazil world cup 2026 | Team lines on index + winner |
+| messi / mbappe world cup 2026 | Optional FAQ sentence — no player pages v1 |
+
+### Tier C — exact product fit (lower volume, winnable)
+
+| Queries | Target |
+|---------|--------|
+| world cup 2026 fan poll / fan vote | Home |
+| world cup 2026 predictor (fan) | Home, winner |
+| world cup 2026 match predictions fan | matches.html |
+| predict world cup 2026 games | matches.html |
+| mexico vs south africa world cup 2026 | matches groups SEO (opener) |
+| usa vs paraguay world cup 2026 | matches groups SEO |
+| world cup 2026 group a predictions | matches.html Group A block |
+
+### Tier D — long-tail per team (48 × patterns)
+
+Pattern: `{Country} world cup 2026`, `{Country} world cup 2026 winner odds`, `will {Country} win world cup 2026`.
+
+**Coverage:** each of 48 nations appears in static HTML on **index.html** and **winner.html** (validated by `validate_teams_seo.py`). **matches.html** lists every team inside group paragraphs.
+
+### Tier E — post-kickoff spikes (plan ahead)
+
+| Queries | Action when stage opens |
+|---------|-------------------------|
+| world cup 2026 results / standings | Not our product — link FAQ to official sources |
+| world cup 2026 round of 32 predictions | Enable knockout voting + update matches meta |
+| `{team} vs {team} world cup 2026 prediction` | Dynamic `<title>` per visible stage in hub.js (phase 2) |
+
+---
+
+## Optimization roadmap (English)
+
+**Done (v1.1)**
+
+- Chevron fix for group collapse (CSS, no broken minus glyph).
+- Static team/group SEO HTML + ItemList schema.
+- Sitemap `lastmod` refresh.
+
+**Next — high ROI**
+
+1. GSC: URL inspection → **Request indexing** for `/`, `winner.html`, `matches.html`.
+2. Add 2–3 external links (Reddit r/soccer, personal X/Telegram, project README) — even one DR30+ link helps.
+3. Expand Home `keywords` / description with “fan vote”, “unofficial poll” (not head terms).
+4. **Phase 2:** `document.title` on matches when user picks stage/group (`World Cup 2026 Group D predictions`).
+5. **Phase 2:** `groups.html` or `/teams/spain.html` only if GSC shows impressions but low CTR for team long-tail.
+
+**Do not**
+
+- Fake “live scores” or copy FIFA schedule tables wholesale (copyright + wrong intent).
+- Buy traffic or keyword-stuff 48 teams into `<title>`.

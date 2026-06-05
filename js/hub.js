@@ -35,6 +35,17 @@
     return div.innerHTML;
   }
 
+  var MATCH_WATCH_LINKS = {
+    fifaSchedule:
+      'https://www.fifa.com/fifaplus/en/tournaments/mens/worldcup/canadamexicousa2026/scores-fixtures',
+    fifaWatch:
+      'https://www.fifa.com/fifaplus/en/articles/where-to-watch-fifa-world-cup-2026',
+    liveSoccerTv: 'https://www.livesoccertv.com/competitions/fifa-world-cup/',
+  };
+
+  var matchInfoModalEl = null;
+  var matchInfoLastFocus = null;
+
   function formatKickoff(iso) {
     if (!iso) return '';
     try {
@@ -48,6 +59,95 @@
     } catch (e) {
       return iso;
     }
+  }
+
+  function formatKickoffInZone(iso, timeZone) {
+    if (!iso) return '';
+    try {
+      return new Date(iso).toLocaleString('en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        timeZone: timeZone,
+        timeZoneName: 'short',
+      });
+    } catch (e) {
+      return iso;
+    }
+  }
+
+  function ensureMatchInfoModal() {
+    if (matchInfoModalEl) return matchInfoModalEl;
+    var el = document.createElement('div');
+    el.className = 'match-info-modal';
+    el.id = 'match-info-modal';
+    el.hidden = true;
+    el.innerHTML =
+      '<div class="match-info-modal__backdrop" data-match-info-close></div>' +
+      '<div class="match-info-modal__panel" role="dialog" aria-modal="true" aria-labelledby="match-info-title">' +
+        '<button type="button" class="match-info-modal__close" data-match-info-close aria-label="Close">&times;</button>' +
+        '<h2 class="match-info-modal__title" id="match-info-title"></h2>' +
+        '<p class="match-info-modal__stage" id="match-info-stage"></p>' +
+        '<dl class="match-info-modal__times" id="match-info-times"></dl>' +
+        '<p class="match-info-modal__venue" id="match-info-venue"></p>' +
+        '<section class="match-info-modal__watch" aria-labelledby="match-info-watch-title">' +
+          '<h3 class="match-info-modal__watch-title" id="match-info-watch-title">Where to watch</h3>' +
+          '<p class="match-info-modal__watch-note">TV channels vary by country. Use these third-party guides — not affiliated with FanVote or FIFA.</p>' +
+          '<ul class="match-info-modal__links">' +
+            '<li><a href="' + MATCH_WATCH_LINKS.fifaWatch + '" target="_blank" rel="noopener noreferrer">FIFA — where to watch</a></li>' +
+            '<li><a href="' + MATCH_WATCH_LINKS.liveSoccerTv + '" target="_blank" rel="noopener noreferrer">Live Soccer TV — broadcast listings</a></li>' +
+            '<li><a href="' + MATCH_WATCH_LINKS.fifaSchedule + '" target="_blank" rel="noopener noreferrer">FIFA — official schedule</a></li>' +
+          '</ul>' +
+        '</section>' +
+      '</div>';
+    document.body.appendChild(el);
+    el.addEventListener('click', function (e) {
+      if (e.target.hasAttribute('data-match-info-close')) closeMatchInfoModal();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && matchInfoModalEl && !matchInfoModalEl.hidden) closeMatchInfoModal();
+    });
+    matchInfoModalEl = el;
+    return el;
+  }
+
+  function openMatchInfoModal(opts) {
+    var modal = ensureMatchInfoModal();
+    matchInfoLastFocus = document.activeElement;
+    $('#match-info-title', modal).textContent = opts.home + ' vs ' + opts.away;
+    $('#match-info-stage', modal).textContent = opts.stage || '';
+    var timesEl = $('#match-info-times', modal);
+    if (opts.kickoff) {
+      timesEl.innerHTML =
+        '<div><dt>Your time</dt><dd>' + escapeHtml(formatKickoffInZone(opts.kickoff, undefined)) + '</dd></div>' +
+        '<div><dt>US Eastern</dt><dd>' + escapeHtml(formatKickoffInZone(opts.kickoff, 'America/New_York')) + '</dd></div>' +
+        '<div><dt>UTC</dt><dd>' + escapeHtml(formatKickoffInZone(opts.kickoff, 'UTC')) + '</dd></div>';
+      timesEl.hidden = false;
+    } else {
+      timesEl.innerHTML = '';
+      timesEl.hidden = true;
+    }
+    var venueEl = $('#match-info-venue', modal);
+    if (opts.venue) {
+      venueEl.innerHTML = '<strong>Venue:</strong> ' + escapeHtml(opts.venue);
+      venueEl.hidden = false;
+    } else {
+      venueEl.textContent = '';
+      venueEl.hidden = true;
+    }
+    modal.hidden = false;
+    document.body.classList.add('match-info-modal-open');
+    var closeBtn = $('.match-info-modal__close', modal);
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function closeMatchInfoModal() {
+    if (!matchInfoModalEl || matchInfoModalEl.hidden) return;
+    matchInfoModalEl.hidden = true;
+    document.body.classList.remove('match-info-modal-open');
+    if (matchInfoLastFocus && matchInfoLastFocus.focus) matchInfoLastFocus.focus();
   }
 
   function formatCount(n) {
@@ -646,11 +746,17 @@
     if (poll.status === 'open' && canVote) cardCls += ' is-live';
     if (closed || !canVote) cardCls += ' is-closed';
 
-    var headMeta = formatKickoff(match.kickoff_at || poll.closes_at);
+    var kickoffIso = match.kickoff_at || poll.closes_at || '';
+    var headMeta = formatKickoff(kickoffIso);
     if (match.venue) headMeta += ' · ' + venueShort(match.venue);
 
     var homeTeamId = match.home_team_id || '';
     var awayTeamId = match.away_team_id || '';
+    var homeLabel = home ? home.label : 'Home';
+    var awayLabel = away ? away.label : 'Away';
+    var stageLabel = match.group_code
+      ? 'Group ' + match.group_code
+      : (match.stage_label || match.stage || '');
 
     var chips = '';
     var chipsDisabled = !votingOpen || Boolean(userChoice);
@@ -680,10 +786,23 @@
     return (
       '<article class="' + cardCls + '" data-match-poll-id="' + escapeHtml(poll.id) + '">' +
         '<div class="match-card__head">' +
-          '<span>' + escapeHtml(headMeta) + '</span>' +
-          '<span class="match-card__badge ' + statusBadgeClass(canVote ? poll.status : 'closed') + '">' +
-            escapeHtml(canVote ? statusLabel(poll.status) : 'View only') +
-          '</span>' +
+          '<span class="match-card__meta">' + escapeHtml(headMeta) + '</span>' +
+          '<div class="match-card__actions">' +
+            '<button type="button" class="match-card__info" aria-label="Match info: kick-off, venue, TV"' +
+              ' data-info-home="' + escapeHtml(homeLabel) + '"' +
+              ' data-info-away="' + escapeHtml(awayLabel) + '"' +
+              ' data-info-kickoff="' + escapeHtml(kickoffIso) + '"' +
+              ' data-info-venue="' + escapeHtml(match.venue || '') + '"' +
+              ' data-info-stage="' + escapeHtml(stageLabel) + '">' +
+              '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">' +
+                '<circle cx="12" cy="12" r="10"/>' +
+                '<path d="M12 16v-4M12 8h.01"/>' +
+              '</svg>' +
+            '</button>' +
+            '<span class="match-card__badge ' + statusBadgeClass(canVote ? poll.status : 'closed') + '">' +
+              escapeHtml(canVote ? statusLabel(poll.status) : 'View only') +
+            '</span>' +
+          '</div>' +
         '</div>' +
         '<div class="' + voteCls + '">' + chips + '</div>' +
       '</article>'
@@ -732,6 +851,19 @@
         var pollId = btn.getAttribute('data-poll-id');
         var choiceId = btn.getAttribute('data-match-vote');
         self.castMatchChoice(pollId, choiceId);
+      });
+    });
+    $all('.match-card__info', root).forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        openMatchInfoModal({
+          home: btn.getAttribute('data-info-home') || 'Home',
+          away: btn.getAttribute('data-info-away') || 'Away',
+          kickoff: btn.getAttribute('data-info-kickoff') || '',
+          venue: btn.getAttribute('data-info-venue') || '',
+          stage: btn.getAttribute('data-info-stage') || '',
+        });
       });
     });
   };

@@ -1,0 +1,47 @@
+﻿=== FIFA World Cup 2026 тАФ group stage audit ===
+Official: 12x4 teams, 6 matches/group, 3 games/team, 72 group matches.
+
+Group matches in seed: 67 (expected 72)
+  Group A: 6 fixtures тАФ {'cze': 3, 'kor': 3, 'mex': 3, 'rsa': 3}
+  Group B: 5 fixtures тАФ {'bih': 3, 'can': 3, 'qat': 2, 'sui': 2}
+  Group C: 6 fixtures тАФ {'bra': 3, 'hti': 3, 'mar': 3, 'sco': 3}
+  Group D: 4 fixtures тАФ {'aus': 2, 'par': 1, 'tur': 2, 'usa': 3}
+  Group E: 6 fixtures тАФ {'civ': 3, 'cuw': 3, 'ecu': 3, 'ger': 3}
+  Group F: 6 fixtures тАФ {'jpn': 3, 'ned': 3, 'swe': 3, 'tun': 3}
+  Group G: 6 fixtures тАФ {'bel': 3, 'egy': 3, 'irn': 3, 'nzl': 3}
+  Group H: 6 fixtures тАФ {'cpv': 3, 'esp': 3, 'ksa': 3, 'uru': 3}
+  Group I: 6 fixtures тАФ {'fra': 3, 'irq': 3, 'nor': 3, 'sen': 3}
+  Group J: 4 fixtures тАФ {'alg': 2, 'arg': 3, 'aut': 2, 'jor': 1}
+  Group K: 6 fixtures тАФ {'cod': 3, 'col': 3, 'por': 3, 'uzb': 3}
+  Group L: 6 fixtures тАФ {'cro': 3, 'eng': 3, 'gha': 3, 'pan': 3}
+
+All stages: 104 matches in seed (expected 104)
+
+Seed vs generator GROUP_FIXTURES:
+  Group A: matches generator
+  Group C: matches generator
+  Group E: matches generator
+  Group F: matches generator
+  Group G: matches generator
+  Group H: matches generator
+  Group I: matches generator
+  Group K: matches generator
+  Group L: matches generator
+
+=== Result ===
+FAILED (15 errors)
+  FAIL Group B: 5 matches in seed, expected 6
+  FAIL Group D: 4 matches in seed, expected 6
+  FAIL Group J: 4 matches in seed, expected 6
+  FAIL Total group matches 67 != 72
+  FAIL Group B: sui has 2 games, expected 3
+  FAIL Group B: qat has 2 games, expected 3
+  FAIL Group D: par has 1 games, expected 3
+  FAIL Group D: aus has 2 games, expected 3
+  FAIL Group D: tur has 2 games, expected 3
+  FAIL Group J: alg has 2 games, expected 3
+  FAIL Group J: aut has 2 games, expected 3
+  FAIL Group J: jor has 1 games, expected 3
+  FAIL Group B: seed != generator тАФ regenerate seed SQL
+  FAIL Group D: seed != generator тАФ regenerate seed SQL
+  FAIL Group J: seed != generator тАФ regenerate seed SQL
