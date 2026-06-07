@@ -669,7 +669,14 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
+      margin-bottom: 0.35rem;
+    }
+    .match-info-modal__votes {
+      font-size: 0.72rem;
+      color: var(--wc-green);
+      font-weight: 600;
       margin-bottom: 0.75rem;
+      line-height: 1.4;
     }
     .match-info-modal__times {
       display: grid;

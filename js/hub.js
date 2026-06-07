@@ -90,6 +90,7 @@
         '<button type="button" class="match-info-modal__close" data-match-info-close aria-label="Close">&times;</button>' +
         '<h2 class="match-info-modal__title" id="match-info-title"></h2>' +
         '<p class="match-info-modal__stage" id="match-info-stage"></p>' +
+        '<p class="match-info-modal__votes" id="match-info-votes"></p>' +
         '<dl class="match-info-modal__times" id="match-info-times"></dl>' +
         '<p class="match-info-modal__venue" id="match-info-venue"></p>' +
         '<section class="match-info-modal__watch" aria-labelledby="match-info-watch-title">' +
@@ -118,6 +119,17 @@
     matchInfoLastFocus = document.activeElement;
     $('#match-info-title', modal).textContent = opts.home + ' vs ' + opts.away;
     $('#match-info-stage', modal).textContent = opts.stage || '';
+    var votesEl = $('#match-info-votes', modal);
+    var voteCount = Number(opts.votes || 0);
+    if (voteCount > 0) {
+      votesEl.innerHTML =
+        '<strong>Fan poll:</strong> ' + escapeHtml(formatCount(voteCount)) +
+        ' vote' + (voteCount === 1 ? '' : 's') + ' so far';
+      votesEl.hidden = false;
+    } else {
+      votesEl.textContent = 'Fan poll: no votes yet — be the first to predict this match';
+      votesEl.hidden = false;
+    }
     var timesEl = $('#match-info-times', modal);
     if (opts.kickoff) {
       timesEl.innerHTML =
@@ -788,12 +800,14 @@
         '<div class="match-card__head">' +
           '<span class="match-card__meta">' + escapeHtml(headMeta) + '</span>' +
           '<div class="match-card__actions">' +
-            '<button type="button" class="match-card__info" aria-label="Match info: kick-off, venue, TV"' +
+            '<button type="button" class="match-card__info" aria-label="Match info: kick-off, venue, votes, TV"' +
+              ' data-info-poll-id="' + escapeHtml(poll.id) + '"' +
               ' data-info-home="' + escapeHtml(homeLabel) + '"' +
               ' data-info-away="' + escapeHtml(awayLabel) + '"' +
               ' data-info-kickoff="' + escapeHtml(kickoffIso) + '"' +
               ' data-info-venue="' + escapeHtml(match.venue || '') + '"' +
-              ' data-info-stage="' + escapeHtml(stageLabel) + '">' +
+              ' data-info-stage="' + escapeHtml(stageLabel) + '"' +
+              ' data-info-votes="' + escapeHtml(String(detail.total_votes || 0)) + '">' +
               '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">' +
                 '<circle cx="12" cy="12" r="10"/>' +
                 '<path d="M12 16v-4M12 8h.01"/>' +
@@ -857,12 +871,18 @@
       btn.addEventListener('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
+        var pollId = btn.getAttribute('data-info-poll-id') || '';
+        var detail = pollId ? self.matchDetails[pollId] : null;
+        var votes = detail && detail.total_votes != null
+          ? detail.total_votes
+          : btn.getAttribute('data-info-votes');
         openMatchInfoModal({
           home: btn.getAttribute('data-info-home') || 'Home',
           away: btn.getAttribute('data-info-away') || 'Away',
           kickoff: btn.getAttribute('data-info-kickoff') || '',
           venue: btn.getAttribute('data-info-venue') || '',
           stage: btn.getAttribute('data-info-stage') || '',
+          votes: votes,
         });
       });
     });
