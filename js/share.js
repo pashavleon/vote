@@ -50,6 +50,18 @@
         return 'https://vk.com/share.php?url=' + p.encUrl + '&title=' + p.encText;
       case 'reddit':
         return 'https://www.reddit.com/submit?url=' + p.encUrl + '&title=' + p.encText;
+      case 'linkedin':
+        return 'https://www.linkedin.com/sharing/share-offsite/?url=' + p.encUrl;
+      case 'threads':
+        return 'https://www.threads.net/intent/post?text=' + p.encFull;
+      case 'bluesky':
+        return 'https://bsky.app/intent/compose?text=' + p.encFull;
+      case 'pinterest':
+        return 'https://pinterest.com/pin/create/button/?url=' + p.encUrl + '&description=' + p.encText;
+      case 'line':
+        return 'https://social-plugins.line.me/lineit/share?url=' + p.encUrl;
+      case 'email':
+        return 'mailto:?subject=' + encodeURIComponent(t('page.title')) + '&body=' + p.encFull;
       default:
         return '#';
     }
@@ -135,6 +147,23 @@
         copyLink(root);
       });
     }
+
+    root.querySelectorAll('[data-share-copy-paste]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var p = buildSharePayload(root);
+        var done = function () {
+          var key = btn.getAttribute('data-share-feedback-key') || 'share.copied';
+          showFeedback(root, key);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(p.full).then(done).catch(function () {
+            fallbackCopy(p.full, done);
+          });
+        } else {
+          fallbackCopy(p.full, done);
+        }
+      });
+    });
   }
 
   function init() {

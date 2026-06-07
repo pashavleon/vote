@@ -591,8 +591,11 @@
           throw res.error;
         }
         api.setStoredChoice(self.winnerPollId, choiceId);
+        var wLabel = choiceId;
+        var wBtn = document.querySelector('[data-winner-choice="' + choiceId + '"] .team-card__name');
+        if (wBtn) wLabel = wBtn.textContent.trim();
         document.dispatchEvent(new CustomEvent('fan-vote-cast', {
-          detail: { pollId: self.winnerPollId, choice: choiceId },
+          detail: { pollId: self.winnerPollId, choice: choiceId, label: wLabel },
         }));
         return self.loadWinner(true);
       })
@@ -905,6 +908,19 @@
         } else {
           api.setStoredChoice(pollId, choiceId);
         }
+        var snap = self.matchDetails[pollId];
+        var choiceLabel = choiceId;
+        var matchTitle = '';
+        if (snap && snap.choices) {
+          var picked = choiceById(snap.choices, choiceId);
+          if (picked) choiceLabel = picked.label;
+          var h = choiceById(snap.choices, 'home');
+          var a = choiceById(snap.choices, 'away');
+          if (h && a) matchTitle = h.label + ' vs ' + a.label;
+        }
+        document.dispatchEvent(new CustomEvent('fan-vote-cast', {
+          detail: { pollId: pollId, choice: choiceId, label: choiceLabel, matchTitle: matchTitle },
+        }));
         return api.fetchPollDetail(pollId);
       })
       .then(function (detail) {
