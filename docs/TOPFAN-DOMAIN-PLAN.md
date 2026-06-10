@@ -50,7 +50,7 @@ A/AAAA на IP GitHub Pages (актуальный список: [GitHub Docs](ht
 | GSC | Новое property **URL prefix** `https://topfan.vote/` |
 | Verify | DNS TXT или HTML (GitHub Pages) |
 | Submit | sitemap + Request indexing: `/`, `winner.html`, `matches.html` |
-| Legacy | Оставить property `github.io/vote` 2–3 месяца для сравнения |
+| Legacy | Оставить property `github.io/vote` 2–3 месяца; **не** Change of address (path-level → domain) |
 
 **Ключевые кластеры:** `wc 2026 vote`, `world cup 2026 fan vote`, `vote wc 2026`, `top fan vote`, match predictions.
 

@@ -12,13 +12,34 @@ Property (URL prefix):
 
 Verify: `https://topfan.vote/googlea68bc1e7bd7bab2b.html` (уже в репо).
 
-### Change of address (legacy)
+### Change of address — обычно НЕ нужен
 
-Если есть property `https://pashavleon.github.io/vote/`:
+**Важно:** инструмент **Change of address** в GSC работает только для property **на уровне домена** (`example.com`), а не для пути (`github.io/vote/`). Сообщение *«set up 301 redirects»* часто появляется, когда инструмент не подходит к вашему случаю.
 
-1. GSC → старое property → **Settings → Change of address**
-2. Указать `https://topfan.vote/`
-3. Оставить оба property 2–3 месяца для сравнения
+Миграция `pashavleon.github.io/vote/` → `topfan.vote/`:
+
+| Шаг | Действие |
+|-----|----------|
+| 301 | GitHub Pages уже редиректит (проверка ниже) |
+| GSC новый | Property `https://topfan.vote/` — sitemap + Request indexing |
+| GSC старый | Оставить 2–3 месяца для сравнения, **Change of address не использовать** |
+| Canonical | Уже `https://topfan.vote/...` на всех страницах |
+
+Проверка 301 (должен быть `301` и `Location: https://topfan.vote/...`):
+
+```bash
+curl -I https://pashavleon.github.io/vote/
+curl -I https://pashavleon.github.io/vote/winner.html
+curl -I https://pashavleon.github.io/vote/matches.html
+```
+
+Ожидаемый результат:
+
+- `https://pashavleon.github.io/vote/` → `https://topfan.vote/`
+- `https://pashavleon.github.io/vote/winner.html` → `https://topfan.vote/winner.html`
+- `https://pashavleon.github.io/vote/matches.html` → `https://topfan.vote/matches.html`
+
+Редиректы держать **минимум 180 дней** (рекомендация Google).
 
 ## Sitemap
 
