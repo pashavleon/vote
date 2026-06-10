@@ -1,6 +1,6 @@
 /**
  * TOP FAN VOTE hub — home, winner, matches, archive pages.
- * Set data-page on body: home | winner | matches | arch
+ * Set data-page on body: home | winner | favorite | matches | arch
  */
 (function () {
   'use strict';
@@ -18,8 +18,29 @@
 
   var GROUPS = 'ABCDEFGHIJKL'.split('');
 
-  /** Visible winner grid height before "expand all". */
-  var WINNER_GRID_ROWS = 5;
+  /** Visible team grid height before "expand all". */
+  var TEAM_GRID_ROWS = 5;
+
+  var TEAM_GRID = {
+    winner: {
+      pollIdKey: 'winnerPollId',
+      fallbackPollId: 'wc-2026-winner',
+      gridSel: '#hub-winner-grid',
+      totalSel: '#winner-total',
+      messageSel: '#winner-message',
+      expandId: 'winner-expand',
+      loadError: 'Could not load tournament poll.',
+    },
+    favorite: {
+      pollIdKey: 'favoritePollId',
+      fallbackPollId: 'wc-2026-favorite',
+      gridSel: '#hub-favorite-grid',
+      totalSel: '#favorite-total',
+      messageSel: '#favorite-message',
+      expandId: 'favorite-expand',
+      loadError: 'Could not load favorite team poll.',
+    },
+  };
 
   function $(sel, root) {
     return (root || document).querySelector(sel);
@@ -270,6 +291,7 @@
       var errSel = {
         home: null,
         winner: '#hub-winner-grid',
+        favorite: '#hub-favorite-grid',
         matches: '#matches-container',
         arch: '#archive-list',
       }[this.page];
@@ -282,7 +304,11 @@
       return;
     }
     if (this.page === 'winner') {
-      this.initWinner();
+      this.initTeamGridPoll('winner');
+      return;
+    }
+    if (this.page === 'favorite') {
+      this.initTeamGridPoll('favorite');
       return;
     }
     if (this.page === 'matches') {
@@ -463,32 +489,54 @@
       });
   };
 
-  FanHub.prototype.initWinner = function () {
+  FanHub.prototype.getTeamGridPollId = function (kind) {
+    var meta = TEAM_GRID[kind];
+    if (!meta) return '';
+    return this.cfg[meta.pollIdKey] || meta.fallbackPollId;
+  };
+
+  FanHub.prototype.teamGridBucket = function (kind) {
+    if (!this._teamGridBuckets) this._teamGridBuckets = Object.create(null);
+    if (!this._teamGridBuckets[kind]) {
+      this._teamGridBuckets[kind] = { detail: null, expanded: false };
+    }
+    return this._teamGridBuckets[kind];
+  };
+
+  FanHub.prototype.initTeamGridPoll = function (kind) {
     var self = this;
+    var meta = TEAM_GRID[kind];
+    if (!meta) return;
+
     api.fetchFeaturedEvent()
       .then(function (event) {
         if (event && event.id) self.eventId = event.id;
-        return self.loadWinner();
+        return self.loadTeamGridPoll(kind);
       })
       .catch(function (err) {
-        console.error('[hub] winner init failed', err);
-        self.showError('#hub-winner-grid', 'Could not load tournament poll.');
+        console.error('[hub] ' + kind + ' init failed', err);
+        self.showError(meta.gridSel, meta.loadError);
       })
       .then(function () {
         self.refreshTimer = setInterval(function () {
-          self.loadWinner(true);
+          self.loadTeamGridPoll(kind, true);
         }, self.cfg.refreshIntervalMs || 15000);
 
         var resizeTimer;
         window.addEventListener('resize', function () {
           clearTimeout(resizeTimer);
           resizeTimer = setTimeout(function () {
-            if (self.winnerDetail && !self.winnerExpanded) {
-              self.renderWinnerGrid();
+            var bucket = self.teamGridBucket(kind);
+            if (bucket.detail && !bucket.expanded) {
+              self.renderTeamGridPoll(kind);
             }
           }, 150);
         });
       });
+  };
+
+  FanHub.prototype.initWinner = function () {
+    this.initTeamGridPoll('winner');
   };
 
   FanHub.prototype.initMatches = function () {
@@ -622,13 +670,19 @@
   };
 
 
-  FanHub.prototype.loadWinner = function (silent) {
+  FanHub.prototype.loadTeamGridPoll = function (kind, silent) {
     var self = this;
-    return api.fetchPollDetail(this.winnerPollId)
+    var meta = TEAM_GRID[kind];
+    var bucket = this.teamGridBucket(kind);
+    var pollId = this.getTeamGridPollId(kind);
+    if (!meta || !pollId) return Promise.resolve();
+
+    return api.fetchPollDetail(pollId)
       .then(function (detail) {
-        self.winnerDetail = detail;
-        self.renderWinnerGrid();
-        var totalEl = $('#winner-total');
+        bucket.detail = detail;
+        if (kind === 'winner') self.winnerDetail = detail;
+        self.renderTeamGridPoll(kind);
+        var totalEl = $(meta.totalSel);
         if (totalEl && detail) {
           totalEl.textContent = detail.total_votes
             ? formatCount(detail.total_votes) + ' votes · live'
@@ -636,28 +690,35 @@
         }
       })
       .catch(function (err) {
-        if (!silent) console.error('[hub] winner load failed', err);
+        if (!silent) console.error('[hub] ' + kind + ' load failed', err);
       });
   };
 
-  FanHub.prototype.winnerGridPageSize = function () {
-    var cols = window.matchMedia('(min-width: 900px)').matches ? 5 : 2;
-    return WINNER_GRID_ROWS * cols;
+  FanHub.prototype.loadWinner = function (silent) {
+    return this.loadTeamGridPoll('winner', silent);
   };
 
-  FanHub.prototype.renderWinnerGrid = function () {
-    var grid = $('#hub-winner-grid');
-    if (!grid || !this.winnerDetail) return;
+  FanHub.prototype.teamGridPageSize = function () {
+    var cols = window.matchMedia('(min-width: 900px)').matches ? 5 : 2;
+    return TEAM_GRID_ROWS * cols;
+  };
 
-    var detail = this.winnerDetail;
+  FanHub.prototype.renderTeamGridPoll = function (kind) {
+    var meta = TEAM_GRID[kind];
+    var bucket = this.teamGridBucket(kind);
+    var grid = meta ? $(meta.gridSel) : null;
+    if (!grid || !bucket.detail) return;
+
+    var detail = bucket.detail;
+    var pollId = this.getTeamGridPollId(kind);
     var poll = detail.poll;
     var closed = api.isPollClosed(poll);
     var choices = (detail.choices || []).slice().sort(function (a, b) {
       return (b.pct || 0) - (a.pct || 0) || (a.sort_order || 0) - (b.sort_order || 0);
     });
-    var userChoice = api.getStoredChoice(this.winnerPollId);
-    var pageSize = this.winnerGridPageSize();
-    var topN = this.winnerExpanded ? choices.length : Math.min(pageSize, choices.length);
+    var userChoice = api.getStoredChoice(pollId);
+    var pageSize = this.teamGridPageSize();
+    var topN = bucket.expanded ? choices.length : Math.min(pageSize, choices.length);
     var visible = choices.slice(0, topN);
     var leaderId = visible.length ? visible[0].id : null;
 
@@ -668,7 +729,7 @@
       if (c.id === userChoice) cls += ' is-selected';
       if (closed || userChoice) cls += ' is-disabled';
       return (
-        '<button type="button" class="' + cls + ' team-card--pick" data-winner-choice="' + escapeHtml(c.id) + '"' +
+        '<button type="button" class="' + cls + ' team-card--pick" data-team-choice="' + escapeHtml(c.id) + '"' +
         (closed || userChoice ? ' disabled' : '') + '>' +
           renderPickFlag(c.id) +
           '<span class="vote-chip__meta">' +
@@ -679,17 +740,17 @@
       );
     }).join('');
 
-    if (!this.winnerExpanded && choices.length > pageSize) {
+    if (!bucket.expanded && choices.length > pageSize) {
       html += (
-        '<button type="button" class="team-card team-card--expand" id="winner-expand">' +
+        '<button type="button" class="team-card team-card--expand" id="' + meta.expandId + '">' +
           '<span class="team-card__flag">➕</span>' +
           '<span class="team-card__name">All ' + choices.length + ' teams</span>' +
           '<span class="team-card__pct" style="color:var(--muted);font-size:0.72rem">expand</span>' +
         '</button>'
       );
-    } else if (this.winnerExpanded && choices.length > pageSize) {
+    } else if (bucket.expanded && choices.length > pageSize) {
       html += (
-        '<button type="button" class="team-card team-card--expand" id="winner-expand">' +
+        '<button type="button" class="team-card team-card--expand" id="' + meta.expandId + '">' +
           '<span class="team-card__flag">➖</span>' +
           '<span class="team-card__name">Show less</span>' +
         '</button>'
@@ -697,7 +758,7 @@
     }
 
     grid.innerHTML = html;
-    var msg = $('#winner-message');
+    var msg = meta.messageSel ? $(meta.messageSel) : null;
     if (msg) {
       if (closed) {
         msg.textContent = 'Voting closed.';
@@ -711,52 +772,62 @@
     }
 
     var self = this;
-    $all('[data-winner-choice]', grid).forEach(function (btn) {
+    $all('[data-team-choice]', grid).forEach(function (btn) {
       btn.addEventListener('click', function () {
         if (closed) return;
-        self.castWinnerChoice(btn.getAttribute('data-winner-choice'));
+        self.castTeamGridChoice(kind, btn.getAttribute('data-team-choice'));
       });
     });
 
-    var expandBtn = $('#winner-expand');
+    var expandBtn = $('#' + meta.expandId);
     if (expandBtn) {
       expandBtn.addEventListener('click', function () {
-        self.winnerExpanded = !self.winnerExpanded;
-        self.renderWinnerGrid();
+        bucket.expanded = !bucket.expanded;
+        self.renderTeamGridPoll(kind);
       });
     }
   };
 
-  FanHub.prototype.castWinnerChoice = function (choiceId) {
-    var self = this;
-    if (api.getStoredChoice(this.winnerPollId)) return;
+  FanHub.prototype.renderWinnerGrid = function () {
+    this.renderTeamGridPoll('winner');
+  };
 
-    api.castVote(this.winnerPollId, choiceId)
+  FanHub.prototype.castTeamGridChoice = function (kind, choiceId) {
+    var self = this;
+    var meta = TEAM_GRID[kind];
+    var pollId = this.getTeamGridPollId(kind);
+    if (!pollId || api.getStoredChoice(pollId)) return;
+
+    api.castVote(pollId, choiceId)
       .then(function (res) {
         if (res.error) {
           if (res.error.code === '23505') {
-            api.setStoredChoice(self.winnerPollId, choiceId);
-            return self.loadWinner(true);
+            api.setStoredChoice(pollId, choiceId);
+            return self.loadTeamGridPoll(kind, true);
           }
           throw res.error;
         }
-        api.setStoredChoice(self.winnerPollId, choiceId);
-        var wLabel = choiceId;
-        var wBtn = document.querySelector('[data-winner-choice="' + choiceId + '"] .team-card__name');
-        if (wBtn) wLabel = wBtn.textContent.trim();
+        api.setStoredChoice(pollId, choiceId);
+        var label = choiceId;
+        var nameEl = document.querySelector('[data-team-choice="' + choiceId + '"] .vote-chip__name');
+        if (nameEl) label = nameEl.textContent.trim();
         document.dispatchEvent(new CustomEvent('fan-vote-cast', {
-          detail: { pollId: self.winnerPollId, choice: choiceId, label: wLabel },
+          detail: { pollId: pollId, choice: choiceId, label: label, pollKind: kind },
         }));
-        return self.loadWinner(true);
+        return self.loadTeamGridPoll(kind, true);
       })
       .catch(function (err) {
-        console.error('[hub] winner vote failed', err);
-        var msg = $('#winner-message');
+        console.error('[hub] ' + kind + ' vote failed', err);
+        var msg = meta && meta.messageSel ? $(meta.messageSel) : null;
         if (msg) {
           msg.textContent = 'Vote failed. Try again.';
           msg.hidden = false;
         }
       });
+  };
+
+  FanHub.prototype.castWinnerChoice = function (choiceId) {
+    this.castTeamGridChoice('winner', choiceId);
   };
 
   FanHub.prototype.loadMatchPolls = function () {

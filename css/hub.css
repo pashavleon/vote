@@ -874,6 +874,19 @@
       color: var(--muted);
       margin-top: 0.2rem;
     }
+    .page-head__note {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 0.45rem;
+      max-width: 36rem;
+    }
+    .page-head__note a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .page-head__note a:hover {
+      text-decoration: underline;
+    }
 
     .shell--home {
       max-width: 1200px;

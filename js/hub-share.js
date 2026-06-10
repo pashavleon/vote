@@ -9,6 +9,7 @@
   var PAGE_URLS = {
     home: SITE,
     winner: SITE + 'winner.html',
+    favorite: SITE + 'favorite.html',
     matches: SITE + 'matches.html',
     arch: SITE + 'arch.html',
   };
@@ -67,11 +68,19 @@
 
   function getChoiceLabel(choiceId) {
     if (!choiceId) return null;
-    var card = document.querySelector('[data-winner-choice="' + choiceId + '"] .team-card__name');
+    var card = document.querySelector('[data-team-choice="' + choiceId + '"] .vote-chip__name');
     if (card) return card.textContent.trim();
     var chip = document.querySelector('[data-match-vote="' + choiceId + '"] .vote-chip__name');
     if (chip) return chip.textContent.trim();
     return choiceId.toUpperCase();
+  }
+
+  function getStoredFavoriteLabel() {
+    var api = window.VoteApi;
+    var cfg = api && api.getConfig ? api.getConfig() : {};
+    var favId = cfg.favoritePollId || 'wc-2026-favorite';
+    var favChoice = api && api.getStoredChoice ? api.getStoredChoice(favId) : null;
+    return favChoice ? getChoiceLabel(favChoice) : null;
   }
 
   function buildText() {
@@ -86,6 +95,13 @@
     }
     if (page === 'winner' && winnerLabel) {
       return 'I voted ' + winnerLabel + ' to win World Cup 2026 — join the fan poll:';
+    }
+    if (page === 'favorite') {
+      var favLabel = getStoredFavoriteLabel();
+      if (favLabel) {
+        return 'I support ' + favLabel + ' at World Cup 2026 — cast your favorite team vote:';
+      }
+      return 'Who do you support at World Cup 2026? Pick your favorite team (48 nations):';
     }
     if (page === 'matches') {
       return 'Predict every World Cup 2026 group-stage match — live fan poll:';

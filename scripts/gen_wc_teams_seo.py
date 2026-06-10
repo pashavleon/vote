@@ -32,22 +32,36 @@ def teams_by_group(fixtures: dict) -> dict[str, list[str]]:
 
 def team_li(tid: str, teams: dict, page: str) -> str:
     name = teams[tid][0]
-    href = "winner.html"
+    if page == "favorite":
+        href = "favorite.html"
+        suffix = "fan support poll"
+    else:
+        href = "winner.html"
+        suffix = "fan poll &amp; winner predictions"
     return (
         f'<li><a href="{href}">{name} World Cup 2026</a> — '
-        f'fan poll &amp; winner predictions</li>'
+        f'{suffix}</li>'
     )
-
-
-ns_teams: dict = {}
 
 
 def teams_section(teams: dict, page: str) -> str:
     ids = sorted(teams, key=lambda t: teams[t][0])
     items = "\n          ".join(team_li(t, teams, page) for t in ids)
+    if page == "favorite":
+        lead = (
+            "Pick your favorite nation in our unofficial World Cup 2026 support poll. "
+            "Every qualified team:"
+        )
+        title = "World Cup 2026 teams — fan support"
+    else:
+        lead = (
+            "Vote in our unofficial fan poll for tournament winner and group matches. "
+            "Every qualified nation:"
+        )
+        title = "World Cup 2026 teams — all 48 nations"
     return f"""      <section class="page-seo page-seo--teams" aria-labelledby="wc-teams-seo-title">
-        <h2 id="wc-teams-seo-title" class="page-seo__title">World Cup 2026 teams — all 48 nations</h2>
-        <p class="page-seo__lead">Vote in our unofficial fan poll for tournament winner and group matches. Every qualified nation:</p>
+        <h2 id="wc-teams-seo-title" class="page-seo__title">{title}</h2>
+        <p class="page-seo__lead">{lead}</p>
         <ul class="page-seo__teams">
           {items}
         </ul>
@@ -178,15 +192,18 @@ def main() -> int:
 
     index = ROOT / "index.html"
     winner = ROOT / "winner.html"
+    favorite = ROOT / "favorite.html"
     matches = ROOT / "matches.html"
 
     patch_file(index, "wc-teams-seo", teams_section(teams, "index"))
     patch_file(winner, "wc-teams-seo", teams_section(teams, "winner"))
+    patch_file(favorite, "wc-teams-seo", teams_section(teams, "favorite"))
     patch_file(matches, "wc-groups-seo", groups_section(teams, fixtures))
     patch_file(matches, "wc-fixtures-seo", fixtures_section(teams, fixtures))
 
     patch_json_ld_itemlist(index, "https://topfan.vote/", teams)
     patch_json_ld_itemlist(winner, "https://topfan.vote/winner.html", teams)
+    patch_json_ld_itemlist(favorite, "https://topfan.vote/favorite.html", teams)
 
     return 0
 
