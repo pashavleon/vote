@@ -18,6 +18,8 @@ window.VOTE_CONFIG = {
 
   eventId: 'wc-2026',
   winnerPollId: 'wc-2026-winner',
+  /** Home quick ballot — favorite team (run patch-wc-2026-favorite-poll.sql) */
+  favoritePollId: 'wc-2026-favorite',
 
   /** Match stage open for voting: group | r32 | r16 | qf | sf | final */
   activeMatchStage: 'group',

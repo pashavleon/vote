@@ -233,6 +233,8 @@
     this.event = null;
     this.eventId = this.cfg.eventId;
     this.winnerPollId = this.cfg.winnerPollId || 'wc-2026-winner';
+    this.favoritePollId = this.cfg.favoritePollId || 'wc-2026-favorite';
+    this.favoritePollReady = false;
     this.activeVotingStage = this.cfg.activeMatchStage || 'group';
     this.winnerDetail = null;
     this.winnerExpanded = false;
@@ -294,23 +296,171 @@
 
   FanHub.prototype.initHome = function () {
     var self = this;
-    api.fetchFeaturedEvent()
-      .then(function (event) {
-        self.event = event;
-        self.renderHomeHero(event);
+    Promise.all([
+      api.fetchFeaturedEvent(),
+      api.fetchPollDetail(this.winnerPollId),
+      api.fetchPollDetail(this.favoritePollId).catch(function () { return null; }),
+    ])
+      .then(function (results) {
+        self.event = results[0];
+        self.winnerDetail = results[1];
+        self.favoritePollReady = Boolean(results[2] && results[2].poll);
+        self.renderHomeHero(self.event);
+        self.initQuickBallot();
       })
       .catch(function (err) {
         console.error('[hub] home failed', err);
+        var hint = $('#quick-ballot-hint');
+        if (hint) hint.textContent = 'Could not load ballot. Try again later.';
       });
   };
 
   FanHub.prototype.renderHomeHero = function (event) {
-    if (!event) return;
-    var title = $('#home-event-title');
-    var meta = $('#home-event-meta');
-    if (title) title.textContent = event.title || 'FIFA World Cup 2026';
-    if (meta) meta.textContent = event.subtitle || 'USA · Mexico · Canada';
-    document.title = (event.title || 'FanVote') + ' — Fan Poll Hub';
+    if (event && event.subtitle) {
+      var meta = $('#home-event-meta');
+      if (meta) meta.textContent = event.subtitle;
+    }
+    document.title = 'World Cup 2026 Fan Vote — Pick Your Teams | FanVote';
+  };
+
+  FanHub.prototype.quickBallotChoices = function () {
+    if (!this.winnerDetail || !this.winnerDetail.choices) return [];
+    return this.winnerDetail.choices.slice().sort(function (a, b) {
+      return (a.sort_order || 0) - (b.sort_order || 0) ||
+        String(a.label).localeCompare(String(b.label));
+    });
+  };
+
+  FanHub.prototype.initQuickBallot = function () {
+    var self = this;
+    var form = $('#quick-ballot-form');
+    var favSel = $('#quick-favorite');
+    var winSel = $('#quick-winner');
+    var hint = $('#quick-ballot-hint');
+    if (!form || !favSel || !winSel) return;
+
+    var choices = this.quickBallotChoices();
+    if (!choices.length) {
+      if (hint) hint.textContent = 'Teams unavailable.';
+      return;
+    }
+
+    var opts = choices.map(function (c) {
+      return '<option value="' + escapeHtml(c.id) + '">' + escapeHtml(c.label) + '</option>';
+    }).join('');
+    favSel.innerHTML = '<option value="">Select team…</option>' + opts;
+    winSel.innerHTML = '<option value="">Select team…</option>' + opts;
+
+    var winnerPicked = api.getStoredChoice(this.winnerPollId);
+    var favoritePicked = this.favoritePollReady
+      ? api.getStoredChoice(this.favoritePollId)
+      : localStorage.getItem(api.STORAGE_PREFIX + 'favorite_wc-2026');
+
+    if (favoritePicked) {
+      favSel.value = favoritePicked;
+      if (this.favoritePollReady) favSel.disabled = true;
+    }
+    if (winnerPicked) {
+      winSel.value = winnerPicked;
+      winSel.disabled = true;
+    }
+
+    if (hint) {
+      if (winnerPicked) {
+        hint.textContent = 'Champion pick saved · you can update your favorite anytime.';
+      } else if (!this.favoritePollReady) {
+        hint.textContent = 'Champion vote is counted globally. Favorite is saved on this device until favorite poll is enabled.';
+      } else {
+        hint.textContent = 'One vote per team pick · live global results after submit.';
+      }
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      self.submitQuickBallot();
+    });
+  };
+
+  FanHub.prototype.submitQuickBallot = function () {
+    var self = this;
+    var favSel = $('#quick-favorite');
+    var winSel = $('#quick-winner');
+    var msg = $('#quick-ballot-msg');
+    var submit = $('#quick-ballot-submit');
+    if (!favSel || !winSel) return;
+
+    var favoriteId = favSel.value;
+    var winnerId = winSel.value;
+    if (!favoriteId || !winnerId) {
+      if (msg) {
+        msg.textContent = 'Choose both teams before submitting.';
+        msg.hidden = false;
+      }
+      return;
+    }
+
+    if (submit) submit.disabled = true;
+    if (msg) msg.hidden = true;
+
+    var tasks = [];
+    var winnerAlready = api.getStoredChoice(this.winnerPollId);
+
+    if (this.favoritePollReady) {
+      if (!api.getStoredChoice(this.favoritePollId)) {
+        tasks.push(api.castVote(this.favoritePollId, favoriteId).then(function (res) {
+          if (res.error && res.error.code !== '23505') throw res.error;
+          api.setStoredChoice(self.favoritePollId, favoriteId);
+        }));
+      } else if (favoriteId !== api.getStoredChoice(this.favoritePollId)) {
+        favSel.value = api.getStoredChoice(this.favoritePollId);
+      }
+    } else {
+      localStorage.setItem(api.STORAGE_PREFIX + 'favorite_wc-2026', favoriteId);
+    }
+
+    if (!winnerAlready) {
+      tasks.push(api.castVote(this.winnerPollId, winnerId).then(function (res) {
+        if (res.error) {
+          if (res.error.code === '23505') {
+            api.setStoredChoice(self.winnerPollId, winnerId);
+            return;
+          }
+          throw res.error;
+        }
+        api.setStoredChoice(self.winnerPollId, winnerId);
+        var wLabel = '';
+        for (var i = 0; i < self.winnerDetail.choices.length; i++) {
+          if (self.winnerDetail.choices[i].id === winnerId) {
+            wLabel = self.winnerDetail.choices[i].label;
+            break;
+          }
+        }
+        document.dispatchEvent(new CustomEvent('fan-vote-cast', {
+          detail: { pollId: self.winnerPollId, choice: winnerId, label: wLabel },
+        }));
+      }));
+    }
+
+    Promise.all(tasks)
+      .then(function () {
+        winSel.disabled = Boolean(api.getStoredChoice(self.winnerPollId));
+        if (msg) {
+          msg.textContent = 'Vote submitted — thanks! See live standings or predict group matches.';
+          msg.hidden = false;
+        }
+        var hint = $('#quick-ballot-hint');
+        if (hint) hint.textContent = 'Share your picks with the button on the right →';
+      })
+      .catch(function (err) {
+        console.error('[hub] quick ballot failed', err);
+        if (msg) {
+          msg.textContent = 'Submit failed. Check connection and try again.';
+          msg.hidden = false;
+        }
+      })
+      .then(function () {
+        if (submit) submit.disabled = false;
+      });
   };
 
   FanHub.prototype.initWinner = function () {

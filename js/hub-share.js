@@ -95,7 +95,11 @@
     if (page === 'arch') {
       return 'FanVote archive — World Cup 2026 & UCL fan polls:';
     }
-    return 'World Cup 2026 fan poll — vote the winner and predict every match:';
+    var fav = localStorage.getItem('fan_vote_favorite_wc-2026');
+    if (page === 'home' && fav) {
+      return 'World Cup 2026 fan vote — my favorite team + who wins. Predict every match too:';
+    }
+    return 'World Cup 2026 fan vote — pick your teams and predict every match:';
   }
 
   function buildPayload() {

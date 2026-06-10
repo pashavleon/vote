@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>World Cup 2026 Fan Poll — Who Will Win? Live Votes | FanVote</title>
-  <meta name="description" content="Unofficial World Cup 2026 fan poll: vote who wins the tournament (48 teams) and pick every group-stage match. Live results — USA, Mexico, Canada, 11 June – 19 July." />
-  <meta name="keywords" content="World Cup 2026, FIFA World Cup 2026, fan poll, who will win World Cup 2026, World Cup 2026 predictions, World Cup 2026 groups, match predictions, USA Mexico Canada 2026, group stage, unofficial poll" />
+  <title>World Cup 2026 Fan Vote — Pick Your Teams | FanVote</title>
+  <meta name="description" content="Unofficial World Cup 2026 fan vote: pick your favorite team and predict the champion. Plus match-by-match fan poll — 48 teams, live results, 11 June – 19 July." />
+  <meta name="keywords" content="World Cup 2026 fan vote, vote WC 2026, FIFA World Cup 2026, fan poll, who will win World Cup 2026, World Cup 2026 predictions, World Cup 2026 groups, match predictions, USA Mexico Canada 2026" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://pashavleon.github.io/vote/" />
   <link rel="sitemap" type="application/xml" title="Sitemap" href="https://pashavleon.github.io/vote/sitemap.xml" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="FanVote" />
-  <meta property="og:title" content="World Cup 2026 Fan Poll — Who Will Win? Live" />
-  <meta property="og:description" content="Vote the tournament winner and every group match. Live fan poll — instant results. Not affiliated with FIFA." />
+  <meta property="og:title" content="World Cup 2026 Fan Vote — Pick Your Teams" />
+  <meta property="og:description" content="Cast your fan vote: favorite team + predicted champion. Live results — predict every group match too. Not affiliated with FIFA." />
   <meta property="og:url" content="https://pashavleon.github.io/vote/" />
   <meta property="og:image" content="https://pashavleon.github.io/vote/assets/winner-silhouettes-1280.jpg" />
   <meta property="og:image:width" content="1280" />
   <meta property="og:image:height" content="853" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="World Cup 2026 Fan Poll — Live Votes" />
-  <meta name="twitter:description" content="Who will win World Cup 2026? Vote for 48 teams and predict group-stage matches." />
+  <meta name="twitter:title" content="World Cup 2026 Fan Vote — Pick Your Teams" />
+  <meta name="twitter:description" content="Fan vote: favorite team + who wins WC 2026. Predict every group-stage match too." />
   <meta name="twitter:image" content="https://pashavleon.github.io/vote/assets/winner-silhouettes-1280.jpg" />
   <script type="application/ld+json">
 {
@@ -34,8 +34,8 @@
     },
     {
       "@type": "WebPage",
-      "name": "World Cup 2026 Fan Poll — Who Will Win? Live Votes",
-      "description": "Unofficial World Cup 2026 fan poll: vote the tournament winner and predict group-stage matches with live aggregated results.",
+      "name": "World Cup 2026 Fan Vote — Pick Your Teams",
+      "description": "Unofficial World Cup 2026 fan vote: pick your favorite team and predicted champion, plus match-by-match fan polls with live aggregated results.",
       "url": "https://pashavleon.github.io/vote/",
       "inLanguage": "en",
       "isPartOf": { "@type": "WebSite", "name": "FanVote", "url": "https://pashavleon.github.io/vote/" }
@@ -760,11 +760,35 @@
             <img class="home-stage__trophy" src="assets/wc-trophy.png" alt="" decoding="async" />
           </div>
           <div class="home-stage__copy">
-            <p class="home-stage__tag">Unofficial fan poll</p>
-            <h1 class="home-stage__title" id="home-event-title">FIFA World Cup 2026</h1>
-            <p class="home-stage__meta" id="home-event-meta">USA · Mexico · Canada</p>
+            <p class="home-stage__tag">Unofficial fan vote</p>
+            <h1 class="home-stage__title" id="home-event-title">World Cup 2026 Fan Vote</h1>
+            <p class="home-stage__meta" id="home-event-meta">Pick your favorite team · predict the champion</p>
             <p class="home-stage__disclaimer">Not affiliated with FIFA</p>
           </div>
+          <section class="quick-ballot" id="quick-ballot" aria-labelledby="quick-ballot-title">
+            <h2 class="quick-ballot__title" id="quick-ballot-title">Cast your vote</h2>
+            <form class="quick-ballot__form" id="quick-ballot-form" novalidate>
+              <label class="quick-ballot__field">
+                <span class="quick-ballot__label">Your favorite team</span>
+                <select class="quick-ballot__select" id="quick-favorite" name="favorite" required>
+                  <option value="">Select team…</option>
+                </select>
+              </label>
+              <label class="quick-ballot__field">
+                <span class="quick-ballot__label">Who will win?</span>
+                <select class="quick-ballot__select" id="quick-winner" name="winner" required>
+                  <option value="">Select team…</option>
+                </select>
+              </label>
+              <button type="submit" class="quick-ballot__submit" id="quick-ballot-submit">Submit vote</button>
+            </form>
+            <p class="quick-ballot__msg" id="quick-ballot-msg" hidden role="status"></p>
+            <p class="quick-ballot__hint" id="quick-ballot-hint">Loading teams…</p>
+            <p class="quick-ballot__more">
+              <a href="matches.html">Predict every group match →</a>
+              · <a href="winner.html">Full standings</a>
+            </p>
+          </section>
         </div>
 
         <a class="portal-chip portal-chip--winner portal-btn--left" href="winner.html">
@@ -810,7 +834,7 @@
 
       <footer class="home-seo">
         <p class="home-seo__lead">
-          <strong>FanVote</strong> is an unofficial <strong>World Cup 2026 fan poll</strong>.
+          <strong>FanVote</strong> is an unofficial <strong>World Cup 2026 fan vote</strong> and match poll.
           Pick the <a href="winner.html">tournament winner</a> among 48 teams or
           <a href="matches.html">predict group-stage matches</a> — live percentages, no account required.
         </p>

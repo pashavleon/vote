@@ -915,7 +915,7 @@
       align-items: center;
       justify-content: flex-start;
       width: 100%;
-      max-width: min(72vw, 16rem);
+      max-width: min(92vw, 18.5rem);
       margin: -3.25rem auto 0;
       padding-top: calc(3.25rem + 15px);
       z-index: 11;
@@ -969,6 +969,108 @@
       color: var(--muted);
       margin-top: 0.35rem;
     }
+
+    .quick-ballot {
+      position: relative;
+      z-index: 13;
+      width: 100%;
+      max-width: 18rem;
+      margin: 0.35rem auto 0;
+      padding: 0.65rem 0.75rem 0.55rem;
+      border-radius: var(--radius);
+      border: 1px solid rgba(245, 197, 24, 0.35);
+      background: rgba(10, 14, 20, 0.88);
+      backdrop-filter: blur(8px);
+      pointer-events: auto;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+    }
+    .quick-ballot__title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--wc-gold);
+      text-align: center;
+      margin-bottom: 0.45rem;
+    }
+    .quick-ballot__form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+    .quick-ballot__field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .quick-ballot__label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .quick-ballot__select {
+      width: 100%;
+      padding: 0.45rem 0.5rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      font-size: 0.75rem;
+      font-family: inherit;
+    }
+    .quick-ballot__select:disabled {
+      opacity: 0.65;
+    }
+    .quick-ballot__submit {
+      margin-top: 0.15rem;
+      padding: 0.55rem 0.75rem;
+      border: none;
+      border-radius: 8px;
+      background: var(--wc-green);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .quick-ballot__submit:hover:not(:disabled) {
+      filter: brightness(1.08);
+    }
+    .quick-ballot__submit:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+    .quick-ballot__msg {
+      margin-top: 0.45rem;
+      font-size: 0.65rem;
+      color: var(--wc-green);
+      text-align: center;
+      line-height: 1.4;
+    }
+    .quick-ballot__msg[hidden] { display: none !important; }
+    .quick-ballot__hint {
+      margin-top: 0.35rem;
+      font-size: 0.58rem;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.35;
+    }
+    .quick-ballot__more {
+      margin-top: 0.4rem;
+      font-size: 0.6rem;
+      text-align: center;
+      color: var(--muted);
+    }
+    .quick-ballot__more a {
+      color: var(--wc-green);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .quick-ballot__more a:hover { text-decoration: underline; }
 
     .portal-btn {
       position: relative;
