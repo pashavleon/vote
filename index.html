@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>World Cup 2026 Fan Vote — Pick Your Teams | TOP FAN VOTE</title>
-  <meta name="description" content="Unofficial World Cup 2026 fan vote: pick your favorite team and predict the champion. Plus match-by-match fan poll — 48 teams, live results, 11 June – 19 July." />
+  <title>World Cup 2026 Fan Vote — Three Polls | TOP FAN VOTE</title>
+  <meta name="description" content="Unofficial World Cup 2026 fan vote — three polls: tournament winner, favorite team, and match predictions. Live results, 48 teams, 11 June – 19 July." />
   <meta name="keywords" content="World Cup 2026 fan vote, vote WC 2026, FIFA World Cup 2026, fan poll, who will win World Cup 2026, World Cup 2026 predictions, World Cup 2026 groups, match predictions, USA Mexico Canada 2026" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://topfan.vote/" />
   <link rel="sitemap" type="application/xml" title="Sitemap" href="https://topfan.vote/sitemap.xml" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="TOP FAN VOTE" />
-  <meta property="og:title" content="World Cup 2026 Fan Vote — Pick Your Teams" />
-  <meta property="og:description" content="Cast your fan vote: favorite team + predicted champion. Live results — predict every group match too. Not affiliated with FIFA." />
+  <meta property="og:title" content="World Cup 2026 Fan Vote — Three Polls" />
+  <meta property="og:description" content="Tournament winner, favorite team, and match polls — live fan vote percentages. Not affiliated with FIFA." />
   <meta property="og:url" content="https://topfan.vote/" />
   <meta property="og:image" content="https://topfan.vote/assets/winner-silhouettes-1280.jpg" />
   <meta property="og:image:width" content="1280" />
   <meta property="og:image:height" content="853" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="World Cup 2026 Fan Vote — Pick Your Teams" />
-  <meta name="twitter:description" content="Fan vote: favorite team + who wins WC 2026. Predict every group-stage match too." />
+  <meta name="twitter:title" content="World Cup 2026 Fan Vote — Three Polls" />
+  <meta name="twitter:description" content="Vote tournament winner, favorite team, and group-stage matches — live fan poll." />
   <meta name="twitter:image" content="https://topfan.vote/assets/winner-silhouettes-1280.jpg" />
   <script type="application/ld+json">
 {
@@ -34,8 +34,8 @@
     },
     {
       "@type": "WebPage",
-      "name": "World Cup 2026 Fan Vote — Pick Your Teams",
-      "description": "Unofficial World Cup 2026 fan vote: pick your favorite team and predicted champion, plus match-by-match fan polls with live aggregated results.",
+      "name": "World Cup 2026 Fan Vote — Three Polls",
+      "description": "Unofficial World Cup 2026 fan vote with three polls: tournament winner, favorite team, and match-by-match predictions with live aggregated results.",
       "url": "https://topfan.vote/",
       "inLanguage": "en",
       "isPartOf": { "@type": "WebSite", "name": "TOP FAN VOTE", "url": "https://topfan.vote/" }
@@ -77,7 +77,15 @@
           "name": "How does this World Cup 2026 fan poll work?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Choose Tournament winner to pick one of 48 teams for the title, or Match polls to vote on the winner of each group-stage fixture. Percentages update live after votes are recorded."
+            "text": "Three separate polls: Tournament winner (who lifts the trophy), Favorite team (who you support), and Match polls (predict each group-stage fixture). Percentages update live after votes are recorded."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the favorite team poll?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pick the nation you support at World Cup 2026 — separate from who you think will win. One vote per browser on the Favorite team poll."
           }
         },
         {
@@ -762,43 +770,19 @@
           <div class="home-stage__copy">
             <p class="home-stage__tag">Unofficial fan vote</p>
             <h1 class="home-stage__title" id="home-event-title">World Cup 2026 Fan Vote</h1>
-            <p class="home-stage__meta" id="home-event-meta">Pick your favorite team · predict the champion</p>
+            <p class="home-stage__meta" id="home-event-meta">Three ways to vote · winner · favorite · matches</p>
             <p class="home-stage__disclaimer">Not affiliated with FIFA</p>
           </div>
-          <section class="quick-ballot" id="quick-ballot" aria-labelledby="quick-ballot-title">
-            <h2 class="quick-ballot__title" id="quick-ballot-title">Cast your vote</h2>
-            <form class="quick-ballot__form" id="quick-ballot-form" novalidate>
-              <label class="quick-ballot__field">
-                <span class="quick-ballot__label">Your favorite team</span>
-                <select class="quick-ballot__select" id="quick-favorite" name="favorite" required>
-                  <option value="">Select team…</option>
-                </select>
-              </label>
-              <label class="quick-ballot__field">
-                <span class="quick-ballot__label">Who will win?</span>
-                <select class="quick-ballot__select" id="quick-winner" name="winner" required>
-                  <option value="">Select team…</option>
-                </select>
-              </label>
-              <button type="submit" class="quick-ballot__submit" id="quick-ballot-submit">Submit vote</button>
-            </form>
-            <p class="quick-ballot__msg" id="quick-ballot-msg" hidden role="status"></p>
-            <p class="quick-ballot__hint" id="quick-ballot-hint">Loading teams…</p>
-            <p class="quick-ballot__more">
-              <a href="matches.html">Predict every group match →</a>
-              · <a href="winner.html">Tournament winner</a>
-              · <a href="favorite.html">Favorite team</a>
-            </p>
-          </section>
         </div>
 
-        <a class="portal-chip portal-chip--winner portal-btn--left" href="winner.html">
+        <nav class="home-portals" aria-label="Choose a poll type">
+        <a class="portal-chip portal-chip--winner" href="winner.html">
           <span class="portal-chip__frame">
             <img
               class="portal-chip__img"
               src="assets/winner-silhouettes-800.jpg"
               srcset="assets/winner-silhouettes-800.jpg 800w, assets/winner-silhouettes-1280.jpg 1280w"
-              sizes="(min-width: 768px) min(52vw, 28rem), 100vw"
+              sizes="(min-width: 640px) 33vw, 100vw"
               alt=""
               width="800"
               height="533"
@@ -807,18 +791,36 @@
           </span>
           <span class="portal-chip__caption">
             <span class="portal-chip__title">Tournament winner</span>
-            <span class="portal-chip__desc">One pick · 48 teams</span>
+            <span class="portal-chip__desc">Who wins the World Cup?</span>
             <span class="portal-chip__cta">Vote now</span>
           </span>
         </a>
 
-        <a class="portal-chip portal-chip--matches portal-btn--right" href="matches.html">
+        <a class="portal-chip portal-chip--favorite" href="favorite.html">
+          <span class="portal-chip__frame portal-chip__frame--trophy">
+            <img
+              class="portal-chip__img portal-chip__img--trophy"
+              src="assets/wc-trophy.png"
+              alt=""
+              width="512"
+              height="512"
+              decoding="async"
+            />
+          </span>
+          <span class="portal-chip__caption">
+            <span class="portal-chip__title">Favorite team</span>
+            <span class="portal-chip__desc">Who do you support?</span>
+            <span class="portal-chip__cta">Pick team</span>
+          </span>
+        </a>
+
+        <a class="portal-chip portal-chip--matches" href="matches.html">
           <span class="portal-chip__frame">
             <img
               class="portal-chip__img"
               src="assets/groups-tilted-800.jpg"
               srcset="assets/groups-tilted-800.jpg 800w, assets/groups-tilted-1280.jpg 1280w"
-              sizes="(min-width: 768px) min(52vw, 28rem), 100vw"
+              sizes="(min-width: 640px) 33vw, 100vw"
               alt=""
               width="800"
               height="533"
@@ -827,23 +829,29 @@
           </span>
           <span class="portal-chip__caption">
             <span class="portal-chip__title">Match polls</span>
-            <span class="portal-chip__desc">Group stage · live</span>
+            <span class="portal-chip__desc">Predict every group game</span>
             <span class="portal-chip__cta">Pick matches</span>
           </span>
         </a>
+        </nav>
     </section>
 
       <footer class="home-seo">
         <p class="home-seo__lead">
-          <strong>TOP FAN VOTE</strong> is an unofficial <strong>World Cup 2026 fan vote</strong> and match poll.
-          Pick the <a href="winner.html">tournament winner</a> among 48 teams or
-          <a href="matches.html">predict group-stage matches</a> — live percentages, no account required.
+          <strong>TOP FAN VOTE</strong> is an unofficial <strong>World Cup 2026 fan vote</strong> with three polls:
+          <a href="winner.html">tournament winner</a>,
+          <a href="favorite.html">favorite team</a>, and
+          <a href="matches.html">group-stage match predictions</a> — live percentages, no account required.
         </p>
         <section class="home-seo__faq" aria-labelledby="home-faq-title">
           <h2 id="home-faq-title" class="home-seo__faq-title">FAQ</h2>
           <details class="home-seo__item">
             <summary>When does World Cup 2026 start?</summary>
             <p>11 June 2026 (opening match Mexico vs South Africa). The final is 19 July 2026.</p>
+          </details>
+          <details class="home-seo__item">
+            <summary>What is the favorite team poll?</summary>
+            <p>Pick the nation you <a href="favorite.html">support</a> — separate from who you think will win the tournament.</p>
           </details>
           <details class="home-seo__item">
             <summary>Who will win World Cup 2026?</summary>
