@@ -1,4 +1,4 @@
-# Индексация в Google
+﻿# Индексация в Google
 
 **World Cup 2026:** keyword map, titles, FAQ — [SEO-WC-2026.md](./SEO-WC-2026.md)
 
@@ -6,7 +6,7 @@
 
 **Важно:** property должен быть именно:
 
-`https://pashavleon.github.io/vote/`
+`https://topfan.vote/`
 
 (с `https://` и с `/` в конце — как в GSC при создании)
 
@@ -25,15 +25,15 @@
 ### Если ошибка «Sitemap could not be read»
 
 1. Откройте в браузере — должно открыться XML, не HTML:
-   - https://pashavleon.github.io/vote/sitemap.xml
-   - https://pashavleon.github.io/vote/sitemap.txt
+   - https://topfan.vote/sitemap.xml
+   - https://topfan.vote/sitemap.txt
 2. GSC → **URL Inspection** → вставьте URL sitemap → **Test live URL**
    - Если Live test = OK, а Sitemaps = error → подождите 24–48 ч (часто кэш GSC после старого 500)
 3. Удалите старую запись sitemap в GSC и добавьте заново
 4. **Request indexing** (после деплоя SEO):
-   - `https://pashavleon.github.io/vote/`
-   - `https://pashavleon.github.io/vote/winner.html`
-   - `https://pashavleon.github.io/vote/matches.html`
+   - `https://topfan.vote/`
+   - `https://topfan.vote/winner.html`
+   - `https://topfan.vote/matches.html`
 
 ## Файлы на сайте
 

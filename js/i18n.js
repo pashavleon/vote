@@ -1,4 +1,4 @@
-/**
+﻿/**
  * i18n: 13 languages. Default: en.
  * Priority: localStorage → navigator.languages → en
  */
@@ -17,7 +17,7 @@
     zh: 'zh-CN', ja: 'ja-JP', hi: 'hi-IN',
   };
 
-  var SITE_URL = 'https://pashavleon.github.io/vote/';
+  var SITE_URL = (window.TFV_SITE && window.TFV_SITE.url) || 'https://topfan.vote/';
   var OG_IMAGE = SITE_URL + 'assets/arsenal-1280.jpg';
 
   var STRINGS = {

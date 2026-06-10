@@ -107,7 +107,7 @@ begin
     alter table public.polls
       add constraint polls_poll_type_check
       check (
-        poll_type in ('event_winner', 'match_winner', 'custom')
+        poll_type in ('event_winner', 'match_winner', 'custom', 'favorite')
       );
   end if;
 end $$;
@@ -123,6 +123,7 @@ begin
         (poll_type = 'event_winner' and match_id is null)
         or (poll_type = 'match_winner' and match_id is not null)
         or poll_type = 'custom'
+        or (poll_type = 'favorite' and match_id is null)
       );
   end if;
 end $$;

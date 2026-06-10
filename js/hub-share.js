@@ -1,10 +1,11 @@
-/**
+﻿/**
  * WC hub — floating share button + network dropdown (English).
  */
 (function () {
   'use strict';
 
-  var SITE = 'https://pashavleon.github.io/vote/';
+  var SITE = (window.TFV_SITE && window.TFV_SITE.url) || 'https://topfan.vote/';
+  var BRAND = (window.TFV_SITE && window.TFV_SITE.name) || 'TOP FAN VOTE';
   var PAGE_URLS = {
     home: SITE,
     winner: SITE + 'winner.html',
@@ -93,7 +94,7 @@
       return 'Who will win World Cup 2026? Vote in this live fan poll (48 teams):';
     }
     if (page === 'arch') {
-      return 'FanVote archive — World Cup 2026 & UCL fan polls:';
+      return BRAND + ' archive — World Cup 2026 & UCL fan polls:';
     }
     var fav = localStorage.getItem('fan_vote_favorite_wc-2026');
     if (page === 'home' && fav) {
@@ -228,7 +229,7 @@
     var p = buildPayload();
     if (net.type === 'native') {
       if (navigator.share) {
-        navigator.share({ title: 'FanVote — World Cup 2026', text: p.text, url: p.url }).catch(function (err) {
+        navigator.share({ title: BRAND + ' — World Cup 2026', text: p.text, url: p.url }).catch(function (err) {
           if (err && err.name === 'AbortError') return;
           copyText(p.full, function () { showFeedback('Link copied!'); });
         });
@@ -296,7 +297,7 @@
         '</svg>' +
       '</button>' +
       '<div class="hub-share__panel" hidden role="menu">' +
-        '<p class="hub-share__panel-title">Share FanVote</p>' +
+        '<p class="hub-share__panel-title">Share ' + BRAND + '</p>' +
         '<div class="hub-share__grid" role="none">' + items + '</div>' +
         '<p class="hub-share__feedback" data-hub-share-feedback hidden></p>' +
       '</div>';

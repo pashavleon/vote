@@ -1,5 +1,5 @@
 /**
- * Supabase RPC + vote persistence for FanVote (GitHub Pages).
+ * Supabase RPC + vote persistence for TOP FAN VOTE (GitHub Pages).
  * Requires: @supabase/supabase-js, window.VOTE_CONFIG
  */
 (function (global) {

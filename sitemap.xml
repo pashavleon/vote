@@ -1,31 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://pashavleon.github.io/vote/</loc>
+    <loc>https://topfan.vote/</loc>
     <lastmod>2026-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://pashavleon.github.io/vote/winner.html</loc>
+    <loc>https://topfan.vote/winner.html</loc>
     <lastmod>2026-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://pashavleon.github.io/vote/matches.html</loc>
+    <loc>https://topfan.vote/matches.html</loc>
     <lastmod>2026-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://pashavleon.github.io/vote/arch.html</loc>
+    <loc>https://topfan.vote/arch.html</loc>
     <lastmod>2026-05-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://pashavleon.github.io/vote/ucl.html</loc>
+    <loc>https://topfan.vote/ucl.html</loc>
     <lastmod>2026-05-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>

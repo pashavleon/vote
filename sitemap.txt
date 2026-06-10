@@ -1,5 +1,5 @@
-https://pashavleon.github.io/vote/
-https://pashavleon.github.io/vote/winner.html
-https://pashavleon.github.io/vote/matches.html
-https://pashavleon.github.io/vote/arch.html
-https://pashavleon.github.io/vote/ucl.html
+﻿https://topfan.vote/
+https://topfan.vote/winner.html
+https://topfan.vote/matches.html
+https://topfan.vote/arch.html
+https://topfan.vote/ucl.html

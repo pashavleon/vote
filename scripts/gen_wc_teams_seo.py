@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Generate static SEO HTML blocks for WC 2026 teams (crawler-visible)."""
 
 from __future__ import annotations
@@ -185,8 +185,8 @@ def main() -> int:
     patch_file(matches, "wc-groups-seo", groups_section(teams, fixtures))
     patch_file(matches, "wc-fixtures-seo", fixtures_section(teams, fixtures))
 
-    patch_json_ld_itemlist(index, "https://pashavleon.github.io/vote/", teams)
-    patch_json_ld_itemlist(winner, "https://pashavleon.github.io/vote/winner.html", teams)
+    patch_json_ld_itemlist(index, "https://topfan.vote/", teams)
+    patch_json_ld_itemlist(winner, "https://topfan.vote/winner.html", teams)
 
     return 0
 

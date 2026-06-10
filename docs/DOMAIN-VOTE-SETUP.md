@@ -1,103 +1,103 @@
-# Custom `*.vote` domain on GitHub Pages
+﻿# `topfan.vote` on GitHub Pages
 
-Use this checklist to point a domain such as `fanvote.vote` or `wc26.vote` at the FanVote site (`pashavleon/vote`).
+Бренд: **TOP FAN VOTE** · репо: `pashavleon/vote`
 
-## 1. Buy the domain
+Полный план использования домена: [TOPFAN-DOMAIN-PLAN.md](./TOPFAN-DOMAIN-PLAN.md)
 
-- Registrar: Namecheap, Cloudflare Registrar, Google Domains successor, etc.
-- TLD `.vote` is managed by Afilias/Identity Digital — check availability (e.g. `fanvote.vote`, `worldcup26.vote`).
+---
 
-## 2. Choose URL shape
+## 1. GitHub Pages
 
-| Option | GitHub Pages setup | Example |
-|--------|-------------------|---------|
-| **Apex only** | Apex + `www` CNAME/ALIAS | `fanvote.vote` → site root |
-| **Subpath** | Not supported on custom domain without redirect | Avoid `/vote/` on custom domain unless you use a redirect |
+1. Repo → **Settings → Pages**
+2. **Custom domain:** `topfan.vote`
+3. Дождаться DNS check → **Enforce HTTPS**
+4. Файл `CNAME` в репо (содержимое: `topfan.vote`) — не удалять
 
-**Recommended:** custom domain = **site root** (`https://fanvote.vote/`), not `fanvote.vote/vote/`.
+## 2. DNS у регистратора
 
-If you keep publishing from `pashavleon.github.io/vote/`:
+DNS для `topfan.vote` сейчас на **share-dns.com** (Spaceship / аналог). Apex **должен** иметь A-записи — без них GitHub пишет *«Domain is not eligible for HTTPS»* и сайт не открывается.
 
-1. Either move repo to **user/org site** (`pashavleon.github.io` repo root), **or**
-2. Use a **new repo** `pashavleon.github.io` with CNAME only to custom domain and deploy the same files at root.
+### Apex `topfan.vote` (@) — обязательно 4 A-записи
 
-Simplest for current repo: add custom domain in repo settings; GitHub serves the project at **domain root** when CNAME is set on the `vote` project.
-
-## 3. GitHub repository settings
-
-1. Repo → **Settings** → **Pages**
-2. **Custom domain:** enter `fanvote.vote` (your domain)
-3. Wait for DNS check → **Enforce HTTPS** (enable when available)
-4. GitHub creates/updates `CNAME` file in the repo — **do not delete** it after deploy.
-
-## 4. DNS records (at registrar or Cloudflare)
-
-### Apex `fanvote.vote` (recommended with Cloudflare)
-
-| Type | Name | Value |
+| Type | Host | Value |
 |------|------|--------|
 | A | `@` | `185.199.108.153` |
 | A | `@` | `185.199.109.153` |
 | A | `@` | `185.199.110.153` |
 | A | `@` | `185.199.111.153` |
+
+Опционально те же 4 AAAA (IPv6):
+
+| Type | Host | Value |
+|------|------|--------|
 | AAAA | `@` | `2606:50c0:8000::153` |
 | AAAA | `@` | `2606:50c0:8001::153` |
 | AAAA | `@` | `2606:50c0:8002::153` |
 | AAAA | `@` | `2606:50c0:8003::153` |
 
-(GitHub Pages apex IPs — verify current list: https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site)
+### Удалить / не оставлять
 
-### `www` (optional)
+- Parking A на `@` (GoDaddy `park`, регистратор «website builder»)
+- CNAME на apex `@` (для apex только A/AAAA или ALIAS → `pashavleon.github.io`)
+- Дублирующие A/CNAME на `@`, которые не ведут на GitHub Pages
 
-| Type | Name | Value |
+### Опционально `www`
+
+| Type | Host | Value |
 |------|------|--------|
 | CNAME | `www` | `pashavleon.github.io` |
 
-## 5. Update FanVote after domain is live
+Редирект `www` → apex на стороне DNS/Cloudflare.
 
-Replace `https://pashavleon.github.io/vote/` in:
+Проверка (должны быть Answer, не только SOA):
 
-| File | What |
+```bash
+nslookup topfan.vote 8.8.8.8
+```
+
+Актуальный список IP: [GitHub Docs — Managing a custom domain](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site).
+
+---
+
+## 2b. «Domain is not eligible for HTTPS»
+
+GitHub включает HTTPS только когда DNS **уже** указывает на Pages и Let's Encrypt может выдать сертификат.
+
+| Причина | Что делать |
+|---------|------------|
+| Нет A на apex (только SOA) | Добавить 4 A выше; проверить `nslookup` |
+| Одна A вместо четырёх | Добавить все 4 IPv4 |
+| Parking / лишние записи на `@` | Удалить, оставить только GitHub |
+| CAA без `letsencrypt.org` | Добавить CAA: `0 issue "letsencrypt.org"` |
+| DNS обновили после Pages | Убрать custom domain в Settings → Pages → снова вписать `topfan.vote` |
+| Сертификат в процессе | Подождать до **1 часа** после корректного DNS |
+
+После DNS: Settings → Pages → галочка **Enforce HTTPS**.
+
+Файл `CNAME` в репо (`topfan.vote`) должен быть в `main` — без него домен может слетать после деплоя.
+
+## 3. Canonical URL в коде
+
+Все страницы и `js/site.js` используют **`https://topfan.vote/`** (корень, без `/vote/`).
+
+| Файл | Роль |
 |------|------|
-| `index.html`, `winner.html`, `matches.html`, `arch.html` | `<link rel="canonical">`, JSON-LD `url` |
-| `sitemap.xml` | all `<loc>` |
-| `robots.txt` | Sitemap URLs |
-| `js/hub-share.js` | `SITE` constant |
-| `js/share.js` | `SITE_URL` |
-| `SEO-WC-2026.md` | property URL |
+| `js/site.js` | `TFV_SITE.url`, `TFV_SITE.name` |
+| `sitemap.xml`, `robots.txt` | индексация |
+| `js/share.js`, `js/hub-share.js` | шаринг |
 
-Search: `pashavleon.github.io/vote` → replace with `https://YOUR.vote/`
+## 4. Google Search Console
 
-## 6. Google Search Console
+1. Property: `https://topfan.vote/`
+2. Submit: `https://topfan.vote/sitemap.xml`
+3. Request indexing: `/`, `winner.html`, `matches.html`
 
-1. Add property **URL prefix** `https://fanvote.vote/`
-2. Verify via DNS TXT or HTML file
-3. Submit `sitemap.xml`
-4. **Request indexing** for `/`, `winner.html`, `matches.html`
-5. Keep old `github.io/vote` property for 301/redirect monitoring if you add redirects later
+Legacy `github.io/vote` можно оставить для мониторинга 2–3 месяца.
 
-## 7. Redirect old URLs (optional but good for SEO)
+## 5. Чеклист
 
-GitHub project Pages on custom domain usually serves **only** the custom domain when Enforce HTTPS is on. Old `github.io/vote/` may still work — add a note in README or use Cloudflare redirect rule:
-
-`pashavleon.github.io/vote/*` → `https://fanvote.vote/$1` (if you control apex redirect via meta refresh in a stub — limited on GitHub).
-
-Pragmatic approach: leave both live; canonical tags point to `.vote` only.
-
-## 8. Verification checklist
-
-- [ ] `https://fanvote.vote/` loads home with trophy + quick ballot
-- [ ] `https://fanvote.vote/CNAME` or Pages settings shows **DNS correct**
-- [ ] TLS certificate active (padlock)
-- [ ] `canonical` on home = custom domain
-- [ ] `sitemap.xml` reachable on custom domain
-- [ ] Vote + Supabase still work (same `config.js` keys)
-- [ ] GSC property added and sitemap submitted
-
-## 9. Timeline
-
-| Step | Typical delay |
-|------|----------------|
-| DNS propagation | 5 min – 48 h |
-| GitHub TLS cert | up to 24 h after DNS OK |
-| Google re-index | 1–4 weeks |
+- [ ] Custom domain + HTTPS в GitHub
+- [ ] `https://topfan.vote/` открывается
+- [ ] Голосование Supabase работает
+- [ ] GSC + sitemap
+- [ ] Favorite poll SQL (опционально): `supabase/patch-wc-2026-favorite-poll.sql`

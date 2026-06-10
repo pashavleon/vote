@@ -1,5 +1,5 @@
-User-agent: *
+﻿User-agent: *
 Allow: /
 
-Sitemap: https://pashavleon.github.io/vote/sitemap.xml
-Sitemap: https://pashavleon.github.io/vote/sitemap.txt
+Sitemap: https://topfan.vote/sitemap.xml
+Sitemap: https://topfan.vote/sitemap.txt

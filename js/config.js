@@ -12,6 +12,8 @@ window.VOTE_CONFIG = {
 
   winnerPollId: 'wc-2026-winner',
 
+  favoritePollId: 'wc-2026-favorite',
+
   /** Match stage that accepts votes (group → r32 → …). Update when the phase opens. */
   activeMatchStage: 'group',
 

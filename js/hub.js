@@ -1,5 +1,5 @@
 /**
- * FanVote hub — home, winner, matches, archive pages.
+ * TOP FAN VOTE hub — home, winner, matches, archive pages.
  * Set data-page on body: home | winner | matches | arch
  */
 (function () {
@@ -95,7 +95,7 @@
         '<p class="match-info-modal__venue" id="match-info-venue"></p>' +
         '<section class="match-info-modal__watch" aria-labelledby="match-info-watch-title">' +
           '<h3 class="match-info-modal__watch-title" id="match-info-watch-title">Where to watch</h3>' +
-          '<p class="match-info-modal__watch-note">TV channels vary by country. Use these third-party guides — not affiliated with FanVote or FIFA.</p>' +
+          '<p class="match-info-modal__watch-note">TV channels vary by country. Use these third-party guides — not affiliated with TOP FAN VOTE or FIFA.</p>' +
           '<ul class="match-info-modal__links">' +
             '<li><a href="' + MATCH_WATCH_LINKS.fifaWatch + '" target="_blank" rel="noopener noreferrer">FIFA — where to watch</a></li>' +
             '<li><a href="' + MATCH_WATCH_LINKS.liveSoccerTv + '" target="_blank" rel="noopener noreferrer">Live Soccer TV — broadcast listings</a></li>' +
@@ -320,7 +320,7 @@
       var meta = $('#home-event-meta');
       if (meta) meta.textContent = event.subtitle;
     }
-    document.title = 'World Cup 2026 Fan Vote — Pick Your Teams | FanVote';
+    document.title = 'World Cup 2026 Fan Vote — Pick Your Teams | TOP FAN VOTE';
   };
 
   FanHub.prototype.quickBallotChoices = function () {

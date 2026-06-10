@@ -1,10 +1,10 @@
-/**
+﻿/**
  * Share: Web Share API, copy link, social intent URLs.
  */
 (function () {
   'use strict';
 
-  var SITE_URL = 'https://pashavleon.github.io/vote/';
+  var SITE_URL = (window.TFV_SITE && window.TFV_SITE.url) || 'https://topfan.vote/';
 
   function t(key, params) {
     return window.I18n ? window.I18n.t(key, params) : key;
