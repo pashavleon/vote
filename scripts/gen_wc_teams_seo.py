@@ -54,10 +54,16 @@ def teams_section(teams: dict, page: str) -> str:
         )
         title = "World Cup 2026 teams — fan support"
     else:
-        lead = (
-            "Vote in our unofficial fan poll for tournament winner and group matches. "
-            "Every qualified nation:"
-        )
+        if page == "index":
+            lead = (
+                "Cast your WC 2026 vote in our unofficial fan poll for tournament winner "
+                "and group matches. Every qualified nation:"
+            )
+        else:
+            lead = (
+                "Vote in our unofficial fan poll for tournament winner and group matches. "
+                "Every qualified nation:"
+            )
         title = "World Cup 2026 teams — all 48 nations"
     return f"""      <section class="page-seo page-seo--teams" aria-labelledby="wc-teams-seo-title">
         <h2 id="wc-teams-seo-title" class="page-seo__title">{title}</h2>
@@ -124,21 +130,16 @@ def groups_section(teams: dict, fixtures: dict) -> str:
       </section>"""
 
 
-def itemlist_json(teams: dict, page_url: str) -> str:
+def itemlist_json(teams: dict, page_url: str, link_page: str) -> str:
+    """ItemList with plain ListItem name+url — avoids invalid SportsTeam.memberOf."""
     ids = sorted(teams, key=lambda t: teams[t][0])
+    href = f"https://topfan.vote/{link_page}"
     items = [
         {
             "@type": "ListItem",
             "position": i + 1,
-            "item": {
-                "@type": "SportsTeam",
-                "name": teams[t][0],
-                "sport": "Soccer",
-                "memberOf": {
-                    "@type": "SportsEvent",
-                    "name": "FIFA World Cup 2026",
-                },
-            },
+            "name": f"{teams[t][0]} World Cup 2026",
+            "url": href,
         }
         for i, t in enumerate(ids)
     ]
@@ -169,14 +170,21 @@ def patch_file(path: Path, marker: str, content: str) -> None:
     print(f"Patched {path.name} ({marker})")
 
 
-def patch_json_ld_itemlist(path: Path, page_url: str, teams: dict) -> None:
+def patch_json_ld_itemlist(path: Path, page_url: str, teams: dict, link_page: str) -> None:
     text = path.read_text(encoding="utf-8")
-    item = itemlist_json(teams, page_url)
+    item = itemlist_json(teams, page_url, link_page)
     block = ",\n    " + item
-    needle = '  ]\n}'
     if '"@type": "ItemList"' in text:
-        print(f"SKIP {path.name}: ItemList already present")
+        text = re.sub(
+            r',\s*\{\s*"@type": "ItemList"[\s\S]*?"url":\s*"[^"]+"\s*\}',
+            block,
+            text,
+            count=1,
+        )
+        path.write_text(text, encoding="utf-8")
+        print(f"Replaced {path.name} (ItemList JSON-LD)")
         return
+    needle = '  ]\n}'
     if needle not in text:
         print(f"SKIP {path.name}: JSON-LD graph end not found", file=sys.stderr)
         return
@@ -201,9 +209,9 @@ def main() -> int:
     patch_file(matches, "wc-groups-seo", groups_section(teams, fixtures))
     patch_file(matches, "wc-fixtures-seo", fixtures_section(teams, fixtures))
 
-    patch_json_ld_itemlist(index, "https://topfan.vote/", teams)
-    patch_json_ld_itemlist(winner, "https://topfan.vote/winner.html", teams)
-    patch_json_ld_itemlist(favorite, "https://topfan.vote/favorite.html", teams)
+    patch_json_ld_itemlist(index, "https://topfan.vote/", teams, "winner.html")
+    patch_json_ld_itemlist(winner, "https://topfan.vote/winner.html", teams, "winner.html")
+    patch_json_ld_itemlist(favorite, "https://topfan.vote/favorite.html", teams, "favorite.html")
 
     return 0
 
