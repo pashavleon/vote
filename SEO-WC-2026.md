@@ -28,6 +28,7 @@ Copy and schema must repeat: *unofficial fan poll*, *not affiliated with FIFA* �
 | fifa world cup 2026 | Info/nav | Home |
 | 2026 world cup | Info/nav | Home |
 | wc 2026 | Short nav | Home |
+| wc 2026 vote | Exact fit (short query) | **Home** |
 
 **Title tip:** lead with *World Cup 2026*; use *FIFA* in description/FAQ, not necessarily in `<title>` (trademark sensitivity).
 
@@ -91,7 +92,7 @@ Editorial hooks (from pre-tournament media, June 2026): Spain, France, England, 
 
 | URL | Primary keyword focus | Title (≤60 chars) |
 |-----|----------------------|-------------------|
-| `https://topfan.vote/` | world cup 2026 fan poll | World Cup 2026 Fan Vote — Pick Your Teams \| TOP FAN VOTE |
+| `https://topfan.vote/` | wc 2026 vote, world cup 2026 fan poll | WC 2026 Vote — World Cup Fan Poll \| TOP FAN VOTE |
 | `https://topfan.vote/winner.html` | who will win world cup 2026 | Who Will Win World Cup 2026? Live Fan Vote \| TOP FAN VOTE |
 | `https://topfan.vote/matches.html` | world cup 2026 match predictions | World Cup 2026 Match Predictions — Schedule, TV \| TOP FAN VOTE |
 | `https://topfan.vote/arch.html` | fan poll archive | Fan Vote Archive — World Cup 2026 & UCL \| TOP FAN VOTE |
@@ -133,6 +134,7 @@ Editorial hooks (from pre-tournament media, June 2026): Spain, France, England, 
 2. GSC → **URL inspection** → request indexing for:
    - `https://topfan.vote/`
    - `https://topfan.vote/winner.html`
+   - `https://topfan.vote/favorite.html`
    - `https://topfan.vote/matches.html`
 3. Resubmit `sitemap.xml` (lastmod updated).  
 4. After group stage kicks off: optional blog/Telegram posts with deep links to `matches.html?` (groups) — earns match long-tail.  
@@ -152,6 +154,7 @@ Editorial hooks (from pre-tournament media, June 2026): Spain, France, England, 
 ## Keywords meta tag (reference — Home)
 
 ```
+WC 2026 vote, wc 2026 vote, World Cup 2026 fan vote, vote WC 2026,
 World Cup 2026, FIFA World Cup 2026, fan poll, who will win World Cup 2026,
 World Cup 2026 predictions, World Cup 2026 groups, match predictions,
 USA Mexico Canada 2026, group stage, unofficial poll
@@ -172,6 +175,7 @@ We compete on **long-tail**: *fan poll*, *vote*, *predict every match*, not on b
 
 Track impressions/clicks for:
 
+- `wc 2026 vote`  
 - `world cup 2026 fan poll`  
 - `who will win world cup 2026`  
 - `world cup 2026 groups`  
@@ -229,6 +233,7 @@ Prioritize content we can honestly satisfy. Volume tiers are relative (not exact
 
 | Queries | Target |
 |---------|--------|
+| wc 2026 vote | Home (primary short query) |
 | world cup 2026 fan poll / fan vote | Home |
 | world cup 2026 predictor (fan) | Home, winner |
 | world cup 2026 match predictions fan | matches.html |
@@ -260,6 +265,12 @@ Pattern: `{Country} world cup 2026`, `{Country} world cup 2026 winner odds`, `wi
 - Chevron fix for group collapse (CSS, no broken minus glyph).
 - Static team/group SEO HTML + ItemList schema.
 - Sitemap `lastmod` refresh.
+
+**Done (v1.2)**
+
+- `.nojekyll` for stable sitemap on GitHub Pages.
+- Home targets **WC 2026 vote** (title, H1, meta, FAQ, JSON-LD).
+- `favorite.html` in indexing checklist.
 
 **Next — high ROI**
 

@@ -52,7 +52,7 @@ A/AAAA на IP GitHub Pages (актуальный список: [GitHub Docs](ht
 | Submit | sitemap + Request indexing: `/`, `winner.html`, `matches.html` |
 | Legacy | Оставить property `github.io/vote` 2–3 месяца для сравнения |
 
-**Ключевые кластеры:** `world cup 2026 fan vote`, `vote wc 2026`, `top fan vote`, match predictions.
+**Ключевые кластеры:** `wc 2026 vote`, `world cup 2026 fan vote`, `vote wc 2026`, `top fan vote`, match predictions.
 
 ---
 
