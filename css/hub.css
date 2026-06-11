@@ -2215,4 +2215,26 @@
       color: var(--muted);
       text-align: center;
     }
+    .home-footer__panel--teams {
+      margin-top: 0.5rem;
+      border-top: 1px solid rgba(42, 53, 72, 0.5);
+    }
+    @media (min-width: 720px) {
+      .home-footer__panel--teams > summary {
+        pointer-events: auto;
+        cursor: pointer;
+        padding: 0.65rem 0;
+      }
+      .home-footer__panel--teams > summary::after {
+        display: block;
+      }
+    }
+    .home-footer__panel--teams .page-seo {
+      margin: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+    .home-footer__panel--teams .page-seo__lead {
+      margin-top: 0;
+    }
 

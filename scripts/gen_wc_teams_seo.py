@@ -57,7 +57,7 @@ def teams_section(teams: dict, page: str) -> str:
         if page == "index":
             lead = (
                 "Cast your WC 2026 vote in our unofficial fan poll for tournament winner "
-                "and group matches. Every qualified nation:"
+                "and group matches. Teams in our poll:"
             )
         else:
             lead = (
@@ -65,6 +65,19 @@ def teams_section(teams: dict, page: str) -> str:
                 "Every qualified nation:"
             )
         title = "World Cup 2026 teams — all 48 nations"
+    inner = f"""      <section class="page-seo page-seo--teams" aria-labelledby="wc-teams-seo-title">
+        <p class="page-seo__lead">{lead}</p>
+        <ul class="page-seo__teams">
+          {items}
+        </ul>
+      </section>"""
+    if page == "index":
+        return f"""      <details class="home-footer__panel home-footer__panel--teams">
+        <summary class="home-footer__title" id="wc-teams-seo-title">{title}</summary>
+        <div class="home-footer__panel-body">
+{inner}
+        </div>
+      </details>"""
     return f"""      <section class="page-seo page-seo--teams" aria-labelledby="wc-teams-seo-title">
         <h2 id="wc-teams-seo-title" class="page-seo__title">{title}</h2>
         <p class="page-seo__lead">{lead}</p>

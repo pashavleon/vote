@@ -334,7 +334,7 @@
   FanHub.prototype.initHomeFooterPanels = function () {
     var mq = window.matchMedia('(min-width: 720px)');
     function sync() {
-      $all('.home-footer__panel').forEach(function (panel) {
+      $all('.home-footer__panel:not(.home-footer__panel--teams)').forEach(function (panel) {
         if (mq.matches) panel.setAttribute('open', '');
         else panel.removeAttribute('open');
       });
