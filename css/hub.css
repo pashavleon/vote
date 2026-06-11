@@ -25,7 +25,7 @@
       background: #05080c;
       box-shadow: 0 0 80px rgba(0,0,0,0.45);
     }
-    @media (min-width: 900px) { .shell { max-width: 960px; } }
+    @media (min-width: 900px) { .shell { max-width: 1200px; } }
 
     .site-header,
     .home-hero-header__bar {
@@ -41,11 +41,11 @@
       top: 0;
       z-index: 20;
     }
-    .logo--home {
+    .logo.logo--home {
       font-size: clamp(0.82rem, 2.8vw, 1.12rem);
       letter-spacing: 0.11em;
     }
-    .logo--home .logo__line--vote {
+    .logo.logo--home .logo__line--vote {
       letter-spacing: 0.15em;
     }
 

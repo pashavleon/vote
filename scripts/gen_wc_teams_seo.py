@@ -217,8 +217,6 @@ def main() -> int:
     matches = ROOT / "matches.html"
 
     patch_file(index, "wc-teams-seo", teams_section(teams, "index"))
-    patch_file(winner, "wc-teams-seo", teams_section(teams, "winner"))
-    patch_file(favorite, "wc-teams-seo", teams_section(teams, "favorite"))
     patch_file(matches, "wc-groups-seo", groups_section(teams, fixtures))
     patch_file(matches, "wc-fixtures-seo", fixtures_section(teams, fixtures))
 
