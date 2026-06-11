@@ -1000,6 +1000,9 @@
       position: relative;
       overflow-x: clip;
     }
+    .shell--home.shell--home-v2 {
+      overflow-x: visible;
+    }
     body[data-page="home"] {
       overflow-x: clip;
     }
@@ -2070,8 +2073,6 @@
       flex: 1;
       padding: 0.85rem 0 1.25rem;
       overflow: visible;
-      max-width: 1320px;
-      margin: 0 auto;
     }
     .home-canvas__inner {
       position: relative;
@@ -2082,45 +2083,52 @@
       min-width: 0;
       padding: 0 0.75rem;
     }
+    .home-vote__stage {
+      position: relative;
+      overflow: visible;
+    }
     .home-trophy-deco {
       position: absolute;
-      top: 0;
-      bottom: 0;
-      width: clamp(4.25rem, 9.5vw, 7rem);
       display: none;
-      align-items: center;
-      justify-content: center;
+      width: 0;
+      height: 0;
       pointer-events: none;
-      z-index: 5;
-      overflow: hidden;
-    }
-    .home-trophy-deco--left {
-      left: 0;
-      justify-content: flex-end;
-    }
-    .home-trophy-deco--right {
-      right: 0;
-      justify-content: flex-start;
+      z-index: 4;
+      overflow: visible;
     }
     .home-trophy-deco img {
-      display: block;
-      height: clamp(13rem, 38vh, 22rem);
+      position: absolute;
       width: auto;
       max-width: none;
-      flex-shrink: 0;
       object-fit: contain;
-      filter: drop-shadow(0 16px 40px rgba(0, 0, 0, 0.65));
-      opacity: 0.88;
+      filter: drop-shadow(0 16px 42px rgba(0, 0, 0, 0.72));
+      opacity: 0.96;
+    }
+    /* Left cup — upper, beside Tournament winner (per mockup) */
+    .home-trophy-deco--left {
+      left: 0;
+      top: 0;
     }
     .home-trophy-deco--left img {
+      top: 1.1rem;
+      right: 0.25rem;
+      height: clamp(15rem, 34vw, 26rem);
       transform: rotate(-45deg);
-      transform-origin: 70% 55%;
-      margin-right: -1.25rem;
+      transform-origin: 72% 78%;
+      translate: -62% 0;
+    }
+    /* Right cup — lower, beside Match polls (per mockup) */
+    .home-trophy-deco--right {
+      right: 0;
+      bottom: 0;
     }
     .home-trophy-deco--right img {
+      bottom: 0.15rem;
+      left: 0.25rem;
+      height: clamp(15rem, 34vw, 26rem);
       transform: rotate(45deg);
-      transform-origin: 30% 55%;
-      margin-left: -1.25rem;
+      transform-origin: 28% 78%;
+      translate: 62% 0;
     }
     .home-vote { margin-bottom: 1.25rem; }
     .home-vote__label {
@@ -2212,29 +2220,24 @@
         max-height: min(26vh, 13rem);
       }
     }
-    @media (min-width: 640px) {
-      .home-canvas {
-        padding-left: clamp(5rem, 10.5vw, 7.25rem);
-        padding-right: clamp(5rem, 10.5vw, 7.25rem);
-      }
+    @media (min-width: 768px) {
       .home-trophy-deco {
-        display: flex;
+        display: block;
       }
     }
-    @media (min-width: 900px) {
-      .home-canvas {
-        padding-left: clamp(5.75rem, 11vw, 8rem);
-        padding-right: clamp(5.75rem, 11vw, 8rem);
+    @media (min-width: 1100px) {
+      .home-trophy-deco--left img,
+      .home-trophy-deco--right img {
+        height: clamp(18rem, 30vw, 32rem);
       }
-      .home-trophy-deco {
-        width: clamp(5rem, 10vw, 7.5rem);
+      .home-trophy-deco--left img {
+        translate: -68% 0;
       }
-      .home-trophy-deco img {
-        height: clamp(15rem, 42vh, 24rem);
-        opacity: 0.92;
+      .home-trophy-deco--right img {
+        translate: 68% 0;
       }
     }
-    @media (max-width: 639px) {
+    @media (max-width: 767px) {
       .home-trophy-deco {
         display: none;
       }

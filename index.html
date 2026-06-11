@@ -448,15 +448,15 @@
 
     <main class="page-main home-main">
       <div class="home-canvas">
-        <div class="home-trophy-deco home-trophy-deco--left" aria-hidden="true">
-          <img src="assets/wc-trophy.png" alt="" width="381" height="1021" decoding="async" />
-        </div>
-        <div class="home-trophy-deco home-trophy-deco--right" aria-hidden="true">
-          <img src="assets/wc-trophy.png" alt="" width="381" height="1021" decoding="async" />
-        </div>
-
-        <div class="home-canvas__inner">
+          <div class="home-canvas__inner">
           <section class="home-vote" aria-labelledby="home-vote-label">
+            <div class="home-vote__stage">
+              <div class="home-trophy-deco home-trophy-deco--left" aria-hidden="true">
+                <img src="assets/wc-trophy.png" alt="" width="381" height="1021" decoding="async" />
+              </div>
+              <div class="home-trophy-deco home-trophy-deco--right" aria-hidden="true">
+                <img src="assets/wc-trophy.png" alt="" width="381" height="1021" decoding="async" />
+              </div>
             <p class="home-vote__label" id="home-vote-label">Choose a poll</p>
             <nav class="home-chips-grid home-portals" aria-label="Choose a poll type">
         <a class="portal-chip portal-chip--winner" href="winner.html">
@@ -519,6 +519,7 @@
           </span>
         </a>
             </nav>
+            </div>
           </section>
 
           <section class="home-news" aria-labelledby="home-news-title">
@@ -555,7 +556,7 @@
               </a>
             </div>
           </section>
-        </div>
+          </div>
       </div>
 
       <footer class="home-footer">
