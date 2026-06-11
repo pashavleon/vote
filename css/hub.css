@@ -961,6 +961,24 @@
       padding: 0.35rem 0.5rem;
     }
     .topnav-arch.is-active { color: var(--text); }
+    .topnav-link {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .topnav-link:hover { color: var(--text); }
+    .topnav-link.is-active { color: var(--wc-gold); }
+    @media (max-width: 639px) {
+      .site-header {
+        flex-wrap: wrap;
+        gap: 0.45rem;
+      }
+      .site-header .topnav {
+        width: 100%;
+        justify-content: center;
+      }
+    }
 
     .page-main { padding-bottom: 2rem; }
     .page-head {
@@ -1912,6 +1930,36 @@
       text-decoration: none;
     }
     .news-nav a:hover { text-decoration: underline; }
+    .news-vote-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem 0.45rem;
+      max-width: 42rem;
+      margin: 0 auto 1rem;
+      padding: 0.75rem 1rem 0;
+    }
+    .news-vote-bar__label {
+      font-size: 0.58rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--wc-gold);
+      margin-right: 0.1rem;
+    }
+    .news-vote-bar a {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.35rem 0.6rem;
+      border-radius: 6px;
+      text-decoration: none;
+      border: 1px solid var(--wc-green);
+      color: var(--wc-green);
+    }
+    .news-vote-bar a:hover {
+      background: rgba(0, 166, 81, 0.15);
+    }
     .news-section {
       margin-bottom: 2rem;
       padding-bottom: 1.5rem;
