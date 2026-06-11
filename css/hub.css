@@ -27,6 +27,28 @@
     }
     @media (min-width: 900px) { .shell { max-width: 960px; } }
 
+    .site-header,
+    .home-hero-header__bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.7rem 1rem;
+      background: rgba(8, 11, 16, 0.98);
+      border-bottom: 1px solid var(--border);
+    }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .logo--home {
+      font-size: clamp(0.82rem, 2.8vw, 1.12rem);
+      letter-spacing: 0.11em;
+    }
+    .logo--home .logo__line--vote {
+      letter-spacing: 0.15em;
+    }
+
     .topbar {
       display: flex;
       align-items: center;
@@ -1860,19 +1882,6 @@
     .home-hero-header__bar {
       position: relative;
       z-index: 1;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.7rem 1rem;
-      background: rgba(8, 11, 16, 0.98);
-      border-bottom: 1px solid var(--border);
-    }
-    .shell--home-v2 .logo--home {
-      font-size: clamp(0.82rem, 2.8vw, 1.12rem);
-      letter-spacing: 0.11em;
-    }
-    .shell--home-v2 .logo--home .logo__line--vote {
-      letter-spacing: 0.15em;
     }
     .home-hero-header__copy {
       position: relative;
@@ -2216,7 +2225,8 @@
       text-align: center;
     }
     .home-footer__panel--teams {
-      margin-top: 0.5rem;
+      margin-top: 0.75rem;
+      padding-top: 0.25rem;
       border-top: 1px solid rgba(42, 53, 72, 0.5);
     }
     @media (min-width: 720px) {
