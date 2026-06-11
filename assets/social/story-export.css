@@ -1,0 +1,160 @@
+/* Shared styles for 1080×1920 IG / Telegram story banners */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.story {
+  position: relative;
+  width: 1080px;
+  height: 1920px;
+  background: #05080c;
+  color: #e8edf4;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 72px 64px 80px;
+  overflow: hidden;
+}
+
+.story__glow {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+  opacity: 0.45;
+}
+
+.story__glow--green {
+  width: 520px;
+  height: 520px;
+  background: #00A651;
+  top: -120px;
+  right: -100px;
+}
+
+.story__glow--gold {
+  width: 400px;
+  height: 400px;
+  background: #F5C518;
+  bottom: 280px;
+  left: -120px;
+  opacity: 0.22;
+}
+
+.story__top {
+  position: relative;
+  z-index: 1;
+}
+
+.story__brand {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #F5C518;
+  line-height: 1.15;
+}
+
+.story__brand span {
+  display: block;
+  letter-spacing: 0.18em;
+}
+
+.story__tag {
+  margin-top: 48px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #00A651;
+}
+
+.story__headline {
+  position: relative;
+  z-index: 1;
+  margin-top: 32px;
+  font-size: 72px;
+  font-weight: 800;
+  line-height: 1.08;
+  max-width: 920px;
+  text-shadow: 0 4px 40px rgba(0, 0, 0, 0.6);
+}
+
+.story__headline--sm {
+  font-size: 58px;
+}
+
+.story__sub {
+  position: relative;
+  z-index: 1;
+  margin-top: 36px;
+  font-size: 32px;
+  line-height: 1.45;
+  color: #8b9bb4;
+  max-width: 880px;
+}
+
+.story__chips {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 48px;
+}
+
+.story__chip {
+  font-size: 24px;
+  font-weight: 700;
+  padding: 14px 28px;
+  border-radius: 999px;
+  border: 2px solid #00A651;
+  color: #00A651;
+  background: rgba(0, 166, 81, 0.12);
+}
+
+.story__bottom {
+  position: relative;
+  z-index: 1;
+  border-top: 2px solid #2a3548;
+  padding-top: 40px;
+}
+
+.story__url {
+  font-size: 40px;
+  font-weight: 800;
+  color: #F5C518;
+  letter-spacing: 0.02em;
+}
+
+.story__disclaimer {
+  margin-top: 20px;
+  font-size: 20px;
+  color: #8b9bb4;
+  line-height: 1.4;
+  max-width: 900px;
+}
+
+.story__accent-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 8px;
+  height: 100%;
+  background: linear-gradient(180deg, #F5C518 0%, #00A651 100%);
+}
+
+.story__icon {
+  position: relative;
+  z-index: 1;
+  font-size: 120px;
+  line-height: 1;
+  margin-top: 24px;
+  opacity: 0.9;
+}
