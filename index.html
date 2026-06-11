@@ -425,29 +425,44 @@
   <link rel="stylesheet" href="css/hub.css" />
 </head>
 <body data-page="home">
-  <div class="shell shell--home">
-    <header class="topbar">
-      <a class="logo" href="index.html" aria-label="TOP FAN VOTE home"><span class="logo__line">TOP FAN</span><span class="logo__line logo__line--vote">VOTE</span></a>
-      <nav class="topnav topnav--split" aria-label="Site">
-        <a href="arch.html" class="topnav-arch">Archive</a>
-      </nav>
+  <div class="shell shell--home shell--home-v2">
+    <header class="home-hero-header" aria-label="World Cup 2026 fan polls">
+      <div class="home-hero-header__strip">
+        <div class="home-hero-header__bar">
+          <a class="logo logo--home" href="index.html" aria-label="TOP FAN VOTE home"><span class="logo__line">TOP FAN</span><span class="logo__line logo__line--vote">VOTE</span></a>
+          <nav class="topnav topnav--split" aria-label="Site">
+            <a href="arch.html" class="topnav-arch">Archive</a>
+          </nav>
+        </div>
+        <div class="home-hero-header__copy">
+          <div class="home-hero-header__copy-overlay" aria-hidden="true"></div>
+          <div class="home-hero-header__copy-inner">
+            <p class="home-hero-header__tag">Unofficial fan vote</p>
+            <h1 class="home-hero-header__title" id="home-event-title">WC 2026 Vote</h1>
+            <p class="home-hero-header__meta" id="home-event-meta">World Cup 2026 fan poll · winner · favorite · matches</p>
+            <p class="home-hero-header__disclaimer">Not affiliated with FIFA</p>
+          </div>
+        </div>
+      </div>
     </header>
 
     <main class="page-main home-main">
-      <section class="home-stage" aria-label="World Cup 2026 fan polls">
-        <div class="home-stage__center">
-          <div class="home-stage__backdrop" aria-hidden="true">
-            <img class="home-stage__trophy" src="assets/wc-trophy.png" alt="" decoding="async" />
+      <div class="home-canvas">
+        <div class="home-trophy-deco home-trophy-deco--left" aria-hidden="true">
+          <div class="home-trophy-deco__slice">
+            <img src="assets/wc-trophy.png" alt="" decoding="async" />
           </div>
-          <div class="home-stage__copy">
-            <p class="home-stage__tag">Unofficial fan vote</p>
-            <h1 class="home-stage__title" id="home-event-title">WC 2026 Vote</h1>
-            <p class="home-stage__meta" id="home-event-meta">World Cup 2026 fan poll · winner · favorite · matches</p>
-            <p class="home-stage__disclaimer">Not affiliated with FIFA</p>
+        </div>
+        <div class="home-trophy-deco home-trophy-deco--right" aria-hidden="true">
+          <div class="home-trophy-deco__slice">
+            <img src="assets/wc-trophy.png" alt="" decoding="async" />
           </div>
         </div>
 
-        <nav class="home-portals" aria-label="Choose a poll type">
+        <div class="home-canvas__inner">
+          <section class="home-vote" aria-labelledby="home-vote-label">
+            <p class="home-vote__label" id="home-vote-label">Choose a poll</p>
+            <nav class="home-chips-grid home-portals" aria-label="Choose a poll type">
         <a class="portal-chip portal-chip--winner" href="winner.html">
           <span class="portal-chip__frame">
             <img
@@ -507,44 +522,106 @@
             <span class="portal-chip__cta">Pick matches</span>
           </span>
         </a>
-        </nav>
-    </section>
+            </nav>
+          </section>
 
-      <footer class="home-seo">
-        <p class="home-seo__lead">
-          <strong>TOP FAN VOTE</strong> is where fans cast their <strong>WC 2026 vote</strong> — an unofficial
-          <strong>World Cup 2026 fan poll</strong> with three polls:
-          <a href="winner.html">tournament winner</a>,
-          <a href="favorite.html">favorite team</a>, and
-          <a href="matches.html">group-stage match predictions</a> — live percentages, no account required.
-        </p>
-        <section class="home-seo__faq" aria-labelledby="home-faq-title">
-          <h2 id="home-faq-title" class="home-seo__faq-title">FAQ</h2>
-          <details class="home-seo__item">
-            <summary>WC 2026 vote — where do I vote?</summary>
-            <p>Cast your WC 2026 vote here at topfan.vote — pick a poll below (winner, favorite, or matches). Unofficial fan poll, not FIFA.</p>
+          <section class="home-news" aria-labelledby="home-news-title">
+            <div class="home-news__head">
+              <h2 class="home-news__title" id="home-news-title">Hot takes</h2>
+              <p class="home-news__sub">What fans are arguing about — in the stands, online, and at the bar</p>
+              <a class="home-news__all" href="news/index.html">All stories</a>
+            </div>
+
+            <div class="home-chips-grid home-news__grid" aria-label="Featured stories">
+              <a class="news-banner" href="news/opening-ceremonies-guide.html">
+                <img class="news-banner__img" src="assets/news/opener-banner-800.jpg" alt="" width="280" height="88" decoding="async" />
+                <div class="news-banner__body">
+                  <p class="news-banner__tag">Opening night</p>
+                  <p class="news-banner__title">Three parties. One ticket rule.</p>
+                  <p class="news-banner__desc">No ceremony-only pass — Azteca, Toronto, SoFi and the prices fans argue about.</p>
+                </div>
+              </a>
+              <a class="news-banner news-banner--feature" href="news/omar-artan-referee-denied.html">
+                <img class="news-banner__img" src="assets/news/artan-banner-800.jpg" alt="" width="320" height="104" decoding="async" />
+                <div class="news-banner__body">
+                  <p class="news-banner__tag">Fan story</p>
+                  <p class="news-banner__title">He had the visa. Miami said no.</p>
+                  <p class="news-banner__desc">Omar Artan — Africa’s top referee, Somalia’s first World Cup official — sent home.</p>
+                </div>
+              </a>
+              <a class="news-banner" href="news/iran-tickets-tijuana-base-camp.html">
+                <img class="news-banner__img" src="assets/news/iran-banner-800.jpg" alt="" width="280" height="88" decoding="async" />
+                <div class="news-banner__body">
+                  <p class="news-banner__tag">Geopolitics</p>
+                  <p class="news-banner__title">They sold the tickets. Then the seats vanished.</p>
+                  <p class="news-banner__desc">Tijuana camp, LA diaspora, matchday-only flights — football vs the border.</p>
+                </div>
+              </a>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <footer class="home-footer">
+        <div class="home-footer__grid">
+          <details class="home-footer__panel">
+            <summary class="home-footer__title">About</summary>
+            <div class="home-footer__panel-body">
+              <p class="home-footer__text">
+                <strong>TOP FAN VOTE</strong> is where fans cast their <strong>WC 2026 vote</strong> — an unofficial
+                <strong>World Cup 2026 fan poll</strong> with three polls:
+                <a href="winner.html">tournament winner</a>,
+                <a href="favorite.html">favorite team</a>, and
+                <a href="matches.html">group-stage match predictions</a> — live percentages, no account required.
+              </p>
+            </div>
           </details>
-          <details class="home-seo__item">
-            <summary>When does World Cup 2026 start?</summary>
-            <p>11 June 2026 (opening match Mexico vs South Africa). The final is 19 July 2026.</p>
+
+          <details class="home-footer__panel home-footer__panel--faq">
+            <summary class="home-footer__title">FAQ</summary>
+            <div class="home-footer__panel-body">
+              <details class="home-footer__item">
+                <summary>WC 2026 vote — where do I vote?</summary>
+                <p>Cast your WC 2026 vote here at topfan.vote — pick a poll above (winner, favorite, or matches). Unofficial fan poll, not FIFA.</p>
+              </details>
+              <details class="home-footer__item">
+                <summary>When does World Cup 2026 start?</summary>
+                <p>11 June 2026 (opening match Mexico vs South Africa). The final is 19 July 2026.</p>
+              </details>
+              <details class="home-footer__item">
+                <summary>What is the favorite team poll?</summary>
+                <p>Pick the nation you <a href="favorite.html">support</a> — separate from who you think will win the tournament.</p>
+              </details>
+              <details class="home-footer__item">
+                <summary>Who will win World Cup 2026?</summary>
+                <p>See live fan votes on our <a href="winner.html">tournament winner poll</a> — not official odds or a FIFA forecast.</p>
+              </details>
+              <details class="home-footer__item">
+                <summary>How many teams and groups?</summary>
+                <p>48 teams in 12 groups (A–L), 104 matches. Vote on group games in <a href="matches.html">match polls</a>.</p>
+              </details>
+              <details class="home-footer__item">
+                <summary>Is this official?</summary>
+                <p>No. TOP FAN VOTE is not affiliated with FIFA. Past polls are in the <a href="arch.html">archive</a>.</p>
+              </details>
+            </div>
           </details>
-          <details class="home-seo__item">
-            <summary>What is the favorite team poll?</summary>
-            <p>Pick the nation you <a href="favorite.html">support</a> — separate from who you think will win the tournament.</p>
+
+          <details class="home-footer__panel">
+            <summary class="home-footer__title">Contact</summary>
+            <div class="home-footer__panel-body">
+              <p class="home-footer__text">
+                Questions about the polls, site bugs, press, or <strong>sponsorship &amp; partnerships</strong> — we read every message.
+                Typical reply within 2–3 business days.
+              </p>
+              <p class="home-footer__text home-footer__text--muted">
+                General: <a href="mailto:hello@topfan.vote">hello@topfan.vote</a><br />
+                Sponsorship: <a href="mailto:partners@topfan.vote">partners@topfan.vote</a>
+              </p>
+            </div>
           </details>
-          <details class="home-seo__item">
-            <summary>Who will win World Cup 2026?</summary>
-            <p>See live fan votes on our <a href="winner.html">tournament winner poll</a> — not official odds or a FIFA forecast.</p>
-          </details>
-          <details class="home-seo__item">
-            <summary>How many teams and groups?</summary>
-            <p>48 teams in 12 groups (A–L), 104 matches. Vote on group games in <a href="matches.html">match polls</a>.</p>
-          </details>
-          <details class="home-seo__item">
-            <summary>Is this official?</summary>
-            <p>No. TOP FAN VOTE is not affiliated with FIFA. Past polls are in the <a href="arch.html">archive</a>.</p>
-          </details>
-    </section>
+        </div>
+        <p class="home-footer__legal">Unofficial fan poll · not affiliated with FIFA</p>
       <!-- wc-teams-seo:start -->
       <section class="page-seo page-seo--teams" aria-labelledby="wc-teams-seo-title">
         <h2 id="wc-teams-seo-title" class="page-seo__title">World Cup 2026 teams — all 48 nations</h2>

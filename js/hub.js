@@ -320,6 +320,7 @@
 
   FanHub.prototype.initHome = function () {
     var self = this;
+    this.initHomeFooterPanels();
     api.fetchFeaturedEvent()
       .then(function (event) {
         self.event = event;
@@ -328,6 +329,22 @@
       .catch(function (err) {
         console.error('[hub] home failed', err);
       });
+  };
+
+  FanHub.prototype.initHomeFooterPanels = function () {
+    var mq = window.matchMedia('(min-width: 720px)');
+    function sync() {
+      $all('.home-footer__panel').forEach(function (panel) {
+        if (mq.matches) panel.setAttribute('open', '');
+        else panel.removeAttribute('open');
+      });
+    }
+    sync();
+    if (typeof mq.addEventListener === 'function') {
+      mq.addEventListener('change', sync);
+    } else if (typeof mq.addListener === 'function') {
+      mq.addListener(sync);
+    }
   };
 
   FanHub.prototype.renderHomeHero = function (event) {
