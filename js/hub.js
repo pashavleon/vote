@@ -114,6 +114,8 @@
         '<p class="match-info-modal__votes" id="match-info-votes"></p>' +
         '<dl class="match-info-modal__times" id="match-info-times"></dl>' +
         '<p class="match-info-modal__venue" id="match-info-venue"></p>' +
+        '<div class="match-info-modal__result" id="match-info-result" hidden></div>' +
+        '<ul class="match-info-modal__goals" id="match-info-goals" hidden></ul>' +
         '<section class="match-info-modal__watch" aria-labelledby="match-info-watch-title">' +
           '<h3 class="match-info-modal__watch-title" id="match-info-watch-title">Where to watch</h3>' +
           '<p class="match-info-modal__watch-note">TV channels vary by country. Use these third-party guides — not affiliated with TOP FAN VOTE or FIFA.</p>' +
@@ -170,6 +172,40 @@
       venueEl.textContent = '';
       venueEl.hidden = true;
     }
+    var resultEl = $('#match-info-result', modal);
+    var goalsEl = $('#match-info-goals', modal);
+    var match = opts.match || null;
+    if (hasMatchScore(match)) {
+      var status = matchStatusShort(match.match_status);
+      var note = match.result_note ? ' · ' + match.result_note : '';
+      resultEl.innerHTML =
+        '<span class="match-info-modal__result-score">' +
+          escapeHtml(String(match.home_score)) + ' – ' + escapeHtml(String(match.away_score)) +
+        '</span>' +
+        (status
+          ? '<span class="match-info-modal__result-meta">' + escapeHtml(status + note) + '</span>'
+          : '');
+      resultEl.hidden = false;
+      var goalsHtml = formatGoalsList(
+        match.goals,
+        match.home_team_id,
+        match.away_team_id,
+        opts.home,
+        opts.away
+      );
+      if (goalsHtml) {
+        goalsEl.innerHTML = goalsHtml;
+        goalsEl.hidden = false;
+      } else {
+        goalsEl.innerHTML = '';
+        goalsEl.hidden = true;
+      }
+    } else {
+      resultEl.innerHTML = '';
+      resultEl.hidden = true;
+      goalsEl.innerHTML = '';
+      goalsEl.hidden = true;
+    }
     modal.hidden = false;
     document.body.classList.add('match-info-modal-open');
     var closeBtn = $('.match-info-modal__close', modal);
@@ -204,6 +240,61 @@
     if (status === 'scheduled') return 'Upcoming';
     if (status === 'closed') return 'Closed';
     return status || '';
+  }
+
+  function hasMatchScore(match) {
+    if (!match) return false;
+    if (match.home_score == null || match.away_score == null) return false;
+    return match.match_status === 'live' || match.match_status === 'finished';
+  }
+
+  function matchStatusShort(status) {
+    if (status === 'live') return 'Live';
+    if (status === 'finished') return 'FT';
+    if (status === 'postponed') return 'Postponed';
+    return '';
+  }
+
+  function teamLabelForGoal(teamId, homeTeamId, awayTeamId, homeLabel, awayLabel) {
+    if (teamId === homeTeamId) return homeLabel || 'Home';
+    if (teamId === awayTeamId) return awayLabel || 'Away';
+    return teamId || '—';
+  }
+
+  function formatGoalsList(goals, homeTeamId, awayTeamId, homeLabel, awayLabel) {
+    if (!goals || !goals.length) return '';
+    var sorted = goals.slice().sort(function (a, b) {
+      return Number(a.minute || 0) - Number(b.minute || 0);
+    });
+    return sorted.map(function (g) {
+      var team = teamLabelForGoal(g.team_id, homeTeamId, awayTeamId, homeLabel, awayLabel);
+      var player = g.player ? ' ' + g.player : '';
+      var og = g.own_goal ? ' (OG)' : '';
+      var min = g.minute != null ? String(g.minute) + "'" : '';
+      return '<li><span class="match-info-modal__goal-min">' + escapeHtml(min) + '</span>' +
+        '<span class="match-info-modal__goal-text">' +
+        escapeHtml(team + player + og) + '</span></li>';
+    }).join('');
+  }
+
+  function renderMatchScoreHtml(match) {
+    if (!hasMatchScore(match)) return '';
+    var status = matchStatusShort(match.match_status);
+    var note = match.result_note
+      ? ' <span class="match-card__score-note">' + escapeHtml(match.result_note) + '</span>'
+      : '';
+    return (
+      '<div class="match-card__score">' +
+        '<span class="match-card__score-val">' +
+          escapeHtml(String(match.home_score)) + ' – ' + escapeHtml(String(match.away_score)) +
+        '</span>' +
+        (status
+          ? '<span class="match-card__score-meta' +
+            (match.match_status === 'live' ? ' match-card__score-meta--live' : '') +
+            '">' + escapeHtml(status) + note + '</span>'
+          : '') +
+      '</div>'
+    );
   }
 
   function choiceById(choices, id) {
@@ -847,6 +938,8 @@
     var cardCls = 'match-card';
     if (poll.status === 'open' && canVote) cardCls += ' is-live';
     if (closed || !canVote) cardCls += ' is-closed';
+    if (match.match_status === 'finished' && hasMatchScore(match)) cardCls += ' is-finished';
+    if (match.match_status === 'live' && hasMatchScore(match)) cardCls += ' is-match-live';
 
     var kickoffIso = match.kickoff_at || poll.closes_at || '';
     var headMeta = formatKickoff(kickoffIso);
@@ -884,20 +977,15 @@
     var voteCls = 'match-card__vote';
     if (canVote && !draw) voteCls += ' match-card__vote--two';
     if (!canVote) voteCls += ' match-card__vote--readonly';
+    var scoreHtml = renderMatchScoreHtml(match);
 
     return (
       '<article class="' + cardCls + '" data-match-poll-id="' + escapeHtml(poll.id) + '">' +
         '<div class="match-card__head">' +
           '<span class="match-card__meta">' + escapeHtml(headMeta) + '</span>' +
           '<div class="match-card__actions">' +
-            '<button type="button" class="match-card__info" aria-label="Match info: kick-off, venue, votes, TV"' +
-              ' data-info-poll-id="' + escapeHtml(poll.id) + '"' +
-              ' data-info-home="' + escapeHtml(homeLabel) + '"' +
-              ' data-info-away="' + escapeHtml(awayLabel) + '"' +
-              ' data-info-kickoff="' + escapeHtml(kickoffIso) + '"' +
-              ' data-info-venue="' + escapeHtml(match.venue || '') + '"' +
-              ' data-info-stage="' + escapeHtml(stageLabel) + '"' +
-              ' data-info-votes="' + escapeHtml(String(detail.total_votes || 0)) + '">' +
+            '<button type="button" class="match-card__info" aria-label="Match info: kick-off, venue, score, votes, TV"' +
+              ' data-info-poll-id="' + escapeHtml(poll.id) + '">' +
               '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">' +
                 '<circle cx="12" cy="12" r="10"/>' +
                 '<path d="M12 16v-4M12 8h.01"/>' +
@@ -908,6 +996,7 @@
             '</span>' +
           '</div>' +
         '</div>' +
+        scoreHtml +
         '<div class="' + voteCls + '">' + chips + '</div>' +
       '</article>'
     );
@@ -966,13 +1055,21 @@
         var votes = detail && detail.total_votes != null
           ? detail.total_votes
           : btn.getAttribute('data-info-votes');
+        var choices = detail && detail.choices ? detail.choices : [];
+        var homeChoice = choiceById(choices, 'home');
+        var awayChoice = choiceById(choices, 'away');
+        var match = detail && detail.match ? detail.match : null;
+        var stageLabel = match && match.group_code
+          ? 'Group ' + match.group_code
+          : (match && (match.round_label || match.stage) ? (match.round_label || match.stage) : '');
         openMatchInfoModal({
-          home: btn.getAttribute('data-info-home') || 'Home',
-          away: btn.getAttribute('data-info-away') || 'Away',
-          kickoff: btn.getAttribute('data-info-kickoff') || '',
-          venue: btn.getAttribute('data-info-venue') || '',
-          stage: btn.getAttribute('data-info-stage') || '',
+          home: homeChoice ? homeChoice.label : 'Home',
+          away: awayChoice ? awayChoice.label : 'Away',
+          kickoff: match && match.kickoff_at ? match.kickoff_at : '',
+          venue: match && match.venue ? match.venue : '',
+          stage: stageLabel,
           votes: votes,
+          match: match,
         });
       });
     });

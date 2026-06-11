@@ -52,7 +52,22 @@ create table if not exists public.matches (
   away_team_id text not null,
   kickoff_at timestamptz not null,
   venue text,
-  sort_order int not null default 0
+  sort_order int not null default 0,
+  home_score smallint,
+  away_score smallint,
+  match_status text not null default 'scheduled'
+    check (match_status in ('scheduled', 'live', 'finished', 'postponed')),
+  result_note text,
+  goals jsonb not null default '[]'::jsonb,
+  constraint matches_scores_non_negative check (
+    (home_score is null and away_score is null)
+    or (
+      home_score is not null
+      and away_score is not null
+      and home_score >= 0
+      and away_score >= 0
+    )
+  )
 );
 
 create index if not exists matches_event_kickoff_idx
@@ -409,7 +424,12 @@ as $$
         'kickoff_at', m.kickoff_at,
         'venue', m.venue,
         'home_team_id', m.home_team_id,
-        'away_team_id', m.away_team_id
+        'away_team_id', m.away_team_id,
+        'home_score', m.home_score,
+        'away_score', m.away_score,
+        'match_status', m.match_status,
+        'result_note', m.result_note,
+        'goals', coalesce(m.goals, '[]'::jsonb)
       )
     end,
     'event', case
