@@ -738,6 +738,20 @@
       margin-bottom: 0.75rem;
       line-height: 1.4;
     }
+    .match-info-modal__correct {
+      font-size: 0.72rem;
+      color: var(--text);
+      font-weight: 600;
+      margin: -0.35rem 0 0.75rem;
+      padding: 0.5rem 0.65rem;
+      border-radius: 8px;
+      background: rgba(0, 166, 81, 0.1);
+      border: 1px solid rgba(0, 166, 81, 0.28);
+      line-height: 1.4;
+    }
+    .match-info-modal__correct strong {
+      color: var(--wc-green);
+    }
     .match-info-modal__times {
       display: grid;
       gap: 0.45rem;

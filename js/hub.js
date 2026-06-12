@@ -112,6 +112,7 @@
         '<h2 class="match-info-modal__title" id="match-info-title"></h2>' +
         '<p class="match-info-modal__stage" id="match-info-stage"></p>' +
         '<p class="match-info-modal__votes" id="match-info-votes"></p>' +
+        '<p class="match-info-modal__correct" id="match-info-correct" hidden></p>' +
         '<dl class="match-info-modal__times" id="match-info-times"></dl>' +
         '<p class="match-info-modal__venue" id="match-info-venue"></p>' +
         '<div class="match-info-modal__result" id="match-info-result" hidden></div>' +
@@ -137,6 +138,16 @@
     return el;
   }
 
+  function resultChoiceLabel(choices, resultChoiceId) {
+    if (!resultChoiceId || !choices || !choices.length) return '';
+    var c = choiceById(choices, resultChoiceId);
+    if (c) return c.label;
+    if (resultChoiceId === 'home') return 'Home win';
+    if (resultChoiceId === 'away') return 'Away win';
+    if (resultChoiceId === 'draw') return 'Draw';
+    return resultChoiceId;
+  }
+
   function openMatchInfoModal(opts) {
     var modal = ensureMatchInfoModal();
     matchInfoLastFocus = document.activeElement;
@@ -144,6 +155,7 @@
     $('#match-info-stage', modal).textContent = opts.stage || '';
     var votesEl = $('#match-info-votes', modal);
     var voteCount = Number(opts.votes || 0);
+    var choices = opts.choices || [];
     if (voteCount > 0) {
       votesEl.innerHTML =
         '<strong>Fan poll:</strong> ' + escapeHtml(formatCount(voteCount)) +
@@ -152,6 +164,39 @@
     } else {
       votesEl.textContent = 'Fan poll: no votes yet — be the first to predict this match';
       votesEl.hidden = false;
+    }
+    var correctEl = $('#match-info-correct', modal);
+    var match = opts.match || null;
+    var correctCount = opts.correctVotes != null ? Number(opts.correctVotes) : null;
+    var resultChoiceId = match && match.result_choice_id ? match.result_choice_id : null;
+    if (
+      match &&
+      match.match_status === 'finished' &&
+      hasMatchScore(match) &&
+      resultChoiceId &&
+      correctCount != null &&
+      voteCount > 0
+    ) {
+      var correctPct = Math.round((correctCount / voteCount) * 1000) / 10;
+      correctEl.innerHTML =
+        '<strong>Got it right:</strong> ' + escapeHtml(formatCount(correctCount)) +
+        ' of ' + escapeHtml(formatCount(voteCount)) + ' fans (' +
+        escapeHtml(String(correctPct)) + '%) — result: ' +
+        escapeHtml(resultChoiceLabel(choices, resultChoiceId));
+      correctEl.hidden = false;
+    } else if (
+      match &&
+      match.match_status === 'finished' &&
+      hasMatchScore(match) &&
+      resultChoiceId &&
+      voteCount === 0
+    ) {
+      correctEl.textContent =
+        'Result: ' + resultChoiceLabel(choices, resultChoiceId) + ' — no fan votes to compare';
+      correctEl.hidden = false;
+    } else {
+      correctEl.innerHTML = '';
+      correctEl.hidden = true;
     }
     var timesEl = $('#match-info-times', modal);
     if (opts.kickoff) {
@@ -174,7 +219,6 @@
     }
     var resultEl = $('#match-info-result', modal);
     var goalsEl = $('#match-info-goals', modal);
-    var match = opts.match || null;
     if (hasMatchScore(match)) {
       var status = matchStatusShort(match.match_status);
       var note = match.result_note ? ' · ' + match.result_note : '';
@@ -1069,6 +1113,8 @@
           venue: match && match.venue ? match.venue : '',
           stage: stageLabel,
           votes: votes,
+          choices: choices,
+          correctVotes: detail && detail.correct_vote_count != null ? detail.correct_vote_count : null,
           match: match,
         });
       });

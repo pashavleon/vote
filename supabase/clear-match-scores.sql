@@ -13,7 +13,8 @@ set
   away_score = null,
   match_status = 'scheduled',
   result_note = null,
-  goals = '[]'::jsonb
+  goals = '[]'::jsonb,
+  result_choice_id = null
 where id = 'wc26-m001';
 
 -- ---------------------------------------------------------------------------
@@ -26,7 +27,8 @@ where id = 'wc26-m001';
 --   away_score = null,
 --   match_status = 'scheduled',
 --   result_note = null,
---   goals = '[]'::jsonb
+--   goals = '[]'::jsonb,
+--   result_choice_id = null
 -- where event_id = 'wc-2026'
 --   and (
 --     home_score is not null

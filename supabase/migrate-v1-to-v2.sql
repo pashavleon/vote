@@ -59,6 +59,7 @@ create table if not exists public.matches (
     check (match_status in ('scheduled', 'live', 'finished', 'postponed')),
   result_note text,
   goals jsonb not null default '[]'::jsonb,
+  result_choice_id text check (result_choice_id is null or result_choice_id in ('home', 'draw', 'away')),
   constraint matches_scores_non_negative check (
     (home_score is null and away_score is null)
     or (
