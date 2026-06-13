@@ -941,12 +941,13 @@
     }
     .group-standings-table {
       width: 100%;
+      table-layout: fixed;
       border-collapse: collapse;
       font-size: 0.72rem;
     }
     .group-standings-table th,
     .group-standings-table td {
-      padding: 0.35rem 0.25rem;
+      padding: 0.35rem 0.2rem;
       border-bottom: 1px solid var(--border);
       text-align: center;
       white-space: nowrap;
@@ -954,9 +955,14 @@
     }
     .group-standings-table th:first-child,
     .group-standings-table td:first-child {
+      width: auto;
       text-align: left;
       padding-left: 0;
-      padding-right: 0.5rem;
+      padding-right: 0.35rem;
+    }
+    .group-standings-table th:not(:first-child),
+    .group-standings-table td:not(:first-child) {
+      width: 1.65rem;
     }
     .group-standings-table thead th {
       font-size: 0.62rem;
@@ -966,17 +972,24 @@
       color: var(--muted);
     }
     .group-standings-table__team {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: flex-start;
       gap: 0.4rem;
-      min-width: 8.5rem;
-      white-space: normal;
+      max-width: 100%;
+    }
+    .group-standings-table__team .match-team__flag-img {
+      display: block;
+      width: 1.35rem;
+      height: auto;
+      margin: 0;
+      flex-shrink: 0;
     }
     .group-standings-table__name {
       font-weight: 600;
       line-height: 1.2;
       text-align: left;
+      flex: 0 1 auto;
     }
     .group-standings-table__pts {
       font-weight: 700;

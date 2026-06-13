@@ -277,9 +277,11 @@
     var body = rows.map(function (r, i) {
       return (
         '<tr>' +
-          '<td class="group-standings-table__team">' +
-            renderTeamFlag(r.id, 'sm') +
-            '<span class="group-standings-table__name">' + escapeHtml(r.label) + '</span>' +
+          '<td>' +
+            '<div class="group-standings-table__team">' +
+              renderTeamFlag(r.id, 'sm') +
+              '<span class="group-standings-table__name">' + escapeHtml(r.label) + '</span>' +
+            '</div>' +
           '</td>' +
           '<td>' + r.p + '</td>' +
           '<td>' + r.w + '</td>' +
