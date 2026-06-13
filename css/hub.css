@@ -950,10 +950,13 @@
       border-bottom: 1px solid var(--border);
       text-align: center;
       white-space: nowrap;
+      vertical-align: middle;
     }
     .group-standings-table th:first-child,
     .group-standings-table td:first-child {
       text-align: left;
+      padding-left: 0;
+      padding-right: 0.5rem;
     }
     .group-standings-table thead th {
       font-size: 0.62rem;
@@ -965,20 +968,15 @@
     .group-standings-table__team {
       display: flex;
       align-items: center;
-      gap: 0.35rem;
+      justify-content: flex-start;
+      gap: 0.4rem;
       min-width: 8.5rem;
       white-space: normal;
-    }
-    .group-standings-table__pos {
-      flex-shrink: 0;
-      width: 1rem;
-      font-size: 0.65rem;
-      color: var(--muted);
-      text-align: right;
     }
     .group-standings-table__name {
       font-weight: 600;
       line-height: 1.2;
+      text-align: left;
     }
     .group-standings-table__pts {
       font-weight: 700;

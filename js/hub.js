@@ -278,7 +278,6 @@
       return (
         '<tr>' +
           '<td class="group-standings-table__team">' +
-            '<span class="group-standings-table__pos" aria-hidden="true">' + (i + 1) + '</span>' +
             renderTeamFlag(r.id, 'sm') +
             '<span class="group-standings-table__name">' + escapeHtml(r.label) + '</span>' +
           '</td>' +
