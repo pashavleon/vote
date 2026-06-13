@@ -66,6 +66,11 @@
 
   var matchInfoModalEl = null;
   var matchInfoLastFocus = null;
+  var groupStandingsModalEl = null;
+  var groupStandingsLastFocus = null;
+
+  var GROUP_STANDINGS_FIFA_URL =
+    'https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/standings';
 
   function formatKickoff(iso) {
     if (!iso) return '';
@@ -136,6 +141,196 @@
     });
     matchInfoModalEl = el;
     return el;
+  }
+
+  function ensureGroupStandingsModal() {
+    if (groupStandingsModalEl) return groupStandingsModalEl;
+    var el = document.createElement('div');
+    el.className = 'match-info-modal';
+    el.id = 'group-standings-modal';
+    el.hidden = true;
+    el.innerHTML =
+      '<div class="match-info-modal__backdrop" data-group-standings-close></div>' +
+      '<div class="match-info-modal__panel" role="dialog" aria-modal="true" aria-labelledby="group-standings-title">' +
+        '<button type="button" class="match-info-modal__close" data-group-standings-close aria-label="Close">&times;</button>' +
+        '<h2 class="match-info-modal__title" id="group-standings-title"></h2>' +
+        '<p class="match-info-modal__stage" id="group-standings-subtitle"></p>' +
+        '<div id="group-standings-body"></div>' +
+        '<p class="group-standings-modal__note">' +
+          'Unofficial table from results on TOP FAN VOTE — points, then goal difference, then goals scored. ' +
+          'Not FIFA tie-break rules.' +
+        '</p>' +
+        '<ul class="match-info-modal__links">' +
+          '<li><a href="' + GROUP_STANDINGS_FIFA_URL + '" target="_blank" rel="noopener noreferrer">FIFA — official group standings</a></li>' +
+        '</ul>' +
+      '</div>';
+    el.addEventListener('click', function (e) {
+      if (e.target.hasAttribute('data-group-standings-close')) closeGroupStandingsModal();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && groupStandingsModalEl && !groupStandingsModalEl.hidden) {
+        closeGroupStandingsModal();
+      }
+    });
+    document.body.appendChild(el);
+    groupStandingsModalEl = el;
+    return el;
+  }
+
+  function closeGroupStandingsModal() {
+    if (!groupStandingsModalEl || groupStandingsModalEl.hidden) return;
+    groupStandingsModalEl.hidden = true;
+    document.body.classList.remove('match-info-modal-open');
+    if (groupStandingsLastFocus && groupStandingsLastFocus.focus) groupStandingsLastFocus.focus();
+  }
+
+  function buildGroupTeamMap(details) {
+    var teams = Object.create(null);
+    details.forEach(function (d) {
+      var m = d.match;
+      if (!m) return;
+      var choices = d.choices || [];
+      var home = choiceById(choices, 'home');
+      var away = choiceById(choices, 'away');
+      if (m.home_team_id && home) {
+        teams[m.home_team_id] = { id: m.home_team_id, label: home.label };
+      }
+      if (m.away_team_id && away) {
+        teams[m.away_team_id] = { id: m.away_team_id, label: away.label };
+      }
+    });
+    return teams;
+  }
+
+  function computeGroupStandings(details) {
+    var teamMap = buildGroupTeamMap(details);
+    var rows = Object.keys(teamMap).map(function (id) {
+      return {
+        id: id,
+        label: teamMap[id].label,
+        p: 0,
+        w: 0,
+        d: 0,
+        l: 0,
+        gf: 0,
+        ga: 0,
+        gd: 0,
+        pts: 0,
+      };
+    });
+    var byId = Object.create(null);
+    rows.forEach(function (r) { byId[r.id] = r; });
+
+    details.forEach(function (d) {
+      var m = d.match;
+      if (!m || m.match_status !== 'finished') return;
+      if (m.home_score == null || m.away_score == null) return;
+      var home = byId[m.home_team_id];
+      var away = byId[m.away_team_id];
+      if (!home || !away) return;
+
+      var hs = Number(m.home_score);
+      var as = Number(m.away_score);
+      home.p += 1;
+      away.p += 1;
+      home.gf += hs;
+      home.ga += as;
+      away.gf += as;
+      away.ga += hs;
+
+      if (hs > as) {
+        home.w += 1;
+        home.pts += 3;
+        away.l += 1;
+      } else if (hs < as) {
+        away.w += 1;
+        away.pts += 3;
+        home.l += 1;
+      } else {
+        home.d += 1;
+        away.d += 1;
+        home.pts += 1;
+        away.pts += 1;
+      }
+    });
+
+    rows.forEach(function (r) { r.gd = r.gf - r.ga; });
+    rows.sort(function (a, b) {
+      if (b.pts !== a.pts) return b.pts - a.pts;
+      if (b.gd !== a.gd) return b.gd - a.gd;
+      if (b.gf !== a.gf) return b.gf - a.gf;
+      return a.label.localeCompare(b.label);
+    });
+    return rows;
+  }
+
+  function countFinishedGroupMatches(details) {
+    var n = 0;
+    details.forEach(function (d) {
+      var m = d.match;
+      if (m && m.match_status === 'finished' && m.home_score != null && m.away_score != null) n += 1;
+    });
+    return n;
+  }
+
+  function renderGroupStandingsTableHtml(rows) {
+    var body = rows.map(function (r, i) {
+      return (
+        '<tr>' +
+          '<td class="group-standings-table__team">' +
+            '<span class="group-standings-table__pos" aria-hidden="true">' + (i + 1) + '</span>' +
+            renderTeamFlag(r.id, 'sm') +
+            '<span class="group-standings-table__name">' + escapeHtml(r.label) + '</span>' +
+          '</td>' +
+          '<td>' + r.p + '</td>' +
+          '<td>' + r.w + '</td>' +
+          '<td>' + r.d + '</td>' +
+          '<td>' + r.l + '</td>' +
+          '<td class="group-standings-table__pts">' + r.pts + '</td>' +
+          '<td>' + r.gd + '</td>' +
+        '</tr>'
+      );
+    }).join('');
+
+    return (
+      '<div class="group-standings-table-wrap">' +
+        '<table class="group-standings-table">' +
+          '<thead><tr>' +
+            '<th scope="col">Team</th>' +
+            '<th scope="col" title="Played">P</th>' +
+            '<th scope="col" title="Won">W</th>' +
+            '<th scope="col" title="Draw">D</th>' +
+            '<th scope="col" title="Lost">L</th>' +
+            '<th scope="col" title="Points">Pts</th>' +
+            '<th scope="col" title="Goal difference">GD</th>' +
+          '</tr></thead>' +
+          '<tbody>' + body + '</tbody>' +
+        '</table>' +
+      '</div>'
+    );
+  }
+
+  function openGroupStandingsModal(groupCode, details) {
+    var modal = ensureGroupStandingsModal();
+    var finished = countFinishedGroupMatches(details);
+    groupStandingsLastFocus = document.activeElement;
+    $('#group-standings-title', modal).textContent = 'Group ' + groupCode + ' standings';
+    var subtitle = $('#group-standings-subtitle', modal);
+    subtitle.textContent = finished
+      ? 'After ' + finished + ' of 6 group matches'
+      : 'No completed matches yet';
+    var bodyEl = $('#group-standings-body', modal);
+    if (!finished) {
+      bodyEl.innerHTML =
+        '<p class="match-info-modal__votes">Standings appear here once group matches finish. ' +
+        'Check back after the next results.</p>';
+    } else {
+      bodyEl.innerHTML = renderGroupStandingsTableHtml(computeGroupStandings(details));
+    }
+    modal.hidden = false;
+    document.body.classList.add('match-info-modal-open');
+    var closeBtn = $('.match-info-modal__close', modal);
+    if (closeBtn) closeBtn.focus();
   }
 
   function resultChoiceLabel(choices, resultChoiceId) {
@@ -896,8 +1091,12 @@
       var list = byGroup[g];
       return (
         '<details class="group-block" data-group="' + g + '">' +
-          '<summary>Group ' + g +
-            ' <span style="color:var(--muted);font-weight:400">' + list.length + ' matches</span>' +
+          '<summary>' +
+            '<span class="group-block__title">Group ' + g +
+              ' <span class="group-block__count">' + list.length + ' matches</span>' +
+            '</span>' +
+            '<button type="button" class="group-block__table" data-group-table="' + g + '" ' +
+              'aria-label="Group ' + g + ' standings table">Table</button>' +
           '</summary>' +
           '<div class="group-block__inner match-list" data-group-list="' + g + '">' +
             '<p class="hub-loading">Loading…</p>' +
@@ -907,6 +1106,15 @@
     }).join('');
 
     container.insertAdjacentHTML('beforeend', groupsHtml);
+
+    $all('.group-block__table', container).forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var g = btn.getAttribute('data-group-table');
+        if (g) self.openGroupStandings(g, byGroup[g]);
+      });
+    });
 
     $all('.group-block', container).forEach(function (block) {
       var g = block.getAttribute('data-group');
@@ -926,17 +1134,45 @@
     this.loadAndRenderPollCards(polls, listEl);
   };
 
-  FanHub.prototype.loadAndRenderPollCards = function (pollRows, container) {
+  FanHub.prototype.fetchPollDetailsForRows = function (pollRows) {
     var self = this;
-    var ids = pollRows.map(function (p) { return p.poll_id; });
-
-    Promise.all(ids.map(function (id) {
+    return Promise.all(pollRows.map(function (p) {
+      var id = p.poll_id;
       if (self.matchDetails[id]) return Promise.resolve(self.matchDetails[id]);
       return api.fetchPollDetail(id).then(function (d) {
         self.matchDetails[id] = d;
         return d;
       });
-    }))
+    }));
+  };
+
+  FanHub.prototype.openGroupStandings = function (groupCode, pollRows) {
+    var self = this;
+    if (!pollRows || !pollRows.length) return;
+    ensureGroupStandingsModal();
+    var modal = groupStandingsModalEl;
+    groupStandingsLastFocus = document.activeElement;
+    $('#group-standings-title', modal).textContent = 'Group ' + groupCode + ' standings';
+    $('#group-standings-subtitle', modal).textContent = 'Loading…';
+    $('#group-standings-body', modal).innerHTML = '<p class="hub-loading">Loading…</p>';
+    modal.hidden = false;
+    document.body.classList.add('match-info-modal-open');
+
+    self.fetchPollDetailsForRows(pollRows)
+      .then(function (details) {
+        openGroupStandingsModal(groupCode, details);
+      })
+      .catch(function (err) {
+        console.error('[hub] group standings failed', err);
+        $('#group-standings-body', modal).innerHTML =
+          '<p class="hub-empty">Could not load standings. Try again.</p>';
+      });
+  };
+
+  FanHub.prototype.loadAndRenderPollCards = function (pollRows, container) {
+    var self = this;
+
+    self.fetchPollDetailsForRows(pollRows)
       .then(function (details) {
         container.innerHTML = details.map(function (d) {
           return self.renderMatchCardHtml(d);

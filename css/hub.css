@@ -874,7 +874,39 @@
       font-weight: 700;
       background: var(--card);
       display: flex;
-      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .group-block__title {
+      flex: 1;
+      min-width: 0;
+    }
+    .group-block__count {
+      color: var(--muted);
+      font-weight: 400;
+    }
+    .group-block__table {
+      flex-shrink: 0;
+      margin-right: 0.15rem;
+      padding: 0.2rem 0.55rem;
+      border: 1px solid rgba(245, 197, 24, 0.45);
+      border-radius: 999px;
+      background: rgba(245, 197, 24, 0.08);
+      color: var(--wc-gold);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .group-block__table:hover {
+      background: rgba(245, 197, 24, 0.18);
+      border-color: var(--wc-gold);
+    }
+    .group-block__table:focus-visible {
+      outline: 2px solid var(--wc-green);
+      outline-offset: 2px;
     }
     .group-block summary::-webkit-details-marker { display: none; }
     .group-block summary::after {
@@ -895,6 +927,62 @@
     .group-block__inner {
       padding: 0.5rem 0.65rem 0.65rem;
       border-top: 1px solid var(--border);
+    }
+
+    .group-standings-modal__note {
+      margin: 0.85rem 0 0.5rem;
+      font-size: 0.72rem;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+    .group-standings-table-wrap {
+      margin-top: 0.35rem;
+      overflow-x: auto;
+    }
+    .group-standings-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.72rem;
+    }
+    .group-standings-table th,
+    .group-standings-table td {
+      padding: 0.35rem 0.25rem;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+      white-space: nowrap;
+    }
+    .group-standings-table th:first-child,
+    .group-standings-table td:first-child {
+      text-align: left;
+    }
+    .group-standings-table thead th {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .group-standings-table__team {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      min-width: 8.5rem;
+      white-space: normal;
+    }
+    .group-standings-table__pos {
+      flex-shrink: 0;
+      width: 1rem;
+      font-size: 0.65rem;
+      color: var(--muted);
+      text-align: right;
+    }
+    .group-standings-table__name {
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .group-standings-table__pts {
+      font-weight: 700;
+      color: var(--wc-gold);
     }
 
     .archive-intro {
