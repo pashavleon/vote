@@ -1083,13 +1083,44 @@
     .topnav-link:hover { color: var(--text); }
     .topnav-link.is-active { color: var(--wc-gold); }
     @media (max-width: 639px) {
-      .site-header {
-        flex-wrap: wrap;
-        gap: 0.45rem;
+      .site-header,
+      .home-hero-header__bar {
+        flex-wrap: nowrap;
+        gap: 0.25rem;
+        padding: 0.35rem 0.4rem;
       }
-      .site-header .topnav {
-        width: 100%;
-        justify-content: center;
+      .logo.logo--home {
+        flex-shrink: 0;
+        font-size: 0.5rem;
+        letter-spacing: 0.06em;
+      }
+      .logo.logo--home .logo__line--vote {
+        letter-spacing: 0.09em;
+      }
+      .site-header .topnav,
+      .home-hero-header__bar .topnav {
+        flex: 1;
+        min-width: 0;
+        flex-wrap: nowrap;
+        justify-content: flex-end;
+        gap: 0.15rem;
+      }
+      .topnav--split {
+        flex-wrap: nowrap;
+        gap: 0.15rem;
+      }
+      .topnav-polls {
+        border-radius: 6px;
+      }
+      .topnav-polls a {
+        font-size: 0.58rem;
+        padding: 0.22rem 0.3rem;
+      }
+      .topnav-link,
+      .topnav-arch {
+        font-size: 0.58rem;
+        padding: 0.22rem 0.28rem;
+        white-space: nowrap;
       }
     }
 
