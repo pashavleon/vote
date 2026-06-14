@@ -146,7 +146,7 @@ Winner + favorite polls: https://topfan.vote/
 ## Post 4 — Football vs soccer / opening weekend  
 **Best for:** r/soccer, r/worldcup, US soccer Twitter, meme/reaction threads, IG/TG stories  
 **Link:** https://topfan.vote/news/opening-ceremonies-guide.html  
-**X clickable card:** paste URL only → OG collage from `assets/news/football-soccer-collage-1280.jpg`  
+**X clickable card:** paste URL only → `assets/social/x-card-football-soccer.png` (1200×628, full collage + slogan)  
 **IG/TG story EN:** `assets/social/story-football-soccer-en.png`  
 **IG/TG story RU:** `assets/social/story-football-soccer-ru.png`  
 **Inline image (optional):** `assets/news/football-soccer-collage-800.jpg` — Reddit, Facebook, LinkedIn

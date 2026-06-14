@@ -47,6 +47,23 @@ https://topfan.vote/matches.html
 #WorldCup2026 #WC2026 #MatchPredictions
 ```
 
+### Post 4 — Opening weekend / football vs soccer
+
+**URL:**  
+`https://topfan.vote/news/opening-ceremonies-guide.html`
+
+**Card image (auto):** `assets/social/x-card-football-soccer.png` (1200×628 — full meme, letterboxed for X)
+
+**Example tweet:**
+```
+Football fills the stands.
+Soccer fills the VIP.
+
+https://topfan.vote/news/opening-ceremonies-guide.html
+
+#WorldCup2026 #WC2026
+```
+
 ## Do / Don't
 
 | Do | Don't |
@@ -69,6 +86,7 @@ Paste the article URL → **Preview card** → confirm image is `x-card-artan.pn
 |-------|------|---------|
 | `x-card-artan.png` | 1200×628 | OG/Twitter on Artan article |
 | `x-card-matches.png` | 1200×628 | OG/Twitter on matches.html |
+| `x-card-football-soccer.png` | 1200×628 | OG/Twitter on opening weekend article |
 | `x-card-artan.html` | — | Editable source; export PNG if needed |
 | `x-card-matches.html` | — | Editable source |
 

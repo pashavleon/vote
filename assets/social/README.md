@@ -13,6 +13,7 @@ HTML templates for **Instagram Stories** and **Telegram Stories** — same 9:16 
 | `story-football-soccer-ru.png` | Football vs soccer meme — RU slogan |
 | `x-card-artan.html` / `x-card-artan.png` | X link preview — Post 2 |
 | `x-card-matches.html` / `x-card-matches.png` | X link preview — Post 3 |
+| `x-card-football-soccer.png` | X link preview — Post 4 (opening weekend meme) |
 
 Copy text: `docs/social/reddit-x-posts.md`
 
