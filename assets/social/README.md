@@ -9,6 +9,8 @@ HTML templates for **Instagram Stories** and **Telegram Stories** — same 9:16 
 | `story-winner.html` / `story-winner.png` | Tournament winner poll |
 | `story-artan.html` / `story-artan.png` | Omar Artan news article |
 | `story-matches.html` / `story-matches.png` | Match predictions |
+| `story-football-soccer-en.png` | Football vs soccer meme — EN slogan |
+| `story-football-soccer-ru.png` | Football vs soccer meme — RU slogan |
 | `x-card-artan.html` / `x-card-artan.png` | X link preview — Post 2 |
 | `x-card-matches.html` / `x-card-matches.png` | X link preview — Post 3 |
 
