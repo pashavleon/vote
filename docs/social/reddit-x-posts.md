@@ -143,11 +143,191 @@ Winner + favorite polls: https://topfan.vote/
 
 ---
 
+## Post 4 — Football vs soccer / opening weekend  
+**Best for:** r/soccer, r/worldcup, US soccer Twitter, meme/reaction threads, IG/TG stories  
+**Link:** https://topfan.vote/news/opening-ceremonies-guide.html  
+**X clickable card:** paste URL only → OG collage from `assets/news/football-soccer-collage-1280.jpg`  
+**IG/TG story EN:** `assets/social/story-football-soccer-en.png`  
+**IG/TG story RU:** `assets/social/story-football-soccer-ru.png`  
+**Inline image (optional):** `assets/news/football-soccer-collage-800.jpg` — Reddit, Facebook, LinkedIn
+
+### Reddit (title + body)
+
+**Title:** Opening weekend gave fans two images: 80,000 chanting Mora at Azteca, then empty seats on live TV in Guadalajara
+
+**Body:**
+
+The 2026 World Cup opened with three host parties and no single ceremony. Within 48 hours fans had the split-screen argument locked in:
+
+- **Mexico City** — Gilberto Mora, 17, youngest Mexican ever at a World Cup; the Azteca chanting his name after a 2–0 opener.
+- **Guadalajara** — Korea 2–1 Czechia, match two of the tournament, **blocks of empty seats** on the broadcast while Infantino was still saying demand was “absolutely crazy.”
+- **Los Angeles** — 70,492 at SoFi, USA 4–1, Hollywood in the front row.
+
+By Sunday that turned into the meme: **football** (packed stands) vs **soccer** (half-empty bowl + celebrities in VIP).
+
+We wrote a **fan hot take** with scores, ticket context, and sources (NBC, BBC, FIFA match reports):
+
+https://topfan.vote/news/opening-ceremonies-guide.html
+
+Not wire copy — bar-chat angle with receipts. Same site runs unofficial WC 2026 polls (winner / favorite / every group match) if you want to vote after the rant.
+
+Disclosure: TOP FAN VOTE is a fan poll site, not a newsroom. Collage is original editorial art; facts are linked in the article.
+
+Which side of the weekend are you on — “best opener ever” or “Qatar prices with empty seats”?
+
+---
+
+### Reddit (shorter title variant — meme subs)
+
+**Title:** Football fills the stands. Soccer fills the VIP. Opening weekend in one meme.
+
+**Body:**  
+Guadalajara empty seats vs Azteca noise — fan write-up with the opening-weekend table and ticket fight context:  
+https://topfan.vote/news/opening-ceremonies-guide.html
+
+(Unofficial fan site, not FIFA.)
+
+---
+
+### X (single post — clickable card)
+
+**Important:** paste the URL only. Do **not** attach the collage — X will pull the OG image.
+
+**Tweet 1:**
+```
+Football fills the stands.
+Soccer fills the VIP.
+
+Azteca roared for a 17-year-old. Guadalajara went quiet on live TV two days later.
+
+Opening weekend in one meme →
+
+https://topfan.vote/news/opening-ceremonies-guide.html
+
+Fan hot take · not FIFA · not a newsroom
+
+#WorldCup2026 #WC2026
+```
+
+**Tweet 2 (optional — meme hook, no link):**
+```
+So that’s the difference.
+
+Not the game. The room it plays in.
+```
+
+**Tweet 3 (optional reply with link):**
+```
+Mora, empty seats, SoFi Hollywood noise — full opening-weekend table + sources in the write-up:
+
+https://topfan.vote/news/opening-ceremonies-guide.html
+
+Also: unofficial match predictions if you want to vote the rest of the group stage → topfan.vote/matches.html
+```
+
+---
+
+### X (thread opener — if you attach the image manually)
+
+Use only if you want the vertical story asset on X (crop or use landscape collage). Otherwise prefer URL-only post above.
+
+**Tweet 1 + image:** `story-football-soccer-en.png` or `football-soccer-collage-800.jpg`  
+**Caption:**
+```
+Opening weekend taught the US vocabulary the hard way.
+
+Full write-up: https://topfan.vote/news/opening-ceremonies-guide.html
+```
+
+---
+
+### Instagram / Facebook
+
+**Image:** `story-football-soccer-en.png` (Story) or `football-soccer-collage-800.jpg` (feed post)
+
+**Caption:**
+```
+So that’s the difference. ⚽
+
+Same World Cup. Same opening weekend. Not the same stadium.
+
+→ Azteca: 80,000 chanting Gilberto Mora, 17 — youngest Mexican ever at a World Cup  
+→ Guadalajara: empty blocks on live TV during Korea vs Czechia  
+→ SoFi: 70,492, USA 4–1, celebrities in the frame
+
+Football fills the stands. Soccer fills the VIP.
+
+Fan hot take with scores, ticket context, and linked sources — not FIFA, not a newsroom:
+
+🔗 topfan.vote/news/opening-ceremonies-guide.html
+
+Unofficial WC 2026 fan polls on the same site — winner, favorite, every group match.
+
+#WorldCup2026 #WC2026 #FIFAWorldCup #USMNT #EmptySeats
+```
+
+**Story:** upload `story-football-soccer-en.png` → link sticker → article URL.
+
+---
+
+### Telegram
+
+**Channel post (EN):**
+```
+🏟 Opening weekend in one meme
+
+Football — packed stands.
+Soccer — half-empty rows and stars in VIP.
+
+Azteca roared for Mora (17). Guadalajara embarrassed FIFA on match two. SoFi did Hollywood.
+
+Fan write-up with table + sources:
+https://topfan.vote/news/opening-ceremonies-guide.html
+
+Polls: topfan.vote
+```
+
+**Story:** `story-football-soccer-en.png` + link in caption.
+
+---
+
+### Russian (TG / VK / личные каналы)
+
+**Image:** `story-football-soccer-ru.png`
+
+**Пост:**
+```
+Наконец поняли разницу.
+
+Один турнир. Одни выходные. Два разных стадиона.
+
+→ Мехико: «Мора! Мора!» — 17-летний рекордсмен Мексики на ЧМ  
+→ Гвадалахара: пустые секторы в прямом эфире на втором матче турнира  
+→ Лос-Анджелес: 70 492 на SoFi, 4–1, голливудские камеры
+
+Футбол — забитые трибуны. Соккер — VIP и пустые ряды.
+
+Фан-разбор с таблицей открытия и источниками (не FIFA, не новостной сайт):
+
+https://topfan.vote/news/opening-ceremonies-guide.html
+
+Голосования: topfan.vote
+```
+
+**Короткий вариант (коммент / репост):**
+```
+Футбол vs соккер — мем открытия ЧМ-2026. Разбор + источники: topfan.vote/news/opening-ceremonies-guide.html
+```
+
+---
+
 ## Hashtags (X — pick 2–4 max)
 
 `#WorldCup2026` `#WC2026` `#FIFAWorldCup` `#FanPoll`
 
 For Artan post add context tags only if relevant: `#Somalia` `#CAF` — avoid spamming unrelated tags.
+
+For opening-weekend / meme post (pick 1–2): `#EmptySeats` `#USMNT` `#TicketPrices` — only if the thread is about prices or US hosting.
 
 ## Posting tips
 
@@ -155,4 +335,5 @@ For Artan post add context tags only if relevant: `#Somalia` `#CAF` — avoid sp
 |----------|-----|
 | **Reddit** | Match sub rules; don't drop link-only posts in small subs — engage in comments first |
 | **X** | Posts 2–3: paste URL only for clickable card; IG/TG use vertical `story-*.png` |
+| **Post 4** | Meme timing: post when empty-seat / ticket threads are active; EN story for global, RU story for RU channels |
 | **Both** | Post when news is hot (Artan) or 2–3 h before kickoff (matches) |

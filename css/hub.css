@@ -2132,6 +2132,10 @@
       max-height: 13rem;
       object-fit: cover;
     }
+    .news-figure--full img {
+      max-height: none;
+      object-fit: contain;
+    }
     .news-figure__caption {
       padding: 0.45rem 0.65rem;
       font-size: 0.68rem;
