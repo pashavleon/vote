@@ -33,6 +33,13 @@
       "isPartOf": { "@type": "WebSite", "name": "TOP FAN VOTE", "url": "https://topfan.vote/" }
     },
     {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://topfan.vote/" },
+        { "@type": "ListItem", "position": 2, "name": "Hot takes", "item": "https://topfan.vote/news/" }
+      ]
+    },
+    {
       "@type": "ItemList",
       "name": "World Cup 2026 fan stories",
       "itemListElement": [
@@ -45,12 +52,18 @@
         {
           "@type": "ListItem",
           "position": 2,
+          "url": "https://topfan.vote/news/mexico-apertura-es.html",
+          "name": "El Mundial arrancó — resumen en español"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
           "url": "https://topfan.vote/news/omar-artan-referee-denied.html",
           "name": "He had the visa. He had FIFA’s call. Miami said no."
         },
         {
           "@type": "ListItem",
-          "position": 3,
+          "position": 4,
           "url": "https://topfan.vote/news/iran-tickets-tijuana-base-camp.html",
           "name": "They sold the tickets. Then the seats were taken away."
         }
@@ -77,6 +90,10 @@
     </header>
 
     <main class="page-main">
+      <nav class="news-breadcrumb" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a><span class="news-breadcrumb__sep">›</span>
+        <span>Hot takes</span>
+      </nav>
       <nav class="news-vote-bar" aria-label="Cast your vote">
         <span class="news-vote-bar__label">Vote</span>
         <a href="../winner.html">Winner</a>
@@ -95,6 +112,14 @@
             <p class="news-banner__tag">Opening weekend</p>
             <p class="news-banner__title">The World Cup opened. What did fans get?</p>
             <p class="news-banner__desc">Mora at Azteca, empty Guadalajara — and the football vs soccer meme.</p>
+          </div>
+        </a>
+        <a class="news-banner" href="mexico-apertura-es.html">
+          <img class="news-banner__img" src="../assets/news/football-soccer-banner-800.jpg" alt="Apertura Mundial 2026 — Mora y gradas vacías" width="280" height="88" decoding="async" />
+          <div class="news-banner__body">
+            <p class="news-banner__tag">Apertura · ES</p>
+            <p class="news-banner__title" lang="es">El Mundial arrancó. ¿Qué recibieron los aficionados?</p>
+            <p class="news-banner__desc" lang="es">Azteca, Guadalajara, Mora — resumen en español.</p>
           </div>
         </a>
         <a class="news-banner news-banner--feature" href="omar-artan-referee-denied.html">

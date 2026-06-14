@@ -143,23 +143,36 @@ def groups_section(teams: dict, fixtures: dict) -> str:
       </section>"""
 
 
+FAVORITE_TEAM_IDS = ("esp", "fra", "eng", "arg", "bra", "mex", "usa", "ger")
+
+
 def itemlist_json(teams: dict, page_url: str, link_page: str) -> str:
-    """ItemList with plain ListItem name+url — avoids invalid SportsTeam.memberOf."""
-    ids = sorted(teams, key=lambda t: teams[t][0])
+    """Compact ItemList — top favorites + link to full poll (avoids 48 duplicate URLs)."""
     href = f"https://topfan.vote/{link_page}"
-    items = [
+    items: list[dict] = []
+    for i, tid in enumerate(FAVORITE_TEAM_IDS):
+        name = teams[tid][0]
+        items.append(
+            {
+                "@type": "ListItem",
+                "position": i + 1,
+                "name": f"{name} World Cup 2026",
+                "url": href,
+            }
+        )
+    items.append(
         {
             "@type": "ListItem",
-            "position": i + 1,
-            "name": f"{teams[t][0]} World Cup 2026",
+            "position": len(items) + 1,
+            "name": "All 48 World Cup 2026 teams — fan poll",
             "url": href,
         }
-        for i, t in enumerate(ids)
-    ]
+    )
     graph = {
         "@type": "ItemList",
-        "name": "FIFA World Cup 2026 qualified teams",
-        "numberOfItems": len(ids),
+        "name": "World Cup 2026 fan poll — tournament favorites",
+        "description": "Top nations in the unofficial winner poll; full list of 48 teams on the poll page.",
+        "numberOfItems": len(items),
         "itemListElement": items,
         "url": page_url,
     }
