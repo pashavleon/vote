@@ -38,9 +38,10 @@ GEN_PATH = Path(__file__).resolve().parents[2] / "docs" / "cl-vote-mockup" / "su
 ESPN_SCOREBOARD = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard"
 KICKOFF_TOLERANCE_SEC = 7200  # 2 h — covers schedule drift vs ESPN
 
-# ESPN abbreviation overrides (most map via FIFA short codes in TEAMS)
+# ESPN abbreviation overrides (FIFA short code in seed may differ)
 ESPN_ABBREV_ALIASES: dict[str, str] = {
     "CIV": "civ",  # Ivory Coast sometimes IVCO on other feeds
+    "HAI": "hti",  # Haiti — ESPN uses HAI, FIFA/seed uses HTI
 }
 
 
@@ -66,9 +67,23 @@ class FetchedResult:
     fixture_label: str = ""
 
 
+def load_teams_from_seed(path: Path) -> dict[str, str]:
+    """Parse team short codes from seed INSERT metadata."""
+    abbrev: dict[str, str] = {}
+    text = path.read_text(encoding="utf-8")
+    for m in re.finditer(
+        r"\('wc-2026-winner', '([a-z]{3})', '[^']*', '\{\"short\": \"([A-Z]{3})\"",
+        text,
+    ):
+        team_id, short = m.group(1), m.group(2)
+        abbrev[short] = team_id
+        abbrev[team_id.upper()] = team_id
+    return abbrev
+
+
 def load_teams() -> dict[str, str]:
     """FIFA short code (upper) → internal team id."""
-    abbrev: dict[str, str] = {}
+    abbrev: dict[str, str] = load_teams_from_seed(SEED_PATH)
     if GEN_PATH.is_file():
         text = GEN_PATH.read_text(encoding="utf-8")
         for m in re.finditer(
@@ -259,10 +274,19 @@ def find_db_match(
         delta = abs((m.kickoff_at - kickoff).total_seconds())
         if delta <= KICKOFF_TOLERANCE_SEC:
             candidates.append((delta, m))
-    if not candidates:
-        return None
-    candidates.sort(key=lambda x: x[0])
-    return candidates[0][1]
+    if candidates:
+        candidates.sort(key=lambda x: x[0])
+        return candidates[0][1]
+    # Fallback: unique home/away pair (handles ESPN vs seed kickoff day drift)
+    pool = [
+        m
+        for m in db_matches
+        if m.home_team_id == home_id and m.away_team_id == away_id
+        and (not group_only or m.stage == "group")
+    ]
+    if len(pool) == 1:
+        return pool[0]
+    return None
 
 
 def map_espn_event(
