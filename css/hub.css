@@ -1846,8 +1846,9 @@
     /* News & fan guide */
     .news-banners {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      justify-content: flex-start;
       gap: 0.65rem;
       overflow-x: auto;
       padding: 0 1rem 1rem;
@@ -1863,9 +1864,10 @@
       border-radius: 4px;
     }
     .news-banner {
-      flex: 0 0 min(78%, 17.5rem);
-      scroll-snap-align: start;
-      display: block;
+      flex: 0 0 min(85%, 16.5rem);
+      scroll-snap-align: center;
+      display: flex;
+      flex-direction: column;
       text-decoration: none;
       color: inherit;
       border: 1px solid var(--border);
@@ -1886,6 +1888,7 @@
       object-position: center;
     }
     .news-banner__body {
+      flex: 1;
       padding: 0.55rem 0.65rem 0.65rem;
       text-align: center;
     }
@@ -2213,6 +2216,29 @@
       border-color: rgba(245, 197, 24, 0.35);
     }
     .news-banner--feature .news-banner__img { height: 6.5rem; }
+    /* News index: equal cards in a 2×2 grid (not home hero chips) */
+    .news-banners .news-banner,
+    .news-banners .news-banner--feature {
+      flex: 0 0 min(85%, 16.5rem);
+    }
+    .news-banners .news-banner--feature .news-banner__img {
+      height: 5.5rem;
+    }
+    @media (min-width: 640px) {
+      .news-banners {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        overflow-x: visible;
+        scroll-snap-type: none;
+        max-width: 36rem;
+      }
+      .news-banners .news-banner,
+      .news-banners .news-banner--feature {
+        flex: unset;
+        width: 100%;
+        min-width: 0;
+      }
+    }
 
     /* —— Home v2 layout —— */
     .shell--home-v2 {
