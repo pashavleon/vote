@@ -117,6 +117,7 @@
         '<h2 class="match-info-modal__title" id="match-info-title"></h2>' +
         '<p class="match-info-modal__stage" id="match-info-stage"></p>' +
         '<p class="match-info-modal__votes" id="match-info-votes"></p>' +
+        '<p class="match-info-modal__yours" id="match-info-yours" hidden></p>' +
         '<p class="match-info-modal__correct" id="match-info-correct" hidden></p>' +
         '<dl class="match-info-modal__times" id="match-info-times"></dl>' +
         '<p class="match-info-modal__venue" id="match-info-venue"></p>' +
@@ -344,6 +345,32 @@
     return resultChoiceId;
   }
 
+  function userPredictionOutcome(userChoice, resultChoiceId, choices) {
+    if (!userChoice || !resultChoiceId) return null;
+    return {
+      correct: userChoice === resultChoiceId,
+      userLabel: resultChoiceLabel(choices, userChoice),
+      resultLabel: resultChoiceLabel(choices, resultChoiceId),
+    };
+  }
+
+  function renderUserPredictionCardHtml(outcome) {
+    if (!outcome) return '';
+    if (outcome.correct) {
+      return (
+        '<p class="match-card__prediction match-card__prediction--right">' +
+          'You got it right — ' + escapeHtml(outcome.userLabel) +
+        '</p>'
+      );
+    }
+    return (
+      '<p class="match-card__prediction match-card__prediction--wrong">' +
+        'You picked ' + escapeHtml(outcome.userLabel) +
+        ' · result: ' + escapeHtml(outcome.resultLabel) +
+      '</p>'
+    );
+  }
+
   function openMatchInfoModal(opts) {
     var modal = ensureMatchInfoModal();
     matchInfoLastFocus = document.activeElement;
@@ -352,6 +379,7 @@
     var votesEl = $('#match-info-votes', modal);
     var voteCount = Number(opts.votes || 0);
     var choices = opts.choices || [];
+    var match = opts.match || null;
     if (voteCount > 0) {
       votesEl.innerHTML =
         '<strong>Fan poll:</strong> ' + escapeHtml(formatCount(voteCount)) +
@@ -361,10 +389,39 @@
       votesEl.textContent = 'Fan poll: no votes yet — be the first to predict this match';
       votesEl.hidden = false;
     }
-    var correctEl = $('#match-info-correct', modal);
-    var match = opts.match || null;
-    var correctCount = opts.correctVotes != null ? Number(opts.correctVotes) : null;
+    var yoursEl = $('#match-info-yours', modal);
+    var userChoice = opts.userChoice || null;
     var resultChoiceId = match && match.result_choice_id ? match.result_choice_id : null;
+    if (
+      match &&
+      match.match_status === 'finished' &&
+      hasMatchScore(match) &&
+      resultChoiceId &&
+      userChoice
+    ) {
+      var outcome = userPredictionOutcome(userChoice, resultChoiceId, choices);
+      if (outcome) {
+        if (outcome.correct) {
+          yoursEl.className = 'match-info-modal__yours match-info-modal__yours--right';
+          yoursEl.innerHTML =
+            '<strong>You got it right!</strong> You picked ' + escapeHtml(outcome.userLabel) + '.';
+        } else {
+          yoursEl.className = 'match-info-modal__yours match-info-modal__yours--wrong';
+          yoursEl.innerHTML =
+            '<strong>Not this time.</strong> You picked ' + escapeHtml(outcome.userLabel) +
+            ' — result: ' + escapeHtml(outcome.resultLabel) + '.';
+        }
+        yoursEl.hidden = false;
+      } else {
+        yoursEl.innerHTML = '';
+        yoursEl.hidden = true;
+      }
+    } else {
+      yoursEl.innerHTML = '';
+      yoursEl.hidden = true;
+    }
+    var correctEl = $('#match-info-correct', modal);
+    var correctCount = opts.correctVotes != null ? Number(opts.correctVotes) : null;
     if (
       match &&
       match.match_status === 'finished' &&
@@ -1259,6 +1316,17 @@
     if (canVote && !draw) voteCls += ' match-card__vote--two';
     if (!canVote) voteCls += ' match-card__vote--readonly';
     var scoreHtml = renderMatchScoreHtml(match);
+    var predictionHtml = '';
+    if (
+      match.match_status === 'finished' &&
+      hasMatchScore(match) &&
+      match.result_choice_id &&
+      userChoice
+    ) {
+      predictionHtml = renderUserPredictionCardHtml(
+        userPredictionOutcome(userChoice, match.result_choice_id, choices)
+      );
+    }
 
     return (
       '<article class="' + cardCls + '" data-match-poll-id="' + escapeHtml(poll.id) + '">' +
@@ -1278,6 +1346,7 @@
           '</div>' +
         '</div>' +
         scoreHtml +
+        predictionHtml +
         '<div class="' + voteCls + '">' + chips + '</div>' +
       '</article>'
     );
@@ -1353,6 +1422,7 @@
           choices: choices,
           correctVotes: detail && detail.correct_vote_count != null ? detail.correct_vote_count : null,
           match: match,
+          userChoice: pollId ? api.getStoredChoice(pollId) : null,
         });
       });
     });

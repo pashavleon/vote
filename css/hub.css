@@ -559,6 +559,25 @@
       letter-spacing: 0;
       color: var(--wc-gold);
     }
+    .match-card__prediction {
+      margin: 0.35rem 0.65rem 0.15rem;
+      padding: 0.35rem 0.5rem;
+      border-radius: 6px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      line-height: 1.35;
+      text-align: center;
+    }
+    .match-card__prediction--right {
+      color: var(--wc-green);
+      background: rgba(0, 166, 81, 0.12);
+      border: 1px solid rgba(0, 166, 81, 0.28);
+    }
+    .match-card__prediction--wrong {
+      color: #ffb74d;
+      background: rgba(255, 183, 77, 0.1);
+      border: 1px solid rgba(255, 183, 77, 0.28);
+    }
     .match-card__body {
       display: grid;
       grid-template-columns: 1fr auto 1fr;
@@ -751,6 +770,29 @@
     }
     .match-info-modal__correct strong {
       color: var(--wc-green);
+    }
+    .match-info-modal__yours {
+      font-size: 0.72rem;
+      color: var(--text);
+      font-weight: 600;
+      margin: -0.35rem 0 0.75rem;
+      padding: 0.5rem 0.65rem;
+      border-radius: 8px;
+      line-height: 1.4;
+    }
+    .match-info-modal__yours--right {
+      background: rgba(0, 166, 81, 0.14);
+      border: 1px solid rgba(0, 166, 81, 0.35);
+    }
+    .match-info-modal__yours--right strong {
+      color: var(--wc-green);
+    }
+    .match-info-modal__yours--wrong {
+      background: rgba(255, 183, 77, 0.12);
+      border: 1px solid rgba(255, 183, 77, 0.35);
+    }
+    .match-info-modal__yours--wrong strong {
+      color: #ffb74d;
     }
     .match-info-modal__times {
       display: grid;
