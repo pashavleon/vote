@@ -72,6 +72,35 @@
   var GROUP_STANDINGS_FIFA_URL =
     'https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/standings';
 
+  var UPCOMING_MATCH_LIMIT = 12;
+
+  function parseMatchesUrl() {
+    var params = new URLSearchParams(window.location.search);
+    var view = (params.get('view') || '').toLowerCase();
+    var group = (params.get('group') || '').toUpperCase();
+    var focusGroup = GROUPS.indexOf(group) >= 0 ? group : null;
+    var matchesViewMode = view === 'group' || focusGroup ? 'group' : 'upcoming';
+    return { matchesViewMode: matchesViewMode, focusGroup: focusGroup };
+  }
+
+  function pollKickoffMs(pollRow, detail) {
+    var iso = pollRow && pollRow.kickoff_at;
+    if (!iso && detail && detail.match) iso = detail.match.kickoff_at;
+    if (!iso) return null;
+    var t = new Date(iso).getTime();
+    return isNaN(t) ? null : t;
+  }
+
+  function isMatchFinished(detail) {
+    return Boolean(detail && detail.match && detail.match.match_status === 'finished');
+  }
+
+  function isMatchUpcoming(detail) {
+    if (!detail || !detail.match) return true;
+    if (detail.match.match_status === 'finished') return false;
+    return true;
+  }
+
   function formatKickoff(iso) {
     if (!iso) return '';
     try {
@@ -648,6 +677,8 @@
     this.matchPolls = [];
     this.matchDetails = Object.create(null);
     this.stage = this.activeVotingStage;
+    this.matchesViewMode = 'upcoming';
+    this.focusGroup = null;
     this.refreshTimer = null;
   }
 
@@ -795,6 +826,11 @@
 
   FanHub.prototype.initMatches = function () {
     var self = this;
+    var urlState = parseMatchesUrl();
+    this.matchesViewMode = urlState.matchesViewMode;
+    this.focusGroup = urlState.focusGroup;
+    this.bindStageDropdown();
+    this.bindMatchesViewBar();
     this.renderStageMenu();
     api.fetchFeaturedEvent()
       .then(function (event) {
@@ -814,6 +850,92 @@
           self.refreshVisibleMatchDetails();
         }, self.cfg.refreshIntervalMs || 15000);
       });
+  };
+
+  FanHub.prototype.bindMatchesViewBar = function () {
+    var self = this;
+    var bar = $('#matches-view-bar');
+    if (!bar || bar._matchesViewBound) return;
+    bar._matchesViewBound = true;
+    bar.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-matches-view]');
+      if (!btn) return;
+      var mode = btn.getAttribute('data-matches-view');
+      if (mode !== 'upcoming' && mode !== 'group') return;
+      if (self.matchesViewMode === mode) return;
+      self.matchesViewMode = mode;
+      if (mode === 'upcoming') self.focusGroup = null;
+      self.updateMatchesViewBar();
+      self.syncMatchesUrl();
+      self.renderMatches();
+    });
+  };
+
+  FanHub.prototype.updateMatchesViewBar = function () {
+    var bar = $('#matches-view-bar');
+    if (!bar) return;
+    var show = this.stage === 'group';
+    bar.hidden = !show;
+    $all('[data-matches-view]', bar).forEach(function (btn) {
+      var active = btn.getAttribute('data-matches-view') === this.matchesViewMode;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-selected', active ? 'true' : 'false');
+    }, this);
+  };
+
+  FanHub.prototype.syncMatchesUrl = function () {
+    if (this.page !== 'matches') return;
+    var params = new URLSearchParams();
+    if (this.stage === 'group' && this.matchesViewMode === 'group') {
+      params.set('view', 'group');
+      if (this.focusGroup) params.set('group', this.focusGroup);
+    }
+    var qs = params.toString();
+    var path = window.location.pathname;
+    history.replaceState(null, '', qs ? path + '?' + qs : path);
+  };
+
+  FanHub.prototype.sortPollRowsByKickoff = function (pollRows) {
+    var self = this;
+    return pollRows.slice().sort(function (a, b) {
+      var da = self.matchDetails[a.poll_id];
+      var db = self.matchDetails[b.poll_id];
+      var ta = pollKickoffMs(a, da);
+      var tb = pollKickoffMs(b, db);
+      if (ta == null && tb == null) return 0;
+      if (ta == null) return 1;
+      if (tb == null) return -1;
+      return ta - tb;
+    });
+  };
+
+  FanHub.prototype.findAutoOpenGroup = function (pollRows) {
+    var self = this;
+    var bestGroup = null;
+    var bestKick = null;
+    pollRows.forEach(function (p) {
+      var g = p.group_code;
+      if (!g) return;
+      var d = self.matchDetails[p.poll_id];
+      if (isMatchFinished(d)) return;
+      var t = pollKickoffMs(p, d);
+      if (t == null) return;
+      if (bestKick === null || t < bestKick) {
+        bestKick = t;
+        bestGroup = g;
+      }
+    });
+    return bestGroup;
+  };
+
+  FanHub.prototype.openGroupBlock = function (groupCode, polls) {
+    var block = $('[data-group="' + groupCode + '"]');
+    if (!block) return;
+    block.open = true;
+    this.loadGroupDetails(groupCode, polls);
+    if (block.scrollIntoView) {
+      block.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   };
 
   FanHub.prototype.initArch = function () {
@@ -843,6 +965,8 @@
           self.stage = btn.getAttribute('data-stage');
           self.closeStageDropdown();
           self.renderStageMenu();
+          self.updateMatchesViewBar();
+          self.syncMatchesUrl();
           self.renderMatches();
         });
       }
@@ -1110,6 +1234,8 @@
     var container = $('#matches-container');
     if (!container) return;
 
+    this.updateMatchesViewBar();
+
     var polls = this.pollsForStage();
     var viewPhase = this.getStagePhase(this.stage);
     var activeLabel = stageLabel(this.activeVotingStage);
@@ -1127,13 +1253,42 @@
       return;
     }
 
-    if (this.stage === 'group') {
+    if (this.stage === 'group' && this.matchesViewMode === 'group') {
       container.innerHTML = notice;
       this.renderGroupMatches(container, polls);
-    } else {
-      container.innerHTML = notice + '<div id="knockout-match-list"><p class="hub-loading">Loading…</p></div>';
-      this.loadAndRenderPollCards(polls, $('#knockout-match-list'));
+      return;
     }
+
+    container.innerHTML = notice + '<div id="upcoming-match-list"><p class="hub-loading">Loading matches…</p></div>';
+    this.renderUpcomingMatches($('#upcoming-match-list'), polls);
+  };
+
+  FanHub.prototype.renderUpcomingMatches = function (listEl, pollRows) {
+    var self = this;
+    if (!listEl) return;
+
+    self.fetchPollDetailsForRows(pollRows)
+      .then(function () {
+        var sorted = self.sortPollRowsByKickoff(pollRows);
+        var upcoming = sorted.filter(function (p) {
+          return isMatchUpcoming(self.matchDetails[p.poll_id]);
+        });
+        var slice = upcoming.slice(0, UPCOMING_MATCH_LIMIT);
+        if (!slice.length) {
+          listEl.innerHTML = '<p class="hub-empty">No upcoming matches in this stage — check results in By group.</p>';
+          return;
+        }
+        var details = slice.map(function (p) { return self.matchDetails[p.poll_id]; });
+        listEl.innerHTML = details.map(function (d) {
+          return self.renderMatchCardHtml(d);
+        }).join('');
+        listEl.setAttribute('data-loaded', '1');
+        self.bindMatchCards(listEl);
+      })
+      .catch(function (err) {
+        console.error('[hub] upcoming matches failed', err);
+        listEl.innerHTML = '<p class="hub-empty">Could not load matches.</p>';
+      });
   };
 
   FanHub.prototype.renderGroupMatches = function (container, polls) {
@@ -1145,7 +1300,23 @@
       byGroup[g].push(p);
     });
 
-    var groupsHtml = GROUPS.filter(function (g) { return byGroup[g]; }).map(function (g) {
+    var activeGroups = GROUPS.filter(function (g) { return byGroup[g]; });
+    var chipsHtml = activeGroups.map(function (g) {
+      var isActive = self.focusGroup === g;
+      return (
+        '<button type="button" class="matches-group-chip' + (isActive ? ' is-active' : '') + '" ' +
+          'data-group-chip="' + g + '" aria-pressed="' + (isActive ? 'true' : 'false') + '">' + g + '</button>'
+      );
+    }).join('');
+
+    container.insertAdjacentHTML(
+      'beforeend',
+      '<div class="matches-group-chips" id="matches-group-chips" role="navigation" aria-label="Jump to group">' +
+        chipsHtml +
+      '</div>'
+    );
+
+    var groupsHtml = activeGroups.map(function (g) {
       var list = byGroup[g];
       return (
         '<details class="group-block" data-group="' + g + '">' +
@@ -1165,6 +1336,24 @@
 
     container.insertAdjacentHTML('beforeend', groupsHtml);
 
+    var chipsRoot = $('#matches-group-chips', container);
+    if (chipsRoot) {
+      chipsRoot.addEventListener('click', function (e) {
+        var chip = e.target.closest('[data-group-chip]');
+        if (!chip) return;
+        var g = chip.getAttribute('data-group-chip');
+        if (!g || !byGroup[g]) return;
+        self.focusGroup = g;
+        self.syncMatchesUrl();
+        $all('[data-group-chip]', chipsRoot).forEach(function (c) {
+          var on = c.getAttribute('data-group-chip') === g;
+          c.classList.toggle('is-active', on);
+          c.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+        self.openGroupBlock(g, byGroup[g]);
+      });
+    }
+
     $all('.group-block__table', container).forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         e.preventDefault();
@@ -1180,6 +1369,31 @@
         if (block.open) self.loadGroupDetails(g, byGroup[g]);
       });
     });
+
+    var openGroup = self.focusGroup && byGroup[self.focusGroup]
+      ? self.focusGroup
+      : null;
+
+    if (!openGroup) {
+      self.fetchPollDetailsForRows(polls).then(function () {
+        openGroup = self.findAutoOpenGroup(polls);
+        if (openGroup) {
+          self.focusGroup = openGroup;
+          self.syncMatchesUrl();
+          var chipsRootEl = $('#matches-group-chips', container);
+          if (chipsRootEl) {
+            $all('[data-group-chip]', chipsRootEl).forEach(function (c) {
+              var on = c.getAttribute('data-group-chip') === openGroup;
+              c.classList.toggle('is-active', on);
+              c.setAttribute('aria-pressed', on ? 'true' : 'false');
+            });
+          }
+          self.openGroupBlock(openGroup, byGroup[openGroup]);
+        }
+      });
+    } else {
+      self.openGroupBlock(openGroup, byGroup[openGroup]);
+    }
   };
 
   FanHub.prototype.renderFlatMatches = function (container, polls) {

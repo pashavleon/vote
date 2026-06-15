@@ -132,6 +132,10 @@
             <div class="stage-dropdown__menu" id="stage-filter" role="listbox" hidden aria-label="Tournament stage"></div>
           </div>
         </div>
+        <div class="matches-view-bar" id="matches-view-bar" role="tablist" aria-label="Match list view" hidden>
+          <button type="button" class="matches-view-bar__btn is-active" id="matches-view-upcoming" data-matches-view="upcoming" role="tab" aria-selected="true">Upcoming</button>
+          <button type="button" class="matches-view-bar__btn" id="matches-view-group" data-matches-view="group" role="tab" aria-selected="false">By group</button>
+        </div>
         <div id="matches-container">
           <p class="hub-loading">Loading matches…</p>
         </div>
