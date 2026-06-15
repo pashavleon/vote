@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://topfan.vote/</loc>
-    <lastmod>2026-06-16</lastmod>
+    <lastmod>2026-06-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -14,13 +14,13 @@
   </url>
   <url>
     <loc>https://topfan.vote/favorite.html</loc>
-    <lastmod>2026-06-16</lastmod>
+    <lastmod>2026-06-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://topfan.vote/matches.html</loc>
-    <lastmod>2026-06-16</lastmod>
+    <lastmod>2026-06-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
@@ -44,7 +44,7 @@
   </url>
   <url>
     <loc>https://topfan.vote/news/opening-ceremonies-guide.html</loc>
-    <lastmod>2026-06-16</lastmod>
+    <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.65</priority>
   </url>
