@@ -10,6 +10,10 @@
       --psg: #004170;
       --gold: #d4a853;
       --radius: 12px;
+      --z-header: 100;
+      --z-stage-dropdown: 90;
+      --z-share: 160;
+      --z-modal: 200;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -33,13 +37,13 @@
       align-items: center;
       justify-content: space-between;
       padding: 0.7rem 1rem;
-      background: rgba(8, 11, 16, 0.98);
+      background: #080b10;
       border-bottom: 1px solid var(--border);
     }
     .site-header {
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: var(--z-header);
     }
     .logo.logo--home {
       font-size: clamp(0.82rem, 2.8vw, 1.12rem);
@@ -307,7 +311,6 @@
 
     .matches-toolbar {
       position: relative;
-      z-index: 50;
       margin-bottom: 0.5rem;
     }
     .stage-dropdown {
@@ -315,16 +318,19 @@
       width: 100%;
       margin-bottom: 0.75rem;
     }
+    .stage-dropdown.is-open {
+      z-index: var(--z-stage-dropdown);
+    }
     .stage-dropdown.is-open::before {
       content: '';
       position: fixed;
       inset: 0;
       background: rgba(10, 14, 20, 0.72);
-      z-index: 40;
+      z-index: 0;
     }
     .stage-dropdown__trigger {
       position: relative;
-      z-index: 52;
+      z-index: 2;
       display: flex;
       align-items: center;
       gap: 0.65rem;
@@ -376,7 +382,7 @@
     }
     .stage-dropdown__menu {
       position: absolute;
-      z-index: 51;
+      z-index: 3;
       top: calc(100% + 0.35rem);
       left: 0;
       right: 0;
@@ -686,7 +692,7 @@
     .match-info-modal {
       position: fixed;
       inset: 0;
-      z-index: 200;
+      z-index: var(--z-modal);
       display: flex;
       align-items: flex-end;
       justify-content: center;
@@ -1833,7 +1839,7 @@
       right: 0;
       top: 50%;
       transform: translateY(-50%);
-      z-index: 160;
+      z-index: var(--z-share);
       display: flex;
       align-items: center;
       gap: 0;
@@ -2364,7 +2370,7 @@
     .home-hero-header {
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: var(--z-header);
     }
     .home-hero-header__strip {
       position: relative;
