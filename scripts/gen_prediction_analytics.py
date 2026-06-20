@@ -16,6 +16,7 @@ import re
 import sys
 import urllib.error
 import urllib.request
+from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -186,6 +187,56 @@ def build_analytics(base_url: str, key: str) -> dict:
         },
         "by_group": group_stats,
         "matches": matches,
+        "team_stability": compute_team_stability(matches),
+    }
+
+
+def compute_team_stability(matches: list[dict], min_picks: int = 5) -> dict:
+    """Rank nations by how often fan win-picks paid off (finished group games only)."""
+    names: dict[str, str] = {}
+    pick_correct: dict[str, int] = defaultdict(int)
+    pick_total: dict[str, int] = defaultdict(int)
+
+    for m in matches:
+        h, a = m["home_team_id"], m["away_team_id"]
+        res = m["result_choice_id"]
+        for c in m.get("choices", []):
+            if c["id"] == "home":
+                names[h] = c.get("label") or h.upper()
+                votes = int(c.get("vote_count") or 0)
+                if votes:
+                    pick_total[h] += votes
+                    if res == "home":
+                        pick_correct[h] += votes
+            elif c["id"] == "away":
+                names[a] = c.get("label") or a.upper()
+                votes = int(c.get("vote_count") or 0)
+                if votes:
+                    pick_total[a] += votes
+                    if res == "away":
+                        pick_correct[a] += votes
+
+    pick_rows = []
+    for tid, total in pick_total.items():
+        if total < min_picks:
+            continue
+        acc = round(100 * pick_correct[tid] / total, 1)
+        pick_rows.append(
+            {
+                "team_id": tid,
+                "name": names.get(tid, tid.upper()),
+                "win_picks": total,
+                "win_pick_accuracy_pct": acc,
+            }
+        )
+
+    stable = sorted(pick_rows, key=lambda x: (-x["win_pick_accuracy_pct"], -x["win_picks"]))[:10]
+    unstable = sorted(pick_rows, key=lambda x: (x["win_pick_accuracy_pct"], -x["win_picks"]))[:10]
+
+    return {
+        "min_picks": min_picks,
+        "stable_for_betting": stable,
+        "unstable_for_betting": unstable,
     }
 
 
@@ -441,8 +492,16 @@ def main() -> None:
     )
     print(f"Wrote {args.out}")
 
-    article_path = args.article or ROOT / "news" / "fan-prediction-scorecard.html"
-    write_article(data, article_path)
+    team_path = args.out.parent / "team-stability.json"
+    team_path.write_text(
+        json.dumps(data["team_stability"], indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    print(f"Wrote {team_path}")
+
+    if args.article:
+        write_article(data, args.article)
+        print(f"Wrote {args.article}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,127 @@
+{
+  "min_picks": 5,
+  "stable_for_betting": [
+    {
+      "team_id": "mex",
+      "name": "Mexico",
+      "win_picks": 24,
+      "win_pick_accuracy_pct": 100.0
+    },
+    {
+      "team_id": "usa",
+      "name": "United States",
+      "win_picks": 20,
+      "win_pick_accuracy_pct": 100.0
+    },
+    {
+      "team_id": "arg",
+      "name": "Argentina",
+      "win_picks": 18,
+      "win_pick_accuracy_pct": 100.0
+    },
+    {
+      "team_id": "fra",
+      "name": "France",
+      "win_picks": 16,
+      "win_pick_accuracy_pct": 100.0
+    },
+    {
+      "team_id": "nor",
+      "name": "Norway",
+      "win_picks": 16,
+      "win_pick_accuracy_pct": 100.0
+    },
+    {
+      "team_id": "eng",
+      "name": "England",
+      "win_picks": 14,
+      "win_pick_accuracy_pct": 100.0
+    },
+    {
+      "team_id": "col",
+      "name": "Colombia",
+      "win_picks": 14,
+      "win_pick_accuracy_pct": 100.0
+    },
+    {
+      "team_id": "aut",
+      "name": "Austria",
+      "win_picks": 13,
+      "win_pick_accuracy_pct": 100.0
+    },
+    {
+      "team_id": "ger",
+      "name": "Germany",
+      "win_picks": 11,
+      "win_pick_accuracy_pct": 100.0
+    },
+    {
+      "team_id": "gha",
+      "name": "Ghana",
+      "win_picks": 9,
+      "win_pick_accuracy_pct": 100.0
+    }
+  ],
+  "unstable_for_betting": [
+    {
+      "team_id": "sui",
+      "name": "Switzerland",
+      "win_picks": 19,
+      "win_pick_accuracy_pct": 0.0
+    },
+    {
+      "team_id": "cze",
+      "name": "Czechia",
+      "win_picks": 18,
+      "win_pick_accuracy_pct": 0.0
+    },
+    {
+      "team_id": "tur",
+      "name": "Türkiye",
+      "win_picks": 18,
+      "win_pick_accuracy_pct": 0.0
+    },
+    {
+      "team_id": "por",
+      "name": "Portugal",
+      "win_picks": 16,
+      "win_pick_accuracy_pct": 0.0
+    },
+    {
+      "team_id": "uru",
+      "name": "Uruguay",
+      "win_picks": 15,
+      "win_pick_accuracy_pct": 0.0
+    },
+    {
+      "team_id": "esp",
+      "name": "Spain",
+      "win_picks": 14,
+      "win_pick_accuracy_pct": 0.0
+    },
+    {
+      "team_id": "bel",
+      "name": "Belgium",
+      "win_picks": 12,
+      "win_pick_accuracy_pct": 0.0
+    },
+    {
+      "team_id": "rsa",
+      "name": "South Africa",
+      "win_picks": 11,
+      "win_pick_accuracy_pct": 0.0
+    },
+    {
+      "team_id": "alg",
+      "name": "Algeria",
+      "win_picks": 11,
+      "win_pick_accuracy_pct": 0.0
+    },
+    {
+      "team_id": "ned",
+      "name": "Netherlands",
+      "win_picks": 9,
+      "win_pick_accuracy_pct": 0.0
+    }
+  ]
+}
