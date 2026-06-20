@@ -1,0 +1,1983 @@
+{
+  "generated_at": "2026-06-20T16:06:24+00:00",
+  "summary": {
+    "finished_matches": 31,
+    "matches_with_votes": 31,
+    "matches_without_votes": 0,
+    "total_votes": 593,
+    "total_correct": 288,
+    "overall_accuracy_pct": 48.6,
+    "crowd_majority_right": 19,
+    "crowd_majority_wrong": 12
+  },
+  "highlights": {
+    "hardest": [
+      {
+        "poll_id": "wc26-poll-wc26-m008",
+        "match_id": "wc26-m008",
+        "group_code": "B",
+        "stage": "group",
+        "home_team_id": "qat",
+        "away_team_id": "sui",
+        "home_score": 1,
+        "away_score": 1,
+        "kickoff_at": "2026-06-13T19:00:00+00:00",
+        "result_choice_id": "draw",
+        "result_label": "Draw",
+        "total_votes": 21,
+        "correct_votes": 0,
+        "accuracy_pct": 0.0,
+        "crowd_favorite_id": "away",
+        "crowd_favorite_label": "Switzerland",
+        "crowd_favorite_pct": 90.5,
+        "crowd_majority_right": false,
+        "fixture": "QAT vs SUI",
+        "choices": [
+          {
+            "id": "home",
+            "label": "Qatar",
+            "pct": 9.5,
+            "vote_count": 2
+          },
+          {
+            "id": "draw",
+            "label": "Draw",
+            "pct": 0.0,
+            "vote_count": 0
+          },
+          {
+            "id": "away",
+            "label": "Switzerland",
+            "pct": 90.5,
+            "vote_count": 19
+          }
+        ]
+      },
+      {
+        "poll_id": "wc26-poll-wc26-m043",
+        "match_id": "wc26-m043",
+        "group_code": "H",
+        "stage": "group",
+        "home_team_id": "esp",
+        "away_team_id": "cpv",
+        "home_score": 0,
+        "away_score": 0,
+        "kickoff_at": "2026-06-15T16:00:00+00:00",
+        "result_choice_id": "draw",
+        "result_label": "Draw",
+        "total_votes": 15,
+        "correct_votes": 0,
+        "accuracy_pct": 0.0,
+        "crowd_favorite_id": "home",
+        "crowd_favorite_label": "Spain",
+        "crowd_favorite_pct": 93.3,
+        "crowd_majority_right": false,
+        "fixture": "ESP vs CPV",
+        "choices": [
+          {
+            "id": "home",
+            "label": "Spain",
+            "pct": 93.3,
+            "vote_count": 14
+          },
+          {
+            "id": "draw",
+            "label": "Draw",
+            "pct": 0.0,
+            "vote_count": 0
+          },
+          {
+            "id": "away",
+            "label": "Cape Verde",
+            "pct": 6.7,
+            "vote_count": 1
+          }
+        ]
+      },
+      {
+        "poll_id": "wc26-poll-wc26-m044",
+        "match_id": "wc26-m044",
+        "group_code": "H",
+        "stage": "group",
+        "home_team_id": "ksa",
+        "away_team_id": "uru",
+        "home_score": 1,
+        "away_score": 1,
+        "kickoff_at": "2026-06-15T22:00:00+00:00",
+        "result_choice_id": "draw",
+        "result_label": "Draw",
+        "total_votes": 17,
+        "correct_votes": 0,
+        "accuracy_pct": 0.0,
+        "crowd_favorite_id": "away",
+        "crowd_favorite_label": "Uruguay",
+        "crowd_favorite_pct": 88.2,
+        "crowd_majority_right": false,
+        "fixture": "KSA vs URU",
+        "choices": [
+          {
+            "id": "home",
+            "label": "Saudi Arabia",
+            "pct": 11.8,
+            "vote_count": 2
+          },
+          {
+            "id": "draw",
+            "label": "Draw",
+            "pct": 0.0,
+            "vote_count": 0
+          },
+          {
+            "id": "away",
+            "label": "Uruguay",
+            "pct": 88.2,
+            "vote_count": 15
+          }
+        ]
+      },
+      {
+        "poll_id": "wc26-poll-wc26-m061",
+        "match_id": "wc26-m061",
+        "group_code": "K",
+        "stage": "group",
+        "home_team_id": "por",
+        "away_team_id": "cod",
+        "home_score": 1,
+        "away_score": 1,
+        "kickoff_at": "2026-06-17T17:00:00+00:00",
+        "result_choice_id": "draw",
+        "result_label": "Draw",
+        "total_votes": 18,
+        "correct_votes": 0,
+        "accuracy_pct": 0.0,
+        "crowd_favorite_id": "home",
+        "crowd_favorite_label": "Portugal",
+        "crowd_favorite_pct": 88.9,
+        "crowd_majority_right": false,
+        "fixture": "POR vs COD",
+        "choices": [
+          {
+            "id": "home",
+            "label": "Portugal",
+            "pct": 88.9,
+            "vote_count": 16
+          },
+          {
+            "id": "draw",
+            "label": "Draw",
+            "pct": 0.0,
+            "vote_count": 0
+          },
+          {
+            "id": "away",
+            "label": "DR Congo",
+            "pct": 11.1,
+            "vote_count": 2
+          }
+        ]
+      },
+      {
+        "poll_id": "wc26-poll-wc26-m037",
+        "match_id": "wc26-m037",
+        "group_code": "G",
+        "stage": "group",
+        "home_team_id": "bel",
+        "away_team_id": "egy",
+        "home_score": 1,
+        "away_score": 1,
+        "kickoff_at": "2026-06-15T19:00:00+00:00",
+        "result_choice_id": "draw",
+        "result_label": "Draw",
+        "total_votes": 18,
+        "correct_votes": 1,
+        "accuracy_pct": 5.6,
+        "crowd_favorite_id": "home",
+        "crowd_favorite_label": "Belgium",
+        "crowd_favorite_pct": 66.7,
+        "crowd_majority_right": false,
+        "fixture": "BEL vs EGY",
+        "choices": [
+          {
+            "id": "home",
+            "label": "Belgium",
+            "pct": 66.7,
+            "vote_count": 12
+          },
+          {
+            "id": "draw",
+            "label": "Draw",
+            "pct": 5.6,
+            "vote_count": 1
+          },
+          {
+            "id": "away",
+            "label": "Egypt",
+            "pct": 27.8,
+            "vote_count": 5
+          }
+        ]
+      }
+    ],
+    "easiest": [
+      {
+        "poll_id": "wc26-poll-wc26-m010",
+        "match_id": "wc26-m010",
+        "group_code": "B",
+        "stage": "group",
+        "home_team_id": "can",
+        "away_team_id": "qat",
+        "home_score": 6,
+        "away_score": 0,
+        "kickoff_at": "2026-06-18T22:00:00+00:00",
+        "result_choice_id": "home",
+        "result_label": "Canada",
+        "total_votes": 24,
+        "correct_votes": 22,
+        "accuracy_pct": 91.7,
+        "crowd_favorite_id": "home",
+        "crowd_favorite_label": "Canada",
+        "crowd_favorite_pct": 91.7,
+        "crowd_majority_right": true,
+        "fixture": "CAN vs QAT",
+        "choices": [
+          {
+            "id": "home",
+            "label": "Canada",
+            "pct": 91.7,
+            "vote_count": 22
+          },
+          {
+            "id": "draw",
+            "label": "Draw",
+            "pct": 0.0,
+            "vote_count": 0
+          },
+          {
+            "id": "away",
+            "label": "Qatar",
+            "pct": 8.3,
+            "vote_count": 2
+          }
+        ]
+      },
+      {
+        "poll_id": "wc26-poll-wc26-m016",
+        "match_id": "wc26-m016",
+        "group_code": "C",
+        "stage": "group",
+        "home_team_id": "bra",
+        "away_team_id": "hti",
+        "home_score": 3,
+        "away_score": 0,
+        "kickoff_at": "2026-06-20T01:00:00+00:00",
+        "result_choice_id": "home",
+        "result_label": "Brazil",
+        "total_votes": 24,
+        "correct_votes": 22,
+        "accuracy_pct": 91.7,
+        "crowd_favorite_id": "home",
+        "crowd_favorite_label": "Brazil",
+        "crowd_favorite_pct": 91.7,
+        "crowd_majority_right": true,
+        "fixture": "BRA vs HTI",
+        "choices": [
+          {
+            "id": "home",
+            "label": "Brazil",
+            "pct": 91.7,
+            "vote_count": 22
+          },
+          {
+            "id": "draw",
+            "label": "Draw",
+            "pct": 0.0,
+            "vote_count": 0
+          },
+          {
+            "id": "away",
+            "label": "Haiti",
+            "pct": 8.3,
+            "vote_count": 2
+          }
+        ]
+      },
+      {
+        "poll_id": "wc26-poll-wc26-m025",
+        "match_id": "wc26-m025",
+        "group_code": "E",
+        "stage": "group",
+        "home_team_id": "ger",
+        "away_team_id": "cuw",
+        "home_score": 7,
+        "away_score": 1,
+        "kickoff_at": "2026-06-14T17:00:00+00:00",
+        "result_choice_id": "home",
+        "result_label": "Germany",
+        "total_votes": 13,
+        "correct_votes": 11,
+        "accuracy_pct": 84.6,
+        "crowd_favorite_id": "home",
+        "crowd_favorite_label": "Germany",
+        "crowd_favorite_pct": 84.6,
+        "crowd_majority_right": true,
+        "fixture": "GER vs CUW",
+        "choices": [
+          {
+            "id": "home",
+            "label": "Germany",
+            "pct": 84.6,
+            "vote_count": 11
+          },
+          {
+            "id": "draw",
+            "label": "Draw",
+            "pct": 0.0,
+            "vote_count": 0
+          },
+          {
+            "id": "away",
+            "label": "Cura\u00e7ao",
+            "pct": 15.4,
+            "vote_count": 2
+          }
+        ]
+      },
+      {
+        "poll_id": "wc26-poll-wc26-m062",
+        "match_id": "wc26-m062",
+        "group_code": "K",
+        "stage": "group",
+        "home_team_id": "uzb",
+        "away_team_id": "col",
+        "home_score": 1,
+        "away_score": 3,
+        "kickoff_at": "2026-06-18T02:00:00+00:00",
+        "result_choice_id": "away",
+        "result_label": "Colombia",
+        "total_votes": 17,
+        "correct_votes": 14,
+        "accuracy_pct": 82.4,
+        "crowd_favorite_id": "away",
+        "crowd_favorite_label": "Colombia",
+        "crowd_favorite_pct": 82.4,
+        "crowd_majority_right": true,
+        "fixture": "UZB vs COL",
+        "choices": [
+          {
+            "id": "home",
+            "label": "Uzbekistan",
+            "pct": 11.8,
+            "vote_count": 2
+          },
+          {
+            "id": "draw",
+            "label": "Draw",
+            "pct": 5.9,
+            "vote_count": 1
+          },
+          {
+            "id": "away",
+            "label": "Colombia",
+            "pct": 82.4,
+            "vote_count": 14
+          }
+        ]
+      },
+      {
+        "poll_id": "wc26-poll-wc26-m050",
+        "match_id": "wc26-m050",
+        "group_code": "I",
+        "stage": "group",
+        "home_team_id": "irq",
+        "away_team_id": "nor",
+        "home_score": 1,
+        "away_score": 4,
+        "kickoff_at": "2026-06-16T22:00:00+00:00",
+        "result_choice_id": "away",
+        "result_label": "Norway",
+        "total_votes": 20,
+        "correct_votes": 16,
+        "accuracy_pct": 80.0,
+        "crowd_favorite_id": "away",
+        "crowd_favorite_label": "Norway",
+        "crowd_favorite_pct": 80.0,
+        "crowd_majority_right": true,
+        "fixture": "IRQ vs NOR",
+        "choices": [
+          {
+            "id": "home",
+            "label": "Iraq",
+            "pct": 10.0,
+            "vote_count": 2
+          },
+          {
+            "id": "draw",
+            "label": "Draw",
+            "pct": 10.0,
+            "vote_count": 2
+          },
+          {
+            "id": "away",
+            "label": "Norway",
+            "pct": 80.0,
+            "vote_count": 16
+          }
+        ]
+      }
+    ],
+    "biggest_crowd_misses": [
+      {
+        "poll_id": "wc26-poll-wc26-m043",
+        "match_id": "wc26-m043",
+        "group_code": "H",
+        "stage": "group",
+        "home_team_id": "esp",
+        "away_team_id": "cpv",
+        "home_score": 0,
+        "away_score": 0,
+        "kickoff_at": "2026-06-15T16:00:00+00:00",
+        "result_choice_id": "draw",
+        "result_label": "Draw",
+        "total_votes": 15,
+        "correct_votes": 0,
+        "accuracy_pct": 0.0,
+        "crowd_favorite_id": "home",
+        "crowd_favorite_label": "Spain",
+        "crowd_favorite_pct": 93.3,
+        "crowd_majority_right": false,
+        "fixture": "ESP vs CPV",
+        "choices": [
+          {
+            "id": "home",
+            "label": "Spain",
+            "pct": 93.3,
+            "vote_count": 14
+          },
+          {
+            "id": "draw",
+            "label": "Draw",
+            "pct": 0.0,
+            "vote_count": 0
+          },
+          {
+            "id": "away",
+            "label": "Cape Verde",
+            "pct": 6.7,
+            "vote_count": 1
+          }
+        ]
+      },
+      {
+        "poll_id": "wc26-poll-wc26-m008",
+        "match_id": "wc26-m008",
+        "group_code": "B",
+        "stage": "group",
+        "home_team_id": "qat",
+        "away_team_id": "sui",
+        "home_score": 1,
+        "away_score": 1,
+        "kickoff_at": "2026-06-13T19:00:00+00:00",
+        "result_choice_id": "draw",
+        "result_label": "Draw",
+        "total_votes": 21,
+        "correct_votes": 0,
+        "accuracy_pct": 0.0,
+        "crowd_favorite_id": "away",
+        "crowd_favorite_label": "Switzerland",
+        "crowd_favorite_pct": 90.5,
+        "crowd_majority_right": false,
+        "fixture": "QAT vs SUI",
+        "choices": [
+          {
+            "id": "home",
+            "label": "Qatar",
+            "pct": 9.5,
+            "vote_count": 2
+          },
+          {
+            "id": "draw",
+            "label": "Draw",
+            "pct": 0.0,
+            "vote_count": 0
+          },
+          {
+            "id": "away",
+            "label": "Switzerland",
+            "pct": 90.5,
+            "vote_count": 19
+          }
+        ]
+      },
+      {
+        "poll_id": "wc26-poll-wc26-m061",
+        "match_id": "wc26-m061",
+        "group_code": "K",
+        "stage": "group",
+        "home_team_id": "por",
+        "away_team_id": "cod",
+        "home_score": 1,
+        "away_score": 1,
+        "kickoff_at": "2026-06-17T17:00:00+00:00",
+        "result_choice_id": "draw",
+        "result_label": "Draw",
+        "total_votes": 18,
+        "correct_votes": 0,
+        "accuracy_pct": 0.0,
+        "crowd_favorite_id": "home",
+        "crowd_favorite_label": "Portugal",
+        "crowd_favorite_pct": 88.9,
+        "crowd_majority_right": false,
+        "fixture": "POR vs COD",
+        "choices": [
+          {
+            "id": "home",
+            "label": "Portugal",
+            "pct": 88.9,
+            "vote_count": 16
+          },
+          {
+            "id": "draw",
+            "label": "Draw",
+            "pct": 0.0,
+            "vote_count": 0
+          },
+          {
+            "id": "away",
+            "label": "DR Congo",
+            "pct": 11.1,
+            "vote_count": 2
+          }
+        ]
+      },
+      {
+        "poll_id": "wc26-poll-wc26-m044",
+        "match_id": "wc26-m044",
+        "group_code": "H",
+        "stage": "group",
+        "home_team_id": "ksa",
+        "away_team_id": "uru",
+        "home_score": 1,
+        "away_score": 1,
+        "kickoff_at": "2026-06-15T22:00:00+00:00",
+        "result_choice_id": "draw",
+        "result_label": "Draw",
+        "total_votes": 17,
+        "correct_votes": 0,
+        "accuracy_pct": 0.0,
+        "crowd_favorite_id": "away",
+        "crowd_favorite_label": "Uruguay",
+        "crowd_favorite_pct": 88.2,
+        "crowd_majority_right": false,
+        "fixture": "KSA vs URU",
+        "choices": [
+          {
+            "id": "home",
+            "label": "Saudi Arabia",
+            "pct": 11.8,
+            "vote_count": 2
+          },
+          {
+            "id": "draw",
+            "label": "Draw",
+            "pct": 0.0,
+            "vote_count": 0
+          },
+          {
+            "id": "away",
+            "label": "Uruguay",
+            "pct": 88.2,
+            "vote_count": 15
+          }
+        ]
+      },
+      {
+        "poll_id": "wc26-poll-wc26-m020",
+        "match_id": "wc26-m020",
+        "group_code": "D",
+        "stage": "group",
+        "home_team_id": "aus",
+        "away_team_id": "tur",
+        "home_score": 2,
+        "away_score": 0,
+        "kickoff_at": "2026-06-13T04:00:00+00:00",
+        "result_choice_id": "home",
+        "result_label": "Australia",
+        "total_votes": 12,
+        "correct_votes": 4,
+        "accuracy_pct": 33.3,
+        "crowd_favorite_id": "away",
+        "crowd_favorite_label": "T\u00fcrkiye",
+        "crowd_favorite_pct": 66.7,
+        "crowd_majority_right": false,
+        "fixture": "AUS vs TUR",
+        "choices": [
+          {
+            "id": "home",
+            "label": "Australia",
+            "pct": 33.3,
+            "vote_count": 4
+          },
+          {
+            "id": "draw",
+            "label": "Draw",
+            "pct": 0.0,
+            "vote_count": 0
+          },
+          {
+            "id": "away",
+            "label": "T\u00fcrkiye",
+            "pct": 66.7,
+            "vote_count": 8
+          }
+        ]
+      }
+    ]
+  },
+  "by_group": {
+    "A": {
+      "matches": 4,
+      "votes": 86,
+      "correct": 40,
+      "accuracy_pct": 46.5
+    },
+    "B": {
+      "matches": 3,
+      "votes": 59,
+      "correct": 26,
+      "accuracy_pct": 44.1
+    },
+    "D": {
+      "matches": 4,
+      "votes": 60,
+      "correct": 28,
+      "accuracy_pct": 46.7
+    },
+    "C": {
+      "matches": 4,
+      "votes": 99,
+      "correct": 63,
+      "accuracy_pct": 63.6
+    },
+    "E": {
+      "matches": 2,
+      "votes": 25,
+      "correct": 14,
+      "accuracy_pct": 56.0
+    },
+    "F": {
+      "matches": 2,
+      "votes": 31,
+      "correct": 9,
+      "accuracy_pct": 29.0
+    },
+    "H": {
+      "matches": 2,
+      "votes": 32,
+      "correct": 0,
+      "accuracy_pct": 0.0
+    },
+    "G": {
+      "matches": 2,
+      "votes": 37,
+      "correct": 8,
+      "accuracy_pct": 21.6
+    },
+    "I": {
+      "matches": 2,
+      "votes": 41,
+      "correct": 32,
+      "accuracy_pct": 78.0
+    },
+    "J": {
+      "matches": 2,
+      "votes": 53,
+      "correct": 31,
+      "accuracy_pct": 58.5
+    },
+    "K": {
+      "matches": 2,
+      "votes": 35,
+      "correct": 14,
+      "accuracy_pct": 40.0
+    },
+    "L": {
+      "matches": 2,
+      "votes": 35,
+      "correct": 23,
+      "accuracy_pct": 65.7
+    }
+  },
+  "matches": [
+    {
+      "poll_id": "wc26-poll-wc26-m001",
+      "match_id": "wc26-m001",
+      "group_code": "A",
+      "stage": "group",
+      "home_team_id": "mex",
+      "away_team_id": "rsa",
+      "home_score": 2,
+      "away_score": 0,
+      "kickoff_at": "2026-06-11T19:00:00+00:00",
+      "result_choice_id": "home",
+      "result_label": "Mexico",
+      "total_votes": 14,
+      "correct_votes": 11,
+      "accuracy_pct": 78.6,
+      "crowd_favorite_id": "home",
+      "crowd_favorite_label": "Mexico",
+      "crowd_favorite_pct": 78.6,
+      "crowd_majority_right": true,
+      "fixture": "MEX vs RSA",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Mexico",
+          "pct": 78.6,
+          "vote_count": 11
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 7.1,
+          "vote_count": 1
+        },
+        {
+          "id": "away",
+          "label": "South Africa",
+          "pct": 14.3,
+          "vote_count": 2
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m002",
+      "match_id": "wc26-m002",
+      "group_code": "A",
+      "stage": "group",
+      "home_team_id": "kor",
+      "away_team_id": "cze",
+      "home_score": 2,
+      "away_score": 1,
+      "kickoff_at": "2026-06-12T02:00:00+00:00",
+      "result_choice_id": "home",
+      "result_label": "South Korea",
+      "total_votes": 16,
+      "correct_votes": 10,
+      "accuracy_pct": 62.5,
+      "crowd_favorite_id": "home",
+      "crowd_favorite_label": "South Korea",
+      "crowd_favorite_pct": 62.5,
+      "crowd_majority_right": true,
+      "fixture": "KOR vs CZE",
+      "choices": [
+        {
+          "id": "home",
+          "label": "South Korea",
+          "pct": 62.5,
+          "vote_count": 10
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 12.5,
+          "vote_count": 2
+        },
+        {
+          "id": "away",
+          "label": "Czechia",
+          "pct": 25.0,
+          "vote_count": 4
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m007",
+      "match_id": "wc26-m007",
+      "group_code": "B",
+      "stage": "group",
+      "home_team_id": "can",
+      "away_team_id": "bih",
+      "home_score": 1,
+      "away_score": 1,
+      "kickoff_at": "2026-06-12T19:00:00+00:00",
+      "result_choice_id": "draw",
+      "result_label": "Draw",
+      "total_votes": 14,
+      "correct_votes": 4,
+      "accuracy_pct": 28.6,
+      "crowd_favorite_id": "home",
+      "crowd_favorite_label": "Canada",
+      "crowd_favorite_pct": 64.3,
+      "crowd_majority_right": false,
+      "fixture": "CAN vs BIH",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Canada",
+          "pct": 64.3,
+          "vote_count": 9
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 28.6,
+          "vote_count": 4
+        },
+        {
+          "id": "away",
+          "label": "Bosnia and Herzegovina",
+          "pct": 7.1,
+          "vote_count": 1
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m019",
+      "match_id": "wc26-m019",
+      "group_code": "D",
+      "stage": "group",
+      "home_team_id": "usa",
+      "away_team_id": "par",
+      "home_score": 4,
+      "away_score": 1,
+      "kickoff_at": "2026-06-13T01:00:00+00:00",
+      "result_choice_id": "home",
+      "result_label": "United States",
+      "total_votes": 11,
+      "correct_votes": 8,
+      "accuracy_pct": 72.7,
+      "crowd_favorite_id": "home",
+      "crowd_favorite_label": "United States",
+      "crowd_favorite_pct": 72.7,
+      "crowd_majority_right": true,
+      "fixture": "USA vs PAR",
+      "choices": [
+        {
+          "id": "home",
+          "label": "United States",
+          "pct": 72.7,
+          "vote_count": 8
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 9.1,
+          "vote_count": 1
+        },
+        {
+          "id": "away",
+          "label": "Paraguay",
+          "pct": 18.2,
+          "vote_count": 2
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m020",
+      "match_id": "wc26-m020",
+      "group_code": "D",
+      "stage": "group",
+      "home_team_id": "aus",
+      "away_team_id": "tur",
+      "home_score": 2,
+      "away_score": 0,
+      "kickoff_at": "2026-06-13T04:00:00+00:00",
+      "result_choice_id": "home",
+      "result_label": "Australia",
+      "total_votes": 12,
+      "correct_votes": 4,
+      "accuracy_pct": 33.3,
+      "crowd_favorite_id": "away",
+      "crowd_favorite_label": "T\u00fcrkiye",
+      "crowd_favorite_pct": 66.7,
+      "crowd_majority_right": false,
+      "fixture": "AUS vs TUR",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Australia",
+          "pct": 33.3,
+          "vote_count": 4
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 0.0,
+          "vote_count": 0
+        },
+        {
+          "id": "away",
+          "label": "T\u00fcrkiye",
+          "pct": 66.7,
+          "vote_count": 8
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m008",
+      "match_id": "wc26-m008",
+      "group_code": "B",
+      "stage": "group",
+      "home_team_id": "qat",
+      "away_team_id": "sui",
+      "home_score": 1,
+      "away_score": 1,
+      "kickoff_at": "2026-06-13T19:00:00+00:00",
+      "result_choice_id": "draw",
+      "result_label": "Draw",
+      "total_votes": 21,
+      "correct_votes": 0,
+      "accuracy_pct": 0.0,
+      "crowd_favorite_id": "away",
+      "crowd_favorite_label": "Switzerland",
+      "crowd_favorite_pct": 90.5,
+      "crowd_majority_right": false,
+      "fixture": "QAT vs SUI",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Qatar",
+          "pct": 9.5,
+          "vote_count": 2
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 0.0,
+          "vote_count": 0
+        },
+        {
+          "id": "away",
+          "label": "Switzerland",
+          "pct": 90.5,
+          "vote_count": 19
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m013",
+      "match_id": "wc26-m013",
+      "group_code": "C",
+      "stage": "group",
+      "home_team_id": "bra",
+      "away_team_id": "mar",
+      "home_score": 1,
+      "away_score": 1,
+      "kickoff_at": "2026-06-13T22:00:00+00:00",
+      "result_choice_id": "draw",
+      "result_label": "Draw",
+      "total_votes": 26,
+      "correct_votes": 4,
+      "accuracy_pct": 15.4,
+      "crowd_favorite_id": "home",
+      "crowd_favorite_label": "Brazil",
+      "crowd_favorite_pct": 57.7,
+      "crowd_majority_right": false,
+      "fixture": "BRA vs MAR",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Brazil",
+          "pct": 57.7,
+          "vote_count": 15
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 15.4,
+          "vote_count": 4
+        },
+        {
+          "id": "away",
+          "label": "Morocco",
+          "pct": 26.9,
+          "vote_count": 7
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m014",
+      "match_id": "wc26-m014",
+      "group_code": "C",
+      "stage": "group",
+      "home_team_id": "hti",
+      "away_team_id": "sco",
+      "home_score": 0,
+      "away_score": 1,
+      "kickoff_at": "2026-06-14T01:00:00+00:00",
+      "result_choice_id": "away",
+      "result_label": "Scotland",
+      "total_votes": 23,
+      "correct_votes": 17,
+      "accuracy_pct": 73.9,
+      "crowd_favorite_id": "away",
+      "crowd_favorite_label": "Scotland",
+      "crowd_favorite_pct": 73.9,
+      "crowd_majority_right": true,
+      "fixture": "HTI vs SCO",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Haiti",
+          "pct": 8.7,
+          "vote_count": 2
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 17.4,
+          "vote_count": 4
+        },
+        {
+          "id": "away",
+          "label": "Scotland",
+          "pct": 73.9,
+          "vote_count": 17
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m025",
+      "match_id": "wc26-m025",
+      "group_code": "E",
+      "stage": "group",
+      "home_team_id": "ger",
+      "away_team_id": "cuw",
+      "home_score": 7,
+      "away_score": 1,
+      "kickoff_at": "2026-06-14T17:00:00+00:00",
+      "result_choice_id": "home",
+      "result_label": "Germany",
+      "total_votes": 13,
+      "correct_votes": 11,
+      "accuracy_pct": 84.6,
+      "crowd_favorite_id": "home",
+      "crowd_favorite_label": "Germany",
+      "crowd_favorite_pct": 84.6,
+      "crowd_majority_right": true,
+      "fixture": "GER vs CUW",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Germany",
+          "pct": 84.6,
+          "vote_count": 11
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 0.0,
+          "vote_count": 0
+        },
+        {
+          "id": "away",
+          "label": "Cura\u00e7ao",
+          "pct": 15.4,
+          "vote_count": 2
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m031",
+      "match_id": "wc26-m031",
+      "group_code": "F",
+      "stage": "group",
+      "home_team_id": "ned",
+      "away_team_id": "jpn",
+      "home_score": 2,
+      "away_score": 2,
+      "kickoff_at": "2026-06-14T20:00:00+00:00",
+      "result_choice_id": "draw",
+      "result_label": "Draw",
+      "total_votes": 14,
+      "correct_votes": 1,
+      "accuracy_pct": 7.1,
+      "crowd_favorite_id": "home",
+      "crowd_favorite_label": "Netherlands",
+      "crowd_favorite_pct": 64.3,
+      "crowd_majority_right": false,
+      "fixture": "NED vs JPN",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Netherlands",
+          "pct": 64.3,
+          "vote_count": 9
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 7.1,
+          "vote_count": 1
+        },
+        {
+          "id": "away",
+          "label": "Japan",
+          "pct": 28.6,
+          "vote_count": 4
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m026",
+      "match_id": "wc26-m026",
+      "group_code": "E",
+      "stage": "group",
+      "home_team_id": "civ",
+      "away_team_id": "ecu",
+      "home_score": 1,
+      "away_score": 0,
+      "kickoff_at": "2026-06-14T23:00:00+00:00",
+      "result_choice_id": "home",
+      "result_label": "Ivory Coast",
+      "total_votes": 12,
+      "correct_votes": 3,
+      "accuracy_pct": 25.0,
+      "crowd_favorite_id": "away",
+      "crowd_favorite_label": "Ecuador",
+      "crowd_favorite_pct": 50.0,
+      "crowd_majority_right": false,
+      "fixture": "CIV vs ECU",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Ivory Coast",
+          "pct": 25.0,
+          "vote_count": 3
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 25.0,
+          "vote_count": 3
+        },
+        {
+          "id": "away",
+          "label": "Ecuador",
+          "pct": 50.0,
+          "vote_count": 6
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m032",
+      "match_id": "wc26-m032",
+      "group_code": "F",
+      "stage": "group",
+      "home_team_id": "swe",
+      "away_team_id": "tun",
+      "home_score": 5,
+      "away_score": 1,
+      "kickoff_at": "2026-06-15T02:00:00+00:00",
+      "result_choice_id": "home",
+      "result_label": "Sweden",
+      "total_votes": 17,
+      "correct_votes": 8,
+      "accuracy_pct": 47.1,
+      "crowd_favorite_id": "home",
+      "crowd_favorite_label": "Sweden",
+      "crowd_favorite_pct": 47.1,
+      "crowd_majority_right": true,
+      "fixture": "SWE vs TUN",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Sweden",
+          "pct": 47.1,
+          "vote_count": 8
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 23.5,
+          "vote_count": 4
+        },
+        {
+          "id": "away",
+          "label": "Tunisia",
+          "pct": 29.4,
+          "vote_count": 5
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m043",
+      "match_id": "wc26-m043",
+      "group_code": "H",
+      "stage": "group",
+      "home_team_id": "esp",
+      "away_team_id": "cpv",
+      "home_score": 0,
+      "away_score": 0,
+      "kickoff_at": "2026-06-15T16:00:00+00:00",
+      "result_choice_id": "draw",
+      "result_label": "Draw",
+      "total_votes": 15,
+      "correct_votes": 0,
+      "accuracy_pct": 0.0,
+      "crowd_favorite_id": "home",
+      "crowd_favorite_label": "Spain",
+      "crowd_favorite_pct": 93.3,
+      "crowd_majority_right": false,
+      "fixture": "ESP vs CPV",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Spain",
+          "pct": 93.3,
+          "vote_count": 14
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 0.0,
+          "vote_count": 0
+        },
+        {
+          "id": "away",
+          "label": "Cape Verde",
+          "pct": 6.7,
+          "vote_count": 1
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m037",
+      "match_id": "wc26-m037",
+      "group_code": "G",
+      "stage": "group",
+      "home_team_id": "bel",
+      "away_team_id": "egy",
+      "home_score": 1,
+      "away_score": 1,
+      "kickoff_at": "2026-06-15T19:00:00+00:00",
+      "result_choice_id": "draw",
+      "result_label": "Draw",
+      "total_votes": 18,
+      "correct_votes": 1,
+      "accuracy_pct": 5.6,
+      "crowd_favorite_id": "home",
+      "crowd_favorite_label": "Belgium",
+      "crowd_favorite_pct": 66.7,
+      "crowd_majority_right": false,
+      "fixture": "BEL vs EGY",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Belgium",
+          "pct": 66.7,
+          "vote_count": 12
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 5.6,
+          "vote_count": 1
+        },
+        {
+          "id": "away",
+          "label": "Egypt",
+          "pct": 27.8,
+          "vote_count": 5
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m044",
+      "match_id": "wc26-m044",
+      "group_code": "H",
+      "stage": "group",
+      "home_team_id": "ksa",
+      "away_team_id": "uru",
+      "home_score": 1,
+      "away_score": 1,
+      "kickoff_at": "2026-06-15T22:00:00+00:00",
+      "result_choice_id": "draw",
+      "result_label": "Draw",
+      "total_votes": 17,
+      "correct_votes": 0,
+      "accuracy_pct": 0.0,
+      "crowd_favorite_id": "away",
+      "crowd_favorite_label": "Uruguay",
+      "crowd_favorite_pct": 88.2,
+      "crowd_majority_right": false,
+      "fixture": "KSA vs URU",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Saudi Arabia",
+          "pct": 11.8,
+          "vote_count": 2
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 0.0,
+          "vote_count": 0
+        },
+        {
+          "id": "away",
+          "label": "Uruguay",
+          "pct": 88.2,
+          "vote_count": 15
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m038",
+      "match_id": "wc26-m038",
+      "group_code": "G",
+      "stage": "group",
+      "home_team_id": "irn",
+      "away_team_id": "nzl",
+      "home_score": 2,
+      "away_score": 2,
+      "kickoff_at": "2026-06-16T01:00:00+00:00",
+      "result_choice_id": "draw",
+      "result_label": "Draw",
+      "total_votes": 19,
+      "correct_votes": 7,
+      "accuracy_pct": 36.8,
+      "crowd_favorite_id": "draw",
+      "crowd_favorite_label": "Draw",
+      "crowd_favorite_pct": 36.8,
+      "crowd_majority_right": true,
+      "fixture": "IRN vs NZL",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Iran",
+          "pct": 26.3,
+          "vote_count": 5
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 36.8,
+          "vote_count": 7
+        },
+        {
+          "id": "away",
+          "label": "New Zealand",
+          "pct": 36.8,
+          "vote_count": 7
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m049",
+      "match_id": "wc26-m049",
+      "group_code": "I",
+      "stage": "group",
+      "home_team_id": "fra",
+      "away_team_id": "sen",
+      "home_score": 3,
+      "away_score": 1,
+      "kickoff_at": "2026-06-16T19:00:00+00:00",
+      "result_choice_id": "home",
+      "result_label": "France",
+      "total_votes": 21,
+      "correct_votes": 16,
+      "accuracy_pct": 76.2,
+      "crowd_favorite_id": "home",
+      "crowd_favorite_label": "France",
+      "crowd_favorite_pct": 76.2,
+      "crowd_majority_right": true,
+      "fixture": "FRA vs SEN",
+      "choices": [
+        {
+          "id": "home",
+          "label": "France",
+          "pct": 76.2,
+          "vote_count": 16
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 4.8,
+          "vote_count": 1
+        },
+        {
+          "id": "away",
+          "label": "Senegal",
+          "pct": 19.0,
+          "vote_count": 4
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m050",
+      "match_id": "wc26-m050",
+      "group_code": "I",
+      "stage": "group",
+      "home_team_id": "irq",
+      "away_team_id": "nor",
+      "home_score": 1,
+      "away_score": 4,
+      "kickoff_at": "2026-06-16T22:00:00+00:00",
+      "result_choice_id": "away",
+      "result_label": "Norway",
+      "total_votes": 20,
+      "correct_votes": 16,
+      "accuracy_pct": 80.0,
+      "crowd_favorite_id": "away",
+      "crowd_favorite_label": "Norway",
+      "crowd_favorite_pct": 80.0,
+      "crowd_majority_right": true,
+      "fixture": "IRQ vs NOR",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Iraq",
+          "pct": 10.0,
+          "vote_count": 2
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 10.0,
+          "vote_count": 2
+        },
+        {
+          "id": "away",
+          "label": "Norway",
+          "pct": 80.0,
+          "vote_count": 16
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m055",
+      "match_id": "wc26-m055",
+      "group_code": "J",
+      "stage": "group",
+      "home_team_id": "arg",
+      "away_team_id": "alg",
+      "home_score": 3,
+      "away_score": 0,
+      "kickoff_at": "2026-06-17T01:00:00+00:00",
+      "result_choice_id": "home",
+      "result_label": "Argentina",
+      "total_votes": 31,
+      "correct_votes": 18,
+      "accuracy_pct": 58.1,
+      "crowd_favorite_id": "home",
+      "crowd_favorite_label": "Argentina",
+      "crowd_favorite_pct": 58.1,
+      "crowd_majority_right": true,
+      "fixture": "ARG vs ALG",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Argentina",
+          "pct": 58.1,
+          "vote_count": 18
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 6.5,
+          "vote_count": 2
+        },
+        {
+          "id": "away",
+          "label": "Algeria",
+          "pct": 35.5,
+          "vote_count": 11
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m056",
+      "match_id": "wc26-m056",
+      "group_code": "J",
+      "stage": "group",
+      "home_team_id": "aut",
+      "away_team_id": "jor",
+      "home_score": 3,
+      "away_score": 1,
+      "kickoff_at": "2026-06-17T04:00:00+00:00",
+      "result_choice_id": "home",
+      "result_label": "Austria",
+      "total_votes": 22,
+      "correct_votes": 13,
+      "accuracy_pct": 59.1,
+      "crowd_favorite_id": "home",
+      "crowd_favorite_label": "Austria",
+      "crowd_favorite_pct": 59.1,
+      "crowd_majority_right": true,
+      "fixture": "AUT vs JOR",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Austria",
+          "pct": 59.1,
+          "vote_count": 13
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 13.6,
+          "vote_count": 3
+        },
+        {
+          "id": "away",
+          "label": "Jordan",
+          "pct": 27.3,
+          "vote_count": 6
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m061",
+      "match_id": "wc26-m061",
+      "group_code": "K",
+      "stage": "group",
+      "home_team_id": "por",
+      "away_team_id": "cod",
+      "home_score": 1,
+      "away_score": 1,
+      "kickoff_at": "2026-06-17T17:00:00+00:00",
+      "result_choice_id": "draw",
+      "result_label": "Draw",
+      "total_votes": 18,
+      "correct_votes": 0,
+      "accuracy_pct": 0.0,
+      "crowd_favorite_id": "home",
+      "crowd_favorite_label": "Portugal",
+      "crowd_favorite_pct": 88.9,
+      "crowd_majority_right": false,
+      "fixture": "POR vs COD",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Portugal",
+          "pct": 88.9,
+          "vote_count": 16
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 0.0,
+          "vote_count": 0
+        },
+        {
+          "id": "away",
+          "label": "DR Congo",
+          "pct": 11.1,
+          "vote_count": 2
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m067",
+      "match_id": "wc26-m067",
+      "group_code": "L",
+      "stage": "group",
+      "home_team_id": "eng",
+      "away_team_id": "cro",
+      "home_score": 4,
+      "away_score": 2,
+      "kickoff_at": "2026-06-17T20:00:00+00:00",
+      "result_choice_id": "home",
+      "result_label": "England",
+      "total_votes": 18,
+      "correct_votes": 14,
+      "accuracy_pct": 77.8,
+      "crowd_favorite_id": "home",
+      "crowd_favorite_label": "England",
+      "crowd_favorite_pct": 77.8,
+      "crowd_majority_right": true,
+      "fixture": "ENG vs CRO",
+      "choices": [
+        {
+          "id": "home",
+          "label": "England",
+          "pct": 77.8,
+          "vote_count": 14
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 5.6,
+          "vote_count": 1
+        },
+        {
+          "id": "away",
+          "label": "Croatia",
+          "pct": 16.7,
+          "vote_count": 3
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m068",
+      "match_id": "wc26-m068",
+      "group_code": "L",
+      "stage": "group",
+      "home_team_id": "gha",
+      "away_team_id": "pan",
+      "home_score": 1,
+      "away_score": 0,
+      "kickoff_at": "2026-06-17T23:00:00+00:00",
+      "result_choice_id": "home",
+      "result_label": "Ghana",
+      "total_votes": 17,
+      "correct_votes": 9,
+      "accuracy_pct": 52.9,
+      "crowd_favorite_id": "home",
+      "crowd_favorite_label": "Ghana",
+      "crowd_favorite_pct": 52.9,
+      "crowd_majority_right": true,
+      "fixture": "GHA vs PAN",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Ghana",
+          "pct": 52.9,
+          "vote_count": 9
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 23.5,
+          "vote_count": 4
+        },
+        {
+          "id": "away",
+          "label": "Panama",
+          "pct": 23.5,
+          "vote_count": 4
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m062",
+      "match_id": "wc26-m062",
+      "group_code": "K",
+      "stage": "group",
+      "home_team_id": "uzb",
+      "away_team_id": "col",
+      "home_score": 1,
+      "away_score": 3,
+      "kickoff_at": "2026-06-18T02:00:00+00:00",
+      "result_choice_id": "away",
+      "result_label": "Colombia",
+      "total_votes": 17,
+      "correct_votes": 14,
+      "accuracy_pct": 82.4,
+      "crowd_favorite_id": "away",
+      "crowd_favorite_label": "Colombia",
+      "crowd_favorite_pct": 82.4,
+      "crowd_majority_right": true,
+      "fixture": "UZB vs COL",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Uzbekistan",
+          "pct": 11.8,
+          "vote_count": 2
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 5.9,
+          "vote_count": 1
+        },
+        {
+          "id": "away",
+          "label": "Colombia",
+          "pct": 82.4,
+          "vote_count": 14
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m003",
+      "match_id": "wc26-m003",
+      "group_code": "A",
+      "stage": "group",
+      "home_team_id": "cze",
+      "away_team_id": "rsa",
+      "home_score": 1,
+      "away_score": 1,
+      "kickoff_at": "2026-06-18T16:00:00+00:00",
+      "result_choice_id": "draw",
+      "result_label": "Draw",
+      "total_votes": 29,
+      "correct_votes": 6,
+      "accuracy_pct": 20.7,
+      "crowd_favorite_id": "home",
+      "crowd_favorite_label": "Czechia",
+      "crowd_favorite_pct": 48.3,
+      "crowd_majority_right": false,
+      "fixture": "CZE vs RSA",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Czechia",
+          "pct": 48.3,
+          "vote_count": 14
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 20.7,
+          "vote_count": 6
+        },
+        {
+          "id": "away",
+          "label": "South Africa",
+          "pct": 31.0,
+          "vote_count": 9
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m010",
+      "match_id": "wc26-m010",
+      "group_code": "B",
+      "stage": "group",
+      "home_team_id": "can",
+      "away_team_id": "qat",
+      "home_score": 6,
+      "away_score": 0,
+      "kickoff_at": "2026-06-18T22:00:00+00:00",
+      "result_choice_id": "home",
+      "result_label": "Canada",
+      "total_votes": 24,
+      "correct_votes": 22,
+      "accuracy_pct": 91.7,
+      "crowd_favorite_id": "home",
+      "crowd_favorite_label": "Canada",
+      "crowd_favorite_pct": 91.7,
+      "crowd_majority_right": true,
+      "fixture": "CAN vs QAT",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Canada",
+          "pct": 91.7,
+          "vote_count": 22
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 0.0,
+          "vote_count": 0
+        },
+        {
+          "id": "away",
+          "label": "Qatar",
+          "pct": 8.3,
+          "vote_count": 2
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m004",
+      "match_id": "wc26-m004",
+      "group_code": "A",
+      "stage": "group",
+      "home_team_id": "mex",
+      "away_team_id": "kor",
+      "home_score": 1,
+      "away_score": 0,
+      "kickoff_at": "2026-06-19T01:00:00+00:00",
+      "result_choice_id": "home",
+      "result_label": "Mexico",
+      "total_votes": 27,
+      "correct_votes": 13,
+      "accuracy_pct": 48.1,
+      "crowd_favorite_id": "home",
+      "crowd_favorite_label": "Mexico",
+      "crowd_favorite_pct": 48.1,
+      "crowd_majority_right": true,
+      "fixture": "MEX vs KOR",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Mexico",
+          "pct": 48.1,
+          "vote_count": 13
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 7.4,
+          "vote_count": 2
+        },
+        {
+          "id": "away",
+          "label": "South Korea",
+          "pct": 44.4,
+          "vote_count": 12
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m022",
+      "match_id": "wc26-m022",
+      "group_code": "D",
+      "stage": "group",
+      "home_team_id": "usa",
+      "away_team_id": "aus",
+      "home_score": 2,
+      "away_score": 0,
+      "kickoff_at": "2026-06-19T19:00:00+00:00",
+      "result_choice_id": "home",
+      "result_label": "United States",
+      "total_votes": 19,
+      "correct_votes": 12,
+      "accuracy_pct": 63.2,
+      "crowd_favorite_id": "home",
+      "crowd_favorite_label": "United States",
+      "crowd_favorite_pct": 63.2,
+      "crowd_majority_right": true,
+      "fixture": "USA vs AUS",
+      "choices": [
+        {
+          "id": "home",
+          "label": "United States",
+          "pct": 63.2,
+          "vote_count": 12
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 10.5,
+          "vote_count": 2
+        },
+        {
+          "id": "away",
+          "label": "Australia",
+          "pct": 26.3,
+          "vote_count": 5
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m015",
+      "match_id": "wc26-m015",
+      "group_code": "C",
+      "stage": "group",
+      "home_team_id": "sco",
+      "away_team_id": "mar",
+      "home_score": 0,
+      "away_score": 1,
+      "kickoff_at": "2026-06-19T22:00:00+00:00",
+      "result_choice_id": "away",
+      "result_label": "Morocco",
+      "total_votes": 26,
+      "correct_votes": 20,
+      "accuracy_pct": 76.9,
+      "crowd_favorite_id": "away",
+      "crowd_favorite_label": "Morocco",
+      "crowd_favorite_pct": 76.9,
+      "crowd_majority_right": true,
+      "fixture": "SCO vs MAR",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Scotland",
+          "pct": 15.4,
+          "vote_count": 4
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 7.7,
+          "vote_count": 2
+        },
+        {
+          "id": "away",
+          "label": "Morocco",
+          "pct": 76.9,
+          "vote_count": 20
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m016",
+      "match_id": "wc26-m016",
+      "group_code": "C",
+      "stage": "group",
+      "home_team_id": "bra",
+      "away_team_id": "hti",
+      "home_score": 3,
+      "away_score": 0,
+      "kickoff_at": "2026-06-20T01:00:00+00:00",
+      "result_choice_id": "home",
+      "result_label": "Brazil",
+      "total_votes": 24,
+      "correct_votes": 22,
+      "accuracy_pct": 91.7,
+      "crowd_favorite_id": "home",
+      "crowd_favorite_label": "Brazil",
+      "crowd_favorite_pct": 91.7,
+      "crowd_majority_right": true,
+      "fixture": "BRA vs HTI",
+      "choices": [
+        {
+          "id": "home",
+          "label": "Brazil",
+          "pct": 91.7,
+          "vote_count": 22
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 0.0,
+          "vote_count": 0
+        },
+        {
+          "id": "away",
+          "label": "Haiti",
+          "pct": 8.3,
+          "vote_count": 2
+        }
+      ]
+    },
+    {
+      "poll_id": "wc26-poll-wc26-m021",
+      "match_id": "wc26-m021",
+      "group_code": "D",
+      "stage": "group",
+      "home_team_id": "tur",
+      "away_team_id": "par",
+      "home_score": 0,
+      "away_score": 1,
+      "kickoff_at": "2026-06-20T04:00:00+00:00",
+      "result_choice_id": "away",
+      "result_label": "Paraguay",
+      "total_votes": 18,
+      "correct_votes": 4,
+      "accuracy_pct": 22.2,
+      "crowd_favorite_id": "home",
+      "crowd_favorite_label": "T\u00fcrkiye",
+      "crowd_favorite_pct": 55.6,
+      "crowd_majority_right": false,
+      "fixture": "TUR vs PAR",
+      "choices": [
+        {
+          "id": "home",
+          "label": "T\u00fcrkiye",
+          "pct": 55.6,
+          "vote_count": 10
+        },
+        {
+          "id": "draw",
+          "label": "Draw",
+          "pct": 22.2,
+          "vote_count": 4
+        },
+        {
+          "id": "away",
+          "label": "Paraguay",
+          "pct": 22.2,
+          "vote_count": 4
+        }
+      ]
+    }
+  ]
+}
