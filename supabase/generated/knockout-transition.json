@@ -1,0 +1,622 @@
+{
+  "generated_at": "2026-06-27T07:18:55+00:00",
+  "group_matches_finished": 65,
+  "advancing_teams": [
+    "arg",
+    "aus",
+    "aut",
+    "bel",
+    "bih",
+    "bra",
+    "can",
+    "civ",
+    "col",
+    "cpv",
+    "cro",
+    "ecu",
+    "egy",
+    "eng",
+    "esp",
+    "fra",
+    "ger",
+    "gha",
+    "irn",
+    "jpn",
+    "kor",
+    "mar",
+    "mex",
+    "ned",
+    "nor",
+    "par",
+    "por",
+    "rsa",
+    "sen",
+    "sui",
+    "swe",
+    "usa"
+  ],
+  "eliminated_teams": [
+    "alg",
+    "cod",
+    "cuw",
+    "cze",
+    "hti",
+    "irq",
+    "jor",
+    "ksa",
+    "nzl",
+    "pan",
+    "qat",
+    "sco",
+    "tun",
+    "tur",
+    "uru",
+    "uzb"
+  ],
+  "third_place_qualified_groups": [
+    "A",
+    "B",
+    "D",
+    "E",
+    "F",
+    "G",
+    "I",
+    "L"
+  ],
+  "standings": {
+    "A": [
+      {
+        "id": "mex",
+        "label": "Mexico",
+        "pts": 9,
+        "gd": 6,
+        "gf": 6,
+        "rank": 1
+      },
+      {
+        "id": "rsa",
+        "label": "South Africa",
+        "pts": 4,
+        "gd": -1,
+        "gf": 2,
+        "rank": 2
+      },
+      {
+        "id": "kor",
+        "label": "South Korea",
+        "pts": 3,
+        "gd": -1,
+        "gf": 2,
+        "rank": 3
+      },
+      {
+        "id": "cze",
+        "label": "Czechia",
+        "pts": 1,
+        "gd": -4,
+        "gf": 2,
+        "rank": 4
+      }
+    ],
+    "B": [
+      {
+        "id": "can",
+        "label": "Canada",
+        "pts": 4,
+        "gd": 5,
+        "gf": 8,
+        "rank": 1
+      },
+      {
+        "id": "bih",
+        "label": "Bosnia and Herzegovina",
+        "pts": 4,
+        "gd": 2,
+        "gf": 4,
+        "rank": 2
+      },
+      {
+        "id": "sui",
+        "label": "Switzerland",
+        "pts": 4,
+        "gd": 1,
+        "gf": 3,
+        "rank": 3
+      },
+      {
+        "id": "qat",
+        "label": "Qatar",
+        "pts": 1,
+        "gd": -8,
+        "gf": 2,
+        "rank": 4
+      }
+    ],
+    "C": [
+      {
+        "id": "bra",
+        "label": "Brazil",
+        "pts": 7,
+        "gd": 6,
+        "gf": 7,
+        "rank": 1
+      },
+      {
+        "id": "mar",
+        "label": "Morocco",
+        "pts": 7,
+        "gd": 3,
+        "gf": 6,
+        "rank": 2
+      },
+      {
+        "id": "sco",
+        "label": "Scotland",
+        "pts": 3,
+        "gd": -3,
+        "gf": 1,
+        "rank": 3
+      },
+      {
+        "id": "hti",
+        "label": "Haiti",
+        "pts": 0,
+        "gd": -6,
+        "gf": 2,
+        "rank": 4
+      }
+    ],
+    "D": [
+      {
+        "id": "usa",
+        "label": "United States",
+        "pts": 6,
+        "gd": 4,
+        "gf": 8,
+        "rank": 1
+      },
+      {
+        "id": "aus",
+        "label": "Australia",
+        "pts": 4,
+        "gd": 0,
+        "gf": 2,
+        "rank": 2
+      },
+      {
+        "id": "par",
+        "label": "Paraguay",
+        "pts": 4,
+        "gd": -2,
+        "gf": 2,
+        "rank": 3
+      },
+      {
+        "id": "tur",
+        "label": "Türkiye",
+        "pts": 3,
+        "gd": -2,
+        "gf": 3,
+        "rank": 4
+      }
+    ],
+    "E": [
+      {
+        "id": "ger",
+        "label": "Germany",
+        "pts": 6,
+        "gd": 6,
+        "gf": 10,
+        "rank": 1
+      },
+      {
+        "id": "civ",
+        "label": "Ivory Coast",
+        "pts": 6,
+        "gd": 2,
+        "gf": 4,
+        "rank": 2
+      },
+      {
+        "id": "ecu",
+        "label": "Ecuador",
+        "pts": 4,
+        "gd": 0,
+        "gf": 2,
+        "rank": 3
+      },
+      {
+        "id": "cuw",
+        "label": "Curaçao",
+        "pts": 1,
+        "gd": -8,
+        "gf": 1,
+        "rank": 4
+      }
+    ],
+    "F": [
+      {
+        "id": "ned",
+        "label": "Netherlands",
+        "pts": 7,
+        "gd": 6,
+        "gf": 10,
+        "rank": 1
+      },
+      {
+        "id": "jpn",
+        "label": "Japan",
+        "pts": 5,
+        "gd": 4,
+        "gf": 7,
+        "rank": 2
+      },
+      {
+        "id": "swe",
+        "label": "Sweden",
+        "pts": 4,
+        "gd": 0,
+        "gf": 7,
+        "rank": 3
+      },
+      {
+        "id": "tun",
+        "label": "Tunisia",
+        "pts": 0,
+        "gd": -10,
+        "gf": 2,
+        "rank": 4
+      }
+    ],
+    "G": [
+      {
+        "id": "bel",
+        "label": "Belgium",
+        "pts": 5,
+        "gd": 4,
+        "gf": 6,
+        "rank": 1
+      },
+      {
+        "id": "egy",
+        "label": "Egypt",
+        "pts": 5,
+        "gd": 2,
+        "gf": 5,
+        "rank": 2
+      },
+      {
+        "id": "irn",
+        "label": "Iran",
+        "pts": 3,
+        "gd": 0,
+        "gf": 3,
+        "rank": 3
+      },
+      {
+        "id": "nzl",
+        "label": "New Zealand",
+        "pts": 1,
+        "gd": -6,
+        "gf": 4,
+        "rank": 4
+      }
+    ],
+    "H": [
+      {
+        "id": "esp",
+        "label": "Spain",
+        "pts": 7,
+        "gd": 5,
+        "gf": 5,
+        "rank": 1
+      },
+      {
+        "id": "cpv",
+        "label": "Cape Verde",
+        "pts": 3,
+        "gd": 0,
+        "gf": 2,
+        "rank": 2
+      },
+      {
+        "id": "uru",
+        "label": "Uruguay",
+        "pts": 2,
+        "gd": -1,
+        "gf": 3,
+        "rank": 3
+      },
+      {
+        "id": "ksa",
+        "label": "Saudi Arabia",
+        "pts": 2,
+        "gd": -4,
+        "gf": 1,
+        "rank": 4
+      }
+    ],
+    "I": [
+      {
+        "id": "fra",
+        "label": "France",
+        "pts": 9,
+        "gd": 8,
+        "gf": 10,
+        "rank": 1
+      },
+      {
+        "id": "nor",
+        "label": "Norway",
+        "pts": 6,
+        "gd": 1,
+        "gf": 8,
+        "rank": 2
+      },
+      {
+        "id": "sen",
+        "label": "Senegal",
+        "pts": 3,
+        "gd": 2,
+        "gf": 8,
+        "rank": 3
+      },
+      {
+        "id": "irq",
+        "label": "Iraq",
+        "pts": 0,
+        "gd": -11,
+        "gf": 1,
+        "rank": 4
+      }
+    ],
+    "J": [
+      {
+        "id": "arg",
+        "label": "Argentina",
+        "pts": 6,
+        "gd": 5,
+        "gf": 5,
+        "rank": 1
+      },
+      {
+        "id": "aut",
+        "label": "Austria",
+        "pts": 3,
+        "gd": 0,
+        "gf": 3,
+        "rank": 2
+      },
+      {
+        "id": "alg",
+        "label": "Algeria",
+        "pts": 3,
+        "gd": -2,
+        "gf": 2,
+        "rank": 3
+      },
+      {
+        "id": "jor",
+        "label": "Jordan",
+        "pts": 0,
+        "gd": -3,
+        "gf": 2,
+        "rank": 4
+      }
+    ],
+    "K": [
+      {
+        "id": "col",
+        "label": "Colombia",
+        "pts": 6,
+        "gd": 3,
+        "gf": 4,
+        "rank": 1
+      },
+      {
+        "id": "por",
+        "label": "Portugal",
+        "pts": 4,
+        "gd": 5,
+        "gf": 6,
+        "rank": 2
+      },
+      {
+        "id": "cod",
+        "label": "DR Congo",
+        "pts": 1,
+        "gd": -1,
+        "gf": 1,
+        "rank": 3
+      },
+      {
+        "id": "uzb",
+        "label": "Uzbekistan",
+        "pts": 0,
+        "gd": -7,
+        "gf": 1,
+        "rank": 4
+      }
+    ],
+    "L": [
+      {
+        "id": "eng",
+        "label": "England",
+        "pts": 4,
+        "gd": 2,
+        "gf": 4,
+        "rank": 1
+      },
+      {
+        "id": "gha",
+        "label": "Ghana",
+        "pts": 4,
+        "gd": 1,
+        "gf": 1,
+        "rank": 2
+      },
+      {
+        "id": "cro",
+        "label": "Croatia",
+        "pts": 3,
+        "gd": -1,
+        "gf": 3,
+        "rank": 3
+      },
+      {
+        "id": "pan",
+        "label": "Panama",
+        "pts": 0,
+        "gd": -2,
+        "gf": 0,
+        "rank": 4
+      }
+    ]
+  },
+  "r32_fixtures": [
+    {
+      "match_id": "wc26-m073",
+      "home_id": "rsa",
+      "away_id": "bih",
+      "home_slot": "2a",
+      "away_slot": "2b",
+      "title": "South Africa vs Bosnia and Herzegovina",
+      "kickoff_at": "2026-06-28T19:00:00Z"
+    },
+    {
+      "match_id": "wc26-m074",
+      "home_id": "ger",
+      "away_id": "par",
+      "home_slot": "1e",
+      "away_slot": "3p1",
+      "title": "Germany vs Paraguay",
+      "kickoff_at": "2026-06-29T20:30:00Z"
+    },
+    {
+      "match_id": "wc26-m075",
+      "home_id": "ned",
+      "away_id": "mar",
+      "home_slot": "1f",
+      "away_slot": "2c",
+      "title": "Netherlands vs Morocco",
+      "kickoff_at": "2026-06-30T01:00:00Z"
+    },
+    {
+      "match_id": "wc26-m076",
+      "home_id": "bra",
+      "away_id": "jpn",
+      "home_slot": "1c",
+      "away_slot": "2f",
+      "title": "Brazil vs Japan",
+      "kickoff_at": "2026-06-29T17:00:00Z"
+    },
+    {
+      "match_id": "wc26-m077",
+      "home_id": "fra",
+      "away_id": "swe",
+      "home_slot": "1i",
+      "away_slot": "3p2",
+      "title": "France vs Sweden",
+      "kickoff_at": "2026-06-30T21:00:00Z"
+    },
+    {
+      "match_id": "wc26-m078",
+      "home_id": "civ",
+      "away_id": "nor",
+      "home_slot": "2e",
+      "away_slot": "2i",
+      "title": "Ivory Coast vs Norway",
+      "kickoff_at": "2026-06-30T17:00:00Z"
+    },
+    {
+      "match_id": "wc26-m079",
+      "home_id": "mex",
+      "away_id": "ecu",
+      "home_slot": "1a",
+      "away_slot": "3p3",
+      "title": "Mexico vs Ecuador",
+      "kickoff_at": "2026-07-01T01:00:00Z"
+    },
+    {
+      "match_id": "wc26-m080",
+      "home_id": "eng",
+      "away_id": "sen",
+      "home_slot": "1l",
+      "away_slot": "3p4",
+      "title": "England vs Senegal",
+      "kickoff_at": "2026-07-01T16:00:00Z"
+    },
+    {
+      "match_id": "wc26-m081",
+      "home_id": "usa",
+      "away_id": "sui",
+      "home_slot": "1d",
+      "away_slot": "3p5",
+      "title": "United States vs Switzerland",
+      "kickoff_at": "2026-07-02T00:00:00Z"
+    },
+    {
+      "match_id": "wc26-m082",
+      "home_id": "bel",
+      "away_id": "kor",
+      "home_slot": "1g",
+      "away_slot": "3p6",
+      "title": "Belgium vs South Korea",
+      "kickoff_at": "2026-07-01T20:00:00Z"
+    },
+    {
+      "match_id": "wc26-m083",
+      "home_id": "por",
+      "away_id": "gha",
+      "home_slot": "2k",
+      "away_slot": "2l",
+      "title": "Portugal vs Ghana",
+      "kickoff_at": "2026-07-02T23:00:00Z"
+    },
+    {
+      "match_id": "wc26-m084",
+      "home_id": "esp",
+      "away_id": "aut",
+      "home_slot": "1h",
+      "away_slot": "2j",
+      "title": "Spain vs Austria",
+      "kickoff_at": "2026-07-02T19:00:00Z"
+    },
+    {
+      "match_id": "wc26-m085",
+      "home_id": "can",
+      "away_id": "irn",
+      "home_slot": "1b",
+      "away_slot": "3p7",
+      "title": "Canada vs Iran",
+      "kickoff_at": "2026-07-03T03:00:00Z"
+    },
+    {
+      "match_id": "wc26-m086",
+      "home_id": "arg",
+      "away_id": "cpv",
+      "home_slot": "1j",
+      "away_slot": "2h",
+      "title": "Argentina vs Cape Verde",
+      "kickoff_at": "2026-07-03T22:00:00Z"
+    },
+    {
+      "match_id": "wc26-m087",
+      "home_id": "col",
+      "away_id": "cro",
+      "home_slot": "1k",
+      "away_slot": "3p8",
+      "title": "Colombia vs Croatia",
+      "kickoff_at": "2026-07-04T01:30:00Z"
+    },
+    {
+      "match_id": "wc26-m088",
+      "home_id": "aus",
+      "away_id": "egy",
+      "home_slot": "2d",
+      "away_slot": "2g",
+      "title": "Australia vs Egypt",
+      "kickoff_at": "2026-07-03T18:00:00Z"
+    }
+  ]
+}

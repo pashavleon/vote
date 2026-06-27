@@ -183,6 +183,8 @@
     }
     .team-card.is-selected { border-color: var(--wc-green); background: rgba(0,166,81,0.08); }
     .team-card.is-disabled, .team-card:disabled { cursor: default; opacity: 0.85; }
+    .team-card.is-eliminated { opacity: 0.42; filter: grayscale(0.65); }
+    .team-card.is-eliminated .vote-chip__pct { color: var(--muted); font-size: 0.68rem; font-weight: 700; }
 
     /* Volumetric flag (winner grid) */
     .flag-visual {

@@ -56,6 +56,16 @@
     return div.innerHTML;
   }
 
+  function choiceMetaEliminated(choice) {
+    if (!choice) return false;
+    var meta = choice.meta;
+    if (!meta) return false;
+    if (typeof meta === 'string') {
+      try { meta = JSON.parse(meta); } catch (e) { return false; }
+    }
+    return meta.eliminated === true;
+  }
+
   var MATCH_WATCH_LINKS = {
     fifaSchedule:
       'https://www.fifa.com/fifaplus/en/tournaments/mens/worldcup/canadamexicousa2026/scores-fixtures',
@@ -1102,17 +1112,21 @@
 
     var html = visible.map(function (c) {
       var pct = c.pct != null ? c.pct : 0;
+      var eliminated = choiceMetaEliminated(c);
       var cls = 'team-card';
-      if (c.id === leaderId && detail.total_votes > 0) cls += ' is-leading';
+      if (c.id === leaderId && detail.total_votes > 0 && !eliminated) cls += ' is-leading';
       if (c.id === userChoice) cls += ' is-selected';
-      if (closed || userChoice) cls += ' is-disabled';
+      if (eliminated) cls += ' is-eliminated';
+      if (closed || userChoice || eliminated) cls += ' is-disabled';
+      var outLabel = eliminated ? 'Out' : (pct + '%');
       return (
         '<button type="button" class="' + cls + ' team-card--pick" data-team-choice="' + escapeHtml(c.id) + '"' +
-        (closed || userChoice ? ' disabled' : '') + '>' +
+        (closed || userChoice || eliminated ? ' disabled' : '') +
+        (eliminated ? ' aria-label="' + escapeHtml(c.label) + ' — eliminated"' : '') + '>' +
           renderPickFlag(c.id) +
           '<span class="vote-chip__meta">' +
             '<span class="vote-chip__name">' + escapeHtml(c.label) + '</span>' +
-            '<span class="vote-chip__pct">' + pct + '%</span>' +
+            '<span class="vote-chip__pct">' + outLabel + '</span>' +
           '</span>' +
         '</button>'
       );
@@ -1175,6 +1189,14 @@
     var meta = TEAM_GRID[kind];
     var pollId = this.getTeamGridPollId(kind);
     if (!pollId || api.getStoredChoice(pollId)) return;
+
+    var bucket = this.teamGridBucket(kind);
+    var choices = (bucket.detail && bucket.detail.choices) || [];
+    var picked = null;
+    for (var ci = 0; ci < choices.length; ci++) {
+      if (choices[ci].id === choiceId) { picked = choices[ci]; break; }
+    }
+    if (choiceMetaEliminated(picked)) return;
 
     api.castVote(pollId, choiceId)
       .then(function (res) {

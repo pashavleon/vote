@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- FILL: title with hook team or headline upset -->
+  <title>Group Stage Over: {{HEADLINE_HOOK}} | Knockout Starts | TOP FAN VOTE</title>
+  <meta name="description" content="{{META_DESCRIPTION — 72 games, who survived, who went home, and the memes fans won't drop before Round of 32.}}" />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://topfan.vote/news/group-stage-knockout.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="TOP FAN VOTE" />
+  <meta property="og:title" content="{{OG_TITLE — e.g. 72 group games done — the bracket got weird}}" />
+  <meta property="og:description" content="{{OG_DESCRIPTION — short punchy summary}}" />
+  <meta property="og:url" content="https://topfan.vote/news/group-stage-knockout.html" />
+  <!-- FILL: banner when ready — assets/news/group-stage-wrap-1280.jpg -->
+  <meta property="og:image" content="https://topfan.vote/assets/winner-silhouettes-1280.jpg" />
+  <meta property="article:published_time" content="{{YYYY-MM-DD}}" />
+  <meta property="article:modified_time" content="{{YYYY-MM-DD}}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="../css/hub.css" />
+</head>
+<body data-page="news">
+  <!--
+    TEMPLATE — fill after group stage ends (run scripts/gen_knockout_stage.py for data).
+    Before publish: set robots to index,follow, add to news/index.html + sitemap.xml,
+    swap OG image, replace {{PLACEHOLDERS}}.
+  -->
+  <div class="shell">
+    <header class="site-header">
+      <a class="logo logo--home" href="/" aria-label="TOP FAN VOTE home"><span class="logo__line">TOP FAN</span><span class="logo__line logo__line--vote">VOTE</span></a>
+      <nav class="topnav topnav--split" aria-label="Site">
+        <div class="topnav-polls" aria-label="Polls">
+          <a href="../winner.html">Winner</a>
+          <a href="../favorite.html">Favorite</a>
+          <a href="../matches.html">Matches</a>
+        </div>
+        <a href="/news/" class="topnav-link is-active">Hot takes</a>
+        <a href="../arch.html" class="topnav-arch">Archive</a>
+      </nav>
+    </header>
+
+    <main class="page-main news-article">
+      <nav class="news-breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a><span class="news-breadcrumb__sep">›</span>
+        <a href="/news/">Hot takes</a><span class="news-breadcrumb__sep">›</span>
+        <span>Group stage wrap</span>
+      </nav>
+      <nav class="news-vote-bar" aria-label="Cast your vote">
+        <span class="news-vote-bar__label">Vote</span>
+        <a href="../winner.html">Winner</a>
+        <a href="../favorite.html">Favorite</a>
+        <a href="../matches.html">Matches</a>
+      </nav>
+      <p class="news-article__tag">Hot take · Group stage → Round of 32</p>
+      <h1 class="news-article__title">{{H1 — e.g. Seventy-two group games. Thirty-two left standing.}}</h1>
+      <p class="news-article__meta">World Cup 2026 · Updated {{DATE}} · TOP FAN VOTE</p>
+
+      <p class="news-disclaimer" style="margin-bottom:1.25rem">
+        TOP FAN VOTE is a fan poll site, not a newsroom. We recap what supporters are arguing about after the group stage —
+        with links to primary sources below.
+      </p>
+
+      <div class="news-article__body">
+
+        <p>
+          <!-- FILL: 2–3 sentences — tone: bar-stool recap, not wire copy -->
+          {{LEDE — The group stage is over. For the first 48-team World Cup that means 72 matches, 12 tables,
+          and a knockout bracket that finally has names instead of "2nd Group A". Fans got
+          {{SENSATION_COUNT}} genuine shocks, {{MEME_COUNT}} memes that outlasted the highlights,
+          and at least one result that broke every group-chat prediction pool.}}
+        </p>
+
+        <section class="news-section" id="scoreboard">
+          <p class="news-section__label">By the numbers</p>
+          <h2>What 72 group games added up to</h2>
+          <ul>
+            <!-- FILL from knockout-transition.json + fan-prediction-scorecard -->
+            <li><strong>{{GOALS_TOTAL}}</strong> goals across the group stage (FIFA final tally).</li>
+            <li><strong>{{FAN_ACCURACY_PCT}}%</strong> — how often TOP FAN VOTE pickers called the right result
+              (<a href="fan-prediction-scorecard.html">full scorecard</a>).</li>
+            <li><strong>32</strong> teams advance · <strong>16</strong> go home (including
+              {{BIG_NAME_OUT_1}}<!-- repeat if needed -->).</li>
+            <li>Round of 32 kicks off <strong>{{R32_FIRST_KICKOFF_LOCAL}}</strong> — first fixture:
+              <strong>{{R32_M1_FIXTURE}}</strong>.</li>
+          </ul>
+        </section>
+
+        <section class="news-section" id="sensations">
+          <p class="news-section__label">Sensations</p>
+          <h2>The results that rewrote the bracket</h2>
+          <p>{{SENSATIONS_INTRO — Pick 3–5 upsets / late twists. Link ESPN or FIFA match reports.}}</p>
+          <ul>
+            <!-- FILL: one bullet per shock — team, scoreline, why it mattered -->
+            <li><strong>{{UPSET_1}}</strong> — {{UPSET_1_CONTEXT}}</li>
+            <li><strong>{{UPSET_2}}</strong> — {{UPSET_2_CONTEXT}}</li>
+            <li><strong>{{UPSET_3}}</strong> — {{UPSET_3_CONTEXT}}</li>
+            <li><strong>{{UPSET_4_OPTIONAL}}</strong> — {{UPSET_4_CONTEXT}}</li>
+          </ul>
+          <p>
+            <em>Fan angle:</em> {{SENSATIONS_FAN_TAKE — e.g. "Everyone had them topping the group in the winner poll.
+            They're out before the Round of 32."}}
+          </p>
+        </section>
+
+        <section class="news-section" id="surprises">
+          <p class="news-section__label">Pleasant surprises</p>
+          <h2>Teams that earned the noise</h2>
+          <ul>
+            <!-- FILL: underdogs / debut runs / third-place heroes -->
+            <li><strong>{{POSITIVE_1}}</strong> — {{POSITIVE_1_CONTEXT}}</li>
+            <li><strong>{{POSITIVE_2}}</strong> — {{POSITIVE_2_CONTEXT}}</li>
+            <li><strong>{{POSITIVE_3}}</strong> — {{POSITIVE_3_CONTEXT}}</li>
+          </ul>
+        </section>
+
+        <section class="news-section" id="eliminated">
+          <p class="news-section__label">Going home</p>
+          <h2>Sixteen teams, one plane ride</h2>
+          <p>
+            <!-- Paste from gen_knockout_stage.py output / knockout-transition.json -->
+            {{ELIMINATED_LIST_PROSE — e.g. "Algeria, Bosnia, Cape Verde, … left the tournament on
+            {{LAST_GROUP_DAY}}. Winner and favorite polls on TOP FAN VOTE now grey them out — you can still
+            see earlier votes, but picks are closed."}}
+          </p>
+          <p>
+            <strong>Bracket note:</strong> third-place qualifiers came from groups
+            <strong>{{THIRD_PLACE_GROUPS}}</strong> (FIFA Annex C assignment).
+          </p>
+        </section>
+
+        <section class="news-section" id="groups-equator">
+          <p class="news-section__label">Group of death audit</p>
+          <h2>Which "Group of Death" actually was?</h2>
+          <p>
+            <!-- FILL: compare pre-tournament hype vs final tables — Groups {{HYPE_GROUPS}} -->
+            {{GROUP_OF_DEATH_TAKE — e.g. "Group X sent the favourite home. Group Y looked soft on paper and
+            produced two knockout teams."}}
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>Group</th>
+                <th>Pre-tournament hype</th>
+                <th>What happened</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>{{GROUP_A}}</td><td>{{HYPE_A}}</td><td>{{RESULT_A}}</td></tr>
+              <tr><td>{{GROUP_B}}</td><td>{{HYPE_B}}</td><td>{{RESULT_B}}</td></tr>
+              <!-- add rows as needed -->
+            </tbody>
+          </table>
+        </section>
+
+        <section class="news-section" id="memes">
+          <p class="news-section__label">Meme hall of fame</p>
+          <h2>What survived longer than the highlights</h2>
+          <p>{{MEMES_INTRO — Callback to opening-weekend bits where still relevant.}}</p>
+          <ul>
+            <!-- FILL: viral moments — no broadcast screenshots; describe + link -->
+            <li><strong>Football vs soccer</strong> — still the split-screen from opening weekend
+              (<a href="opening-ceremonies-guide.html#football-vs-soccer">our recap</a>).</li>
+            <li><strong>{{MEME_2_TITLE}}</strong> — {{MEME_2_DESC}} <!-- e.g. VAR / empty seats / Mora chants --></li>
+            <li><strong>{{MEME_3_TITLE}}</strong> — {{MEME_3_DESC}}</li>
+            <li><strong>{{MEME_4_TITLE}}</strong> — {{MEME_4_DESC}}</li>
+          </ul>
+          <p><em>Rule of thumb:</em> if it got more quotes in the group chat than goals on the pitch, it goes here.</p>
+        </section>
+
+        <section class="news-section" id="knockout">
+          <p class="news-section__label">Knockout starts</p>
+          <h2>Round of 32 — first dates fans circled</h2>
+          <p>
+            Match voting on TOP FAN VOTE moves to the <strong>Round of 32</strong> tab. Group picks are view-only;
+            sixteen R32 fixtures are live until kickoff.
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>Date (local)</th>
+                <th>Fixture</th>
+                <th>City</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- FILL from resolve-r32-teams.sql / seed kickoffs -->
+              <tr><td>{{R32_DATE_1}}</td><td>{{R32_FIXTURE_1}}</td><td>{{R32_VENUE_1}}</td></tr>
+              <tr><td>{{R32_DATE_2}}</td><td>{{R32_FIXTURE_2}}</td><td>{{R32_VENUE_2}}</td></tr>
+              <tr><td>…</td><td>…</td><td>…</td></tr>
+            </tbody>
+          </table>
+          <p>
+            Early storyline to watch: <strong>{{KNOCKOUT_STORYLINE}}</strong>
+            <!-- e.g. rematch, host nation path, Messi/Ronaldo-era successor narrative — factual, no betting tips -->
+          </p>
+        </section>
+
+        <section class="news-section" id="fan-polls">
+          <p class="news-section__label">Fan polls</p>
+          <h2>Did the crowd see it coming?</h2>
+          <p>
+            {{FAN_POLL_TAKE — Pull 1–2 stats from fan-prediction-scorecard: hardest group to call, biggest
+            crowd miss, most accurate group.}}
+          </p>
+          <p>
+            Winner poll update: eliminated teams show as <strong>Out</strong> — only the 32 still in the
+            tournament accept new votes.
+          </p>
+        </section>
+
+      </div>
+
+      <aside class="news-cta">
+        <p class="news-cta__title">Knockout stage is live — pick Round of 32 winners</p>
+        <p class="news-cta__text">Group stage stats stay visible. New votes open on the sixteen R32 fixtures.</p>
+        <div class="news-cta__links">
+          <a href="../matches.html">Round of 32 polls</a>
+          <a href="../winner.html">Tournament winner</a>
+          <a href="fan-prediction-scorecard.html">Prediction scorecard</a>
+        </div>
+      </aside>
+
+      <section class="news-sources">
+        <h2>Sources</h2>
+        <ul>
+          <li><a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/standings" rel="noopener noreferrer">FIFA — final group standings</a></li>
+          <li><a href="https://www.fifa.com/fifaplus/en/tournaments/mens/worldcup/canadamexicousa2026/scores-fixtures" rel="noopener noreferrer">FIFA — knockout schedule</a></li>
+          <!-- FILL: per-upset match report links -->
+          <li><a href="{{SOURCE_UPSET_1}}" rel="noopener noreferrer">{{SOURCE_UPSET_1_LABEL}}</a></li>
+          <li><a href="https://topfan.vote/news/fan-prediction-scorecard.html">TOP FAN VOTE — fan prediction scorecard</a></li>
+        </ul>
+        <p class="news-disclaimer">
+          Fan editorial by TOP FAN VOTE — not affiliated with FIFA. Replace placeholders before publishing;
+          verify scores and bracket on FIFA.com.
+        </p>
+      </section>
+
+      <nav class="news-nav">
+        <a href="/news/">← Hot takes</a>
+        <span>·</span>
+        <a href="opening-ceremonies-guide.html">Opening weekend</a>
+        <span>·</span>
+        <a href="fan-prediction-scorecard.html">Prediction scorecard</a>
+      </nav>
+    </main>
+  </div>
+
+  <script src="../js/site.js"></script>
+</body>
+</html>
