@@ -1,7 +1,8 @@
 {
-  "generated_at": "2026-06-27T07:18:55+00:00",
-  "group_matches_finished": 65,
+  "generated_at": "2026-06-28T20:52:06+00:00",
+  "group_matches_finished": 72,
   "advancing_teams": [
+    "alg",
     "arg",
     "aus",
     "aut",
@@ -10,6 +11,7 @@
     "bra",
     "can",
     "civ",
+    "cod",
     "col",
     "cpv",
     "cro",
@@ -20,9 +22,7 @@
     "fra",
     "ger",
     "gha",
-    "irn",
     "jpn",
-    "kor",
     "mar",
     "mex",
     "ned",
@@ -36,13 +36,13 @@
     "usa"
   ],
   "eliminated_teams": [
-    "alg",
-    "cod",
     "cuw",
     "cze",
     "hti",
+    "irn",
     "irq",
     "jor",
+    "kor",
     "ksa",
     "nzl",
     "pan",
@@ -54,13 +54,13 @@
     "uzb"
   ],
   "third_place_qualified_groups": [
-    "A",
     "B",
     "D",
     "E",
     "F",
-    "G",
     "I",
+    "J",
+    "K",
     "L"
   ],
   "standings": {
@@ -100,27 +100,27 @@
     ],
     "B": [
       {
+        "id": "sui",
+        "label": "Switzerland",
+        "pts": 7,
+        "gd": 4,
+        "gf": 7,
+        "rank": 1
+      },
+      {
         "id": "can",
         "label": "Canada",
         "pts": 4,
         "gd": 5,
         "gf": 8,
-        "rank": 1
+        "rank": 2
       },
       {
         "id": "bih",
         "label": "Bosnia and Herzegovina",
         "pts": 4,
-        "gd": 2,
-        "gf": 4,
-        "rank": 2
-      },
-      {
-        "id": "sui",
-        "label": "Switzerland",
-        "pts": 4,
-        "gd": 1,
-        "gf": 3,
+        "gd": -1,
+        "gf": 5,
         "rank": 3
       },
       {
@@ -374,33 +374,33 @@
       {
         "id": "arg",
         "label": "Argentina",
-        "pts": 6,
-        "gd": 5,
-        "gf": 5,
+        "pts": 9,
+        "gd": 7,
+        "gf": 8,
         "rank": 1
       },
       {
         "id": "aut",
         "label": "Austria",
-        "pts": 3,
+        "pts": 4,
         "gd": 0,
-        "gf": 3,
+        "gf": 6,
         "rank": 2
       },
       {
         "id": "alg",
         "label": "Algeria",
-        "pts": 3,
+        "pts": 4,
         "gd": -2,
-        "gf": 2,
+        "gf": 5,
         "rank": 3
       },
       {
         "id": "jor",
         "label": "Jordan",
         "pts": 0,
-        "gd": -3,
-        "gf": 2,
+        "gd": -5,
+        "gf": 3,
         "rank": 4
       }
     ],
@@ -408,7 +408,7 @@
       {
         "id": "col",
         "label": "Colombia",
-        "pts": 6,
+        "pts": 7,
         "gd": 3,
         "gf": 4,
         "rank": 1
@@ -416,7 +416,7 @@
       {
         "id": "por",
         "label": "Portugal",
-        "pts": 4,
+        "pts": 5,
         "gd": 5,
         "gf": 6,
         "rank": 2
@@ -424,17 +424,17 @@
       {
         "id": "cod",
         "label": "DR Congo",
-        "pts": 1,
-        "gd": -1,
-        "gf": 1,
+        "pts": 4,
+        "gd": 1,
+        "gf": 4,
         "rank": 3
       },
       {
         "id": "uzb",
         "label": "Uzbekistan",
         "pts": 0,
-        "gd": -7,
-        "gf": 1,
+        "gd": -9,
+        "gf": 2,
         "rank": 4
       }
     ],
@@ -442,32 +442,32 @@
       {
         "id": "eng",
         "label": "England",
-        "pts": 4,
-        "gd": 2,
-        "gf": 4,
+        "pts": 7,
+        "gd": 4,
+        "gf": 6,
         "rank": 1
+      },
+      {
+        "id": "cro",
+        "label": "Croatia",
+        "pts": 6,
+        "gd": 0,
+        "gf": 5,
+        "rank": 2
       },
       {
         "id": "gha",
         "label": "Ghana",
         "pts": 4,
-        "gd": 1,
-        "gf": 1,
-        "rank": 2
-      },
-      {
-        "id": "cro",
-        "label": "Croatia",
-        "pts": 3,
-        "gd": -1,
-        "gf": 3,
+        "gd": 0,
+        "gf": 2,
         "rank": 3
       },
       {
         "id": "pan",
         "label": "Panama",
         "pts": 0,
-        "gd": -2,
+        "gd": -4,
         "gf": 0,
         "rank": 4
       }
@@ -477,10 +477,10 @@
     {
       "match_id": "wc26-m073",
       "home_id": "rsa",
-      "away_id": "bih",
+      "away_id": "can",
       "home_slot": "2a",
       "away_slot": "2b",
-      "title": "South Africa vs Bosnia and Herzegovina",
+      "title": "South Africa vs Canada",
       "kickoff_at": "2026-06-28T19:00:00Z"
     },
     {
@@ -540,37 +540,37 @@
     {
       "match_id": "wc26-m080",
       "home_id": "eng",
-      "away_id": "sen",
+      "away_id": "cod",
       "home_slot": "1l",
       "away_slot": "3p4",
-      "title": "England vs Senegal",
+      "title": "England vs DR Congo",
       "kickoff_at": "2026-07-01T16:00:00Z"
     },
     {
       "match_id": "wc26-m081",
       "home_id": "usa",
-      "away_id": "sui",
+      "away_id": "bih",
       "home_slot": "1d",
       "away_slot": "3p5",
-      "title": "United States vs Switzerland",
+      "title": "United States vs Bosnia and Herzegovina",
       "kickoff_at": "2026-07-02T00:00:00Z"
     },
     {
       "match_id": "wc26-m082",
       "home_id": "bel",
-      "away_id": "kor",
+      "away_id": "sen",
       "home_slot": "1g",
       "away_slot": "3p6",
-      "title": "Belgium vs South Korea",
+      "title": "Belgium vs Senegal",
       "kickoff_at": "2026-07-01T20:00:00Z"
     },
     {
       "match_id": "wc26-m083",
       "home_id": "por",
-      "away_id": "gha",
+      "away_id": "cro",
       "home_slot": "2k",
       "away_slot": "2l",
-      "title": "Portugal vs Ghana",
+      "title": "Portugal vs Croatia",
       "kickoff_at": "2026-07-02T23:00:00Z"
     },
     {
@@ -584,11 +584,11 @@
     },
     {
       "match_id": "wc26-m085",
-      "home_id": "can",
-      "away_id": "irn",
+      "home_id": "sui",
+      "away_id": "alg",
       "home_slot": "1b",
       "away_slot": "3p7",
-      "title": "Canada vs Iran",
+      "title": "Switzerland vs Algeria",
       "kickoff_at": "2026-07-03T03:00:00Z"
     },
     {
@@ -603,10 +603,10 @@
     {
       "match_id": "wc26-m087",
       "home_id": "col",
-      "away_id": "cro",
+      "away_id": "gha",
       "home_slot": "1k",
       "away_slot": "3p8",
-      "title": "Colombia vs Croatia",
+      "title": "Colombia vs Ghana",
       "kickoff_at": "2026-07-04T01:30:00Z"
     },
     {

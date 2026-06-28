@@ -7,12 +7,16 @@ Schedule / match_id mapping: supabase/seed-wc-2026.sql (group-stage fixtures).
 
 Usage:
   python scripts/fetch_match_results.py --dry-run
-  python scripts/fetch_match_results.py --from 2026-06-11 --to 2026-06-13
+  python scripts/fetch_match_results.py --from 2026-06-11 --to 2026-06-28
   python scripts/fetch_match_results.py --days 2 --out supabase/generated/match-results.sql
-  python scripts/fetch_match_results.py --days 7 --stdout
+  python scripts/fetch_match_results.py --all-stages --days 1   # knockout scores (needs R32 teams in DB)
 
 After generating SQL:
   Supabase Dashboard → SQL Editor → run the file (APPLY block only, or whole file).
+
+Knockout bracket (after group stage):
+  python scripts/gen_knockout_stage.py --merge-results supabase/generated/match-results.sql
+  → run resolve-r32-teams.sql + eliminated-teams.sql in Supabase
 
 Prerequisites in Supabase (once):
   patch-match-scores.sql, patch-match-correct-votes.sql
@@ -33,6 +37,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SEED_PATH = ROOT / "supabase" / "seed-wc-2026.sql"
+CONFIG_PATH = ROOT / "js" / "config.js"
 GEN_PATH = Path(__file__).resolve().parents[2] / "docs" / "cl-vote-mockup" / "supabase" / "_gen_seed_wc2026.py"
 
 ESPN_SCOREBOARD = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard"
@@ -96,6 +101,48 @@ def load_teams() -> dict[str, str]:
     for alias, team_id in ESPN_ABBREV_ALIASES.items():
         abbrev[alias] = team_id
     return abbrev
+
+
+def load_supabase_config() -> tuple[str, str]:
+    text = CONFIG_PATH.read_text(encoding="utf-8")
+    url_m = re.search(r"supabaseUrl:\s*'([^']+)'", text)
+    key_m = re.search(r"supabaseAnonKey:\s*'([^']+)'", text)
+    if not url_m or not key_m:
+        raise SystemExit(f"Could not parse Supabase config from {CONFIG_PATH}")
+    return url_m.group(1).rstrip("/"), key_m.group(1)
+
+
+def load_supabase_matches(base_url: str, key: str) -> list[DbMatch]:
+    url = f"{base_url}/rest/v1/matches?event_id=eq.wc-2026&select=id,stage,home_team_id,away_team_id,kickoff_at&order=sort_order"
+    req = urllib.request.Request(
+        url,
+        headers={"apikey": key, "Authorization": f"Bearer {key}"},
+    )
+    with urllib.request.urlopen(req, timeout=60) as resp:
+        rows = json.load(resp)
+    out: list[DbMatch] = []
+    for row in rows:
+        kickoff_raw = row.get("kickoff_at")
+        if not kickoff_raw:
+            continue
+        kickoff = datetime.fromisoformat(kickoff_raw.replace("Z", "+00:00"))
+        out.append(
+            DbMatch(
+                id=row["id"],
+                stage=row["stage"],
+                home_team_id=row["home_team_id"],
+                away_team_id=row["away_team_id"],
+                kickoff_at=kickoff,
+            )
+        )
+    return out
+
+
+def merge_db_matches(seed: list[DbMatch], supabase: list[DbMatch]) -> list[DbMatch]:
+    by_id = {m.id: m for m in seed}
+    for m in supabase:
+        by_id[m.id] = m
+    return list(by_id.values())
 
 
 def parse_seed_matches(path: Path) -> list[DbMatch]:
@@ -264,29 +311,35 @@ def find_db_match(
     away_id: str,
     kickoff: datetime,
     group_only: bool,
-) -> DbMatch | None:
-    candidates = []
-    for m in db_matches:
-        if group_only and m.stage != "group":
-            continue
-        if m.home_team_id != home_id or m.away_team_id != away_id:
-            continue
-        delta = abs((m.kickoff_at - kickoff).total_seconds())
-        if delta <= KICKOFF_TOLERANCE_SEC:
-            candidates.append((delta, m))
+) -> tuple[DbMatch | None, bool]:
+    """Return (match, swapped) — swapped=True when ESPN home/away ≠ seed home/away."""
+
+    def pool_for(h: str, a: str) -> list[DbMatch]:
+        return [
+            m
+            for m in db_matches
+            if m.home_team_id == h and m.away_team_id == a
+            and (not group_only or m.stage == "group")
+        ]
+
+    candidates: list[tuple[float, DbMatch, bool]] = []
+    for swapped, h, a in ((False, home_id, away_id), (True, away_id, home_id)):
+        for m in pool_for(h, a):
+            delta = abs((m.kickoff_at - kickoff).total_seconds())
+            if delta <= KICKOFF_TOLERANCE_SEC:
+                candidates.append((delta, m, swapped))
     if candidates:
         candidates.sort(key=lambda x: x[0])
-        return candidates[0][1]
-    # Fallback: unique home/away pair (handles ESPN vs seed kickoff day drift)
-    pool = [
-        m
-        for m in db_matches
-        if m.home_team_id == home_id and m.away_team_id == away_id
-        and (not group_only or m.stage == "group")
-    ]
-    if len(pool) == 1:
-        return pool[0]
-    return None
+        _, match, swapped = candidates[0]
+        return match, swapped
+
+    direct = pool_for(home_id, away_id)
+    reverse = pool_for(away_id, home_id)
+    if len(direct) == 1:
+        return direct[0], False
+    if len(reverse) == 1:
+        return reverse[0], True
+    return None, False
 
 
 def map_espn_event(
@@ -328,9 +381,15 @@ def map_espn_event(
     away_score = int(away_score_raw)
 
     kickoff = datetime.fromisoformat(event["date"].replace("Z", "+00:00"))
-    db_match = find_db_match(db_matches, home_id, away_id, kickoff, group_only)
+    db_match, swapped = find_db_match(db_matches, home_id, away_id, kickoff, group_only)
     if not db_match:
         return None
+
+    if swapped:
+        home_score, away_score = away_score, home_score
+        home_winner, away_winner = bool(away.get("winner")), bool(home.get("winner"))
+    else:
+        home_winner, away_winner = bool(home.get("winner")), bool(away.get("winner"))
 
     team_id_by_espn_id: dict[str, str] = {}
     for side in (home, away):
@@ -358,8 +417,8 @@ def map_espn_event(
         db_match.stage,
         home_score,
         away_score,
-        bool(home.get("winner")),
-        bool(away.get("winner")),
+        home_winner,
+        away_winner,
     )
 
     return FetchedResult(
@@ -549,6 +608,13 @@ def main() -> int:
 
     abbrev_to_id = load_teams()
     db_matches = parse_seed_matches(SEED_PATH)
+    if args.all_stages:
+        try:
+            base_url, key = load_supabase_config()
+            supa = load_supabase_matches(base_url, key)
+            db_matches = merge_db_matches(db_matches, supa)
+        except Exception as exc:
+            print(f"Warning: could not load Supabase matches ({exc})", file=sys.stderr)
     start, end = resolve_date_range(args)
 
     events = fetch_espn_events(start, end)

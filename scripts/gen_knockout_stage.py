@@ -8,7 +8,7 @@ assignments, and writes SQL patches plus JSON summary.
 Usage:
   python scripts/gen_knockout_stage.py --dry-run
   python scripts/gen_knockout_stage.py
-  python scripts/gen_knockout_stage.py --allow-partial   # skip unfinished groups (dev only)
+  python scripts/gen_knockout_stage.py --merge-results supabase/generated/match-results.sql
 
 Outputs (default):
   supabase/generated/resolve-r32-teams.sql
@@ -87,6 +87,37 @@ def rest_get(base_url: str, key: str, path: str, timeout: float = 60) -> object:
     )
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         return json.load(resp)
+
+
+def parse_results_sql(path: Path) -> dict[str, dict]:
+    """Parse home/away scores from scripts/fetch_match_results.py output."""
+    if not path.is_file():
+        raise SystemExit(f"Missing results file: {path}")
+    text = path.read_text(encoding="utf-8")
+    overlay: dict[str, dict] = {}
+    pattern = re.compile(
+        r"'(wc26-m\d+)'::text,\s*(\d+)::smallint,\s*(\d+)::smallint,\s*'(\w+)'::text",
+    )
+    for m in pattern.finditer(text):
+        overlay[m.group(1)] = {
+            "home_score": int(m.group(2)),
+            "away_score": int(m.group(3)),
+            "match_status": m.group(4),
+        }
+    return overlay
+
+
+def merge_result_overlay(matches: list[dict], overlay: dict[str, dict]) -> int:
+    applied = 0
+    for row in matches:
+        patch = overlay.get(row.get("id"))
+        if not patch:
+            continue
+        row["home_score"] = patch["home_score"]
+        row["away_score"] = patch["away_score"]
+        row["match_status"] = patch["match_status"]
+        applied += 1
+    return applied
 
 
 def load_teams_from_seed() -> dict[str, dict]:
@@ -326,6 +357,12 @@ def main() -> int:
         help="Allow incomplete group stage (not for production)",
     )
     parser.add_argument("--out-dir", type=Path, default=GEN_DIR)
+    parser.add_argument(
+        "--merge-results",
+        type=Path,
+        default=None,
+        help="Overlay scores from fetch_match_results.py SQL (e.g. supabase/generated/match-results.sql)",
+    )
     args = parser.parse_args()
 
     teams = load_teams_from_seed()
@@ -344,6 +381,11 @@ def main() -> int:
 
     if not isinstance(raw_matches, list):
         raise SystemExit("Unexpected matches response")
+
+    if args.merge_results:
+        overlay = parse_results_sql(args.merge_results)
+        applied = merge_result_overlay(raw_matches, overlay)
+        print(f"Merged {applied} results from {args.merge_results}")
 
     finished = [
         m
