@@ -1,0 +1,115 @@
+{
+  "generated_at": "2026-07-04T09:28:15+00:00",
+  "stage": "r16",
+  "prev_stage": "r32",
+  "still_in_tournament": [
+    "arg",
+    "bel",
+    "bra",
+    "can",
+    "col",
+    "egy",
+    "eng",
+    "esp",
+    "fra",
+    "mar",
+    "mex",
+    "nor",
+    "par",
+    "por",
+    "sui",
+    "usa"
+  ],
+  "eliminated_teams": [
+    "alg",
+    "aus",
+    "aut",
+    "bih",
+    "civ",
+    "cod",
+    "cpv",
+    "cro",
+    "cuw",
+    "cze",
+    "ecu",
+    "ger",
+    "gha",
+    "hti",
+    "irn",
+    "irq",
+    "jor",
+    "jpn",
+    "kor",
+    "ksa",
+    "ned",
+    "nzl",
+    "pan",
+    "qat",
+    "rsa",
+    "sco",
+    "sen",
+    "swe",
+    "tun",
+    "tur",
+    "uru",
+    "uzb"
+  ],
+  "fixtures": [
+    {
+      "match_id": "wc26-m089",
+      "home_id": "can",
+      "away_id": "mar",
+      "title": "Canada vs Morocco",
+      "kickoff_at": "2026-07-04T17:00:00Z"
+    },
+    {
+      "match_id": "wc26-m090",
+      "home_id": "par",
+      "away_id": "fra",
+      "title": "Paraguay vs France",
+      "kickoff_at": "2026-07-04T21:00:00Z"
+    },
+    {
+      "match_id": "wc26-m091",
+      "home_id": "bra",
+      "away_id": "nor",
+      "title": "Brazil vs Norway",
+      "kickoff_at": "2026-07-05T20:00:00Z"
+    },
+    {
+      "match_id": "wc26-m092",
+      "home_id": "mex",
+      "away_id": "eng",
+      "title": "Mexico vs England",
+      "kickoff_at": "2026-07-06T00:00:00Z"
+    },
+    {
+      "match_id": "wc26-m093",
+      "home_id": "por",
+      "away_id": "esp",
+      "title": "Portugal vs Spain",
+      "kickoff_at": "2026-07-06T19:00:00Z"
+    },
+    {
+      "match_id": "wc26-m094",
+      "home_id": "usa",
+      "away_id": "bel",
+      "title": "United States vs Belgium",
+      "kickoff_at": "2026-07-07T00:00:00Z"
+    },
+    {
+      "match_id": "wc26-m095",
+      "home_id": "arg",
+      "away_id": "egy",
+      "title": "Argentina vs Egypt",
+      "kickoff_at": "2026-07-07T16:00:00Z"
+    },
+    {
+      "match_id": "wc26-m096",
+      "home_id": "sui",
+      "away_id": "col",
+      "title": "Switzerland vs Colombia",
+      "kickoff_at": "2026-07-07T20:00:00Z"
+    }
+  ]
+}

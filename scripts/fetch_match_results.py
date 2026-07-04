@@ -29,6 +29,7 @@ import json
 import re
 import sys
 import textwrap
+import time
 import urllib.error
 import urllib.request
 from dataclasses import dataclass, field
@@ -42,6 +43,9 @@ GEN_PATH = Path(__file__).resolve().parents[2] / "docs" / "cl-vote-mockup" / "su
 
 ESPN_SCOREBOARD = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard"
 KICKOFF_TOLERANCE_SEC = 7200  # 2 h — covers schedule drift vs ESPN
+ESPN_TIMEOUT_SEC = 60.0
+ESPN_MAX_RETRIES = 4
+ESPN_RETRY_DELAY_SEC = 3.0
 
 # ESPN abbreviation overrides (FIFA short code in seed may differ)
 ESPN_ABBREV_ALIASES: dict[str, str] = {
@@ -175,30 +179,59 @@ def parse_minute(display: str) -> int:
     return int(s)
 
 
-def espn_fetch(url: str, timeout: float = 30.0) -> dict:
-    req = urllib.request.Request(
-        url,
-        headers={"User-Agent": "topfan-vote-fetch/1.0"},
-    )
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
-        return json.load(resp)
+def espn_fetch(url: str, timeout: float = ESPN_TIMEOUT_SEC) -> dict:
+    headers = {
+        "User-Agent": "Mozilla/5.0 (compatible; topfan-vote-fetch/1.1)",
+        "Accept": "application/json",
+    }
+    last_err: Exception | None = None
+    for attempt in range(1, ESPN_MAX_RETRIES + 1):
+        try:
+            req = urllib.request.Request(url, headers=headers)
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                return json.load(resp)
+        except (urllib.error.URLError, TimeoutError, OSError) as exc:
+            last_err = exc
+            if attempt < ESPN_MAX_RETRIES:
+                wait = ESPN_RETRY_DELAY_SEC * attempt
+                print(
+                    f"warning: ESPN attempt {attempt}/{ESPN_MAX_RETRIES} failed, "
+                    f"retry in {wait:.0f}s: {exc}",
+                    file=sys.stderr,
+                )
+                time.sleep(wait)
+    assert last_err is not None
+    raise last_err
+
+
+def fetch_espn_for_dates(dates: str) -> list[dict]:
+    url = f"{ESPN_SCOREBOARD}?dates={dates}"
+    data = espn_fetch(url)
+    return data.get("events", [])
 
 
 def fetch_espn_events(from_day: date, to_day: date) -> list[dict]:
-    """Fetch events in weekly chunks (single-day ESPN URLs often time out)."""
+    """Fetch events in weekly chunks; fall back to single days on timeout."""
     events: list[dict] = []
     chunk_start = from_day
     while chunk_start <= to_day:
         chunk_end = min(chunk_start + timedelta(days=6), to_day)
         dates = f"{chunk_start.strftime('%Y%m%d')}-{chunk_end.strftime('%Y%m%d')}"
-        url = f"{ESPN_SCOREBOARD}?dates={dates}"
         try:
-            data = espn_fetch(url)
-        except (urllib.error.URLError, TimeoutError) as exc:
-            print(f"warning: ESPN fetch failed for {dates}: {exc}", file=sys.stderr)
-            chunk_start = chunk_end + timedelta(days=1)
-            continue
-        events.extend(data.get("events", []))
+            events.extend(fetch_espn_for_dates(dates))
+        except (urllib.error.URLError, TimeoutError, OSError) as exc:
+            print(
+                f"warning: ESPN week chunk {dates} failed ({exc}), trying day-by-day",
+                file=sys.stderr,
+            )
+            day = chunk_start
+            while day <= chunk_end:
+                d = day.strftime("%Y%m%d")
+                try:
+                    events.extend(fetch_espn_for_dates(d))
+                except (urllib.error.URLError, TimeoutError, OSError) as day_exc:
+                    print(f"warning: ESPN fetch failed for {d}: {day_exc}", file=sys.stderr)
+                day += timedelta(days=1)
         chunk_start = chunk_end + timedelta(days=1)
     return events
 
@@ -651,7 +684,15 @@ def main() -> int:
             print("\nESPN events not mapped to seed (knockout / unknown teams):")
             for line in unmapped:
                 print(f"  {line}")
-        return 0
+        return 0 if results else 1
+
+    if not results:
+        print(
+            "error: ESPN returned no mapped matches — output file not written. "
+            "Check network/VPN, retry, or use a shorter --from/--to range.",
+            file=sys.stderr,
+        )
+        return 1
 
     sql = generate_sql(results, f"ESPN scoreboard {start}..{end}")
 
