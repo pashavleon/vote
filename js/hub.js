@@ -1045,6 +1045,8 @@
         badge = '<span class="stage-dropdown__badge stage-dropdown__badge--live">Vote</span>';
       } else if (phase === 'future') {
         badge = '<span class="stage-dropdown__badge stage-dropdown__badge--soon">Soon</span>';
+      } else if (phase === 'past') {
+        badge = '<span class="stage-dropdown__badge stage-dropdown__badge--soon">Results</span>';
       }
 
       return (
@@ -1289,18 +1291,26 @@
     var self = this;
     if (!listEl) return;
 
+    var isPast = self.getStagePhase(self.stage) === 'past';
+
     self.fetchPollDetailsForRows(pollRows)
       .then(function () {
         var sorted = self.sortPollRowsByKickoff(pollRows);
-        var upcoming = sorted.filter(function (p) {
-          return isMatchUpcoming(self.matchDetails[p.poll_id]);
-        });
-        var slice = upcoming.slice(0, UPCOMING_MATCH_LIMIT);
-        if (!slice.length) {
-          listEl.innerHTML = '<p class="hub-empty">No upcoming matches in this stage — check results in By group.</p>';
+        var rows;
+        if (isPast) {
+          rows = sorted;
+        } else {
+          rows = sorted.filter(function (p) {
+            return isMatchUpcoming(self.matchDetails[p.poll_id]);
+          }).slice(0, UPCOMING_MATCH_LIMIT);
+        }
+        if (!rows.length) {
+          listEl.innerHTML = isPast
+            ? '<p class="hub-empty">No matches in this stage.</p>'
+            : '<p class="hub-empty">No upcoming matches in this stage.</p>';
           return;
         }
-        var details = slice.map(function (p) { return self.matchDetails[p.poll_id]; });
+        var details = rows.map(function (p) { return self.matchDetails[p.poll_id]; });
         listEl.innerHTML = details.map(function (d) {
           return self.renderMatchCardHtml(d);
         }).join('');
@@ -1399,6 +1409,9 @@
     if (!openGroup) {
       self.fetchPollDetailsForRows(polls).then(function () {
         openGroup = self.findAutoOpenGroup(polls);
+        if (!openGroup && self.getStagePhase(self.stage) === 'past' && activeGroups.length) {
+          openGroup = activeGroups[0];
+        }
         if (openGroup) {
           self.focusGroup = openGroup;
           self.syncMatchesUrl();
