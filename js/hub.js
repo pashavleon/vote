@@ -1254,6 +1254,33 @@
     });
   };
 
+  FanHub.prototype.goToActiveVotingStage = function () {
+    if (this.stage === this.activeVotingStage) return;
+    this.stage = this.activeVotingStage;
+    this.closeStageDropdown();
+    this.renderStageMenu();
+    this.updateMatchesViewBar();
+    this.syncMatchesUrl();
+    this.renderMatches();
+    var container = $('#matches-container');
+    if (container && container.scrollIntoView) {
+      container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  FanHub.prototype.showMatchVoteError = function (message) {
+    var container = $('#matches-container');
+    if (!container) return;
+    var existing = $('#matches-vote-error', container.parentElement || document);
+    if (existing) existing.remove();
+    var el = document.createElement('p');
+    el.id = 'matches-vote-error';
+    el.className = 'matches-vote-error';
+    el.setAttribute('role', 'alert');
+    el.textContent = message;
+    container.parentNode.insertBefore(el, container);
+  };
+
   FanHub.prototype.renderMatches = function () {
     var container = $('#matches-container');
     if (!container) return;
@@ -1269,8 +1296,13 @@
         escapeHtml(activeLabel) + '</strong>.</p>';
     } else if (viewPhase === 'past') {
       notice = '<p class="hub-notice hub-notice--past">Past stage — results only. Voting is open for <strong>' +
-        escapeHtml(activeLabel) + '</strong>.</p>';
+        escapeHtml(activeLabel) + '</strong>.' +
+        '<button type="button" class="hub-notice__action" data-go-active-stage>Go to ' +
+        escapeHtml(activeLabel) + '</button></p>';
     }
+
+    var errEl = $('#matches-vote-error');
+    if (errEl) errEl.remove();
 
     if (!polls.length) {
       container.innerHTML = notice + '<p class="hub-empty">No matches in this stage yet.</p>';
@@ -1279,11 +1311,21 @@
 
     if (this.stage === 'group' && this.matchesViewMode === 'group') {
       container.innerHTML = notice;
+      var goBtnGroup = container.querySelector('[data-go-active-stage]');
+      if (goBtnGroup) {
+        var selfGroup = this;
+        goBtnGroup.addEventListener('click', function () { selfGroup.goToActiveVotingStage(); });
+      }
       this.renderGroupMatches(container, polls);
       return;
     }
 
     container.innerHTML = notice + '<div id="upcoming-match-list"><p class="hub-loading">Loading matches…</p></div>';
+    var goBtn = container.querySelector('[data-go-active-stage]');
+    if (goBtn) {
+      var self = this;
+      goBtn.addEventListener('click', function () { self.goToActiveVotingStage(); });
+    }
     this.renderUpcomingMatches($('#upcoming-match-list'), polls);
   };
 
@@ -1722,6 +1764,16 @@
       })
       .catch(function (err) {
         console.error('[hub] match vote failed', err);
+        var msg = 'Vote could not be saved. ';
+        if (err && err.code === '42501') {
+          msg += 'Server policy may still be on the previous stage — run patch-match-votes-'
+            + self.activeVotingStage + '.sql in Supabase.';
+        } else if (err && err.message) {
+          msg += String(err.message);
+        } else {
+          msg += 'Try again or refresh the page.';
+        }
+        self.showMatchVoteError(msg);
       });
   };
 

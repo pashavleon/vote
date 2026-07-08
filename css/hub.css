@@ -309,6 +309,31 @@
       margin-bottom: 0.65rem;
       line-height: 1.4;
     }
+    .hub-notice__action {
+      display: inline-block;
+      margin-top: 0.45rem;
+      padding: 0.35rem 0.65rem;
+      border: 1px solid var(--wc-green);
+      border-radius: 6px;
+      background: rgba(0, 166, 81, 0.12);
+      color: var(--text);
+      font: inherit;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .hub-notice__action:hover {
+      background: rgba(0, 166, 81, 0.22);
+    }
+    .matches-vote-error {
+      font-size: 0.72rem;
+      color: #f5a623;
+      background: rgba(245, 166, 35, 0.08);
+      border: 1px solid rgba(245, 166, 35, 0.35);
+      border-radius: 8px;
+      padding: 0.5rem 0.65rem;
+      margin-bottom: 0.65rem;
+    }
     .hub-empty, .hub-loading { font-size: 0.78rem; color: var(--muted); padding: 0.75rem 0; text-align: center; }
 
     .matches-toolbar {
@@ -487,7 +512,7 @@
     .match-card.is-live { border-color: rgba(245, 197, 24, 0.5); }
     .match-card.is-match-live { border-color: rgba(0, 166, 81, 0.55); }
     .match-card.is-finished { border-color: rgba(255, 255, 255, 0.12); }
-    .match-card.is-closed { opacity: 0.85; }
+    .match-card.is-closed:not(.is-finished) { opacity: 0.85; }
     .match-card__head {
       display: flex;
       justify-content: space-between;
@@ -689,6 +714,25 @@
     .vote-chip.is-selected { border-color: var(--wc-green); box-shadow: 0 0 0 1px rgba(0, 166, 81, 0.35); }
     .vote-chip:disabled { opacity: 0.7; cursor: default; }
     .match-card__vote--readonly .vote-chip { cursor: default; }
+    /* Past / view-only: flat flags — diagonal mask breaks on disabled chips */
+    .match-card__vote--readonly .vote-chip--pick .vote-chip__flag,
+    .match-card.is-finished .vote-chip--pick .vote-chip__flag {
+      -webkit-mask-image: none;
+      mask-image: none;
+      width: 44%;
+      max-width: 5.25rem;
+      object-fit: cover;
+      object-position: left center;
+      border-radius: 6px 0 0 6px;
+    }
+    .match-card__vote--readonly .vote-chip--pick,
+    .match-card.is-finished .vote-chip--pick {
+      min-height: 3.35rem;
+    }
+    .match-card__vote--readonly .vote-chip:disabled,
+    .match-card.is-finished .vote-chip:disabled {
+      opacity: 1;
+    }
 
     body.match-info-modal-open { overflow: hidden; }
     .match-info-modal {
