@@ -393,8 +393,8 @@ def main() -> int:
     )
     print(f"\nWrote {resolve_path}")
     print(f"Wrote {args.out_dir / 'eliminated-teams.sql'}")
-    print(f"\nSupabase: resolve-{args.stage}-teams.sql → eliminated-teams.sql → patch-match-votes-{args.stage}.sql")
-    print(f"Frontend: activeMatchStage = '{args.stage}' → deploy")
+    print(f"\nSupabase: resolve-{args.stage}-teams.sql -> eliminated-teams.sql -> patch-match-votes-{args.stage}.sql")
+    print(f"Frontend: activeMatchStage = '{args.stage}' -> deploy")
     return 0
 
 

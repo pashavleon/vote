@@ -1,0 +1,87 @@
+{
+  "generated_at": "2026-07-08T07:24:08+00:00",
+  "stage": "qf",
+  "prev_stage": "r16",
+  "still_in_tournament": [
+    "arg",
+    "bel",
+    "eng",
+    "esp",
+    "fra",
+    "mar",
+    "nor",
+    "sui"
+  ],
+  "eliminated_teams": [
+    "alg",
+    "aus",
+    "aut",
+    "bih",
+    "bra",
+    "can",
+    "civ",
+    "cod",
+    "col",
+    "cpv",
+    "cro",
+    "cuw",
+    "cze",
+    "ecu",
+    "egy",
+    "ger",
+    "gha",
+    "hti",
+    "irn",
+    "irq",
+    "jor",
+    "jpn",
+    "kor",
+    "ksa",
+    "mex",
+    "ned",
+    "nzl",
+    "pan",
+    "par",
+    "por",
+    "qat",
+    "rsa",
+    "sco",
+    "sen",
+    "swe",
+    "tun",
+    "tur",
+    "uru",
+    "usa",
+    "uzb"
+  ],
+  "fixtures": [
+    {
+      "match_id": "wc26-m097",
+      "home_id": "mar",
+      "away_id": "fra",
+      "title": "Morocco vs France",
+      "kickoff_at": "2026-07-09T20:00:00Z"
+    },
+    {
+      "match_id": "wc26-m098",
+      "home_id": "esp",
+      "away_id": "bel",
+      "title": "Spain vs Belgium",
+      "kickoff_at": "2026-07-10T19:00:00Z"
+    },
+    {
+      "match_id": "wc26-m099",
+      "home_id": "nor",
+      "away_id": "eng",
+      "title": "Norway vs England",
+      "kickoff_at": "2026-07-11T21:00:00Z"
+    },
+    {
+      "match_id": "wc26-m100",
+      "home_id": "arg",
+      "away_id": "sui",
+      "title": "Argentina vs Switzerland",
+      "kickoff_at": "2026-07-12T01:00:00Z"
+    }
+  ]
+}
